@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.HttpOverrides;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
+builder.Services.AddControllers();
+builder.Services.ConfigureLoggerService();
 
 var app = builder.Build();
 
@@ -17,17 +18,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
+    app.UseExceptionHandler("/Home/Error");
+
 }
-else 
+else
     app.UseHsts();
 
-app.UseHttpsRedirection();
 
-app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-ForwardedHeaders = ForwardedHeaders.All
+    ForwardedHeaders = ForwardedHeaders.All
 });
+app.UseRouting();
 app.UseCors("CorsPolicy");
 
 app.Run();

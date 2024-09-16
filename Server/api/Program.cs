@@ -8,7 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
-builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -19,18 +18,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
-else
+else 
     app.UseHsts();
+
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
-    ForwardedHeaders = ForwardedHeaders.All
+ForwardedHeaders = ForwardedHeaders.All
 });
-
 app.UseCors("CorsPolicy");
 
-
 app.Run();
-
 

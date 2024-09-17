@@ -28,7 +28,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

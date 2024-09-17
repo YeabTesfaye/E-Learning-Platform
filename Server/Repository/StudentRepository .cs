@@ -8,4 +8,9 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     public StudentRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
+
+    public IEnumerable<Student> GetAllStudenties(bool trackChanges)
+    {
+       return [.. FindAll(trackChanges).OrderBy(s => s.FirstName)];
+    }
 }

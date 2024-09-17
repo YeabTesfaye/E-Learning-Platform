@@ -14,3 +14,5 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\obj\Debug\ne
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\obj\Debug\net8.0\ref\Repository.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\bin\Debug\net8.0\Contracts.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Repository\bin\Debug\net8.0\Contracts.pdb

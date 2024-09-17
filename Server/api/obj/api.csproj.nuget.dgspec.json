@@ -32,11 +32,17 @@
               "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Contracts.csproj": {
                 "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Contracts.csproj"
               },
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj"
+              },
               "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\LoggerService\\LoggerService.csproj": {
                 "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\LoggerService\\LoggerService.csproj"
               },
               "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Repository\\Repository.csproj": {
                 "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Repository\\Repository.csproj"
+              },
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj"
               }
             }
           }
@@ -132,7 +138,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -149,6 +159,77 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
+        "projectName": "E-Learning.Presentation",
+        "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
+        "packagesPath": "C:\\Users\\yeabiseraT\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\yeabiseraT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -363,6 +444,77 @@
               "version": "[8.0.8, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj",
+        "projectName": "Service",
+        "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj",
+        "packagesPath": "C:\\Users\\yeabiseraT\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\yeabiseraT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj"
+              },
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\LoggerService\\LoggerService.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\LoggerService\\LoggerService.csproj"
+              },
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Repository\\Repository.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Repository\\Repository.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
           "imports": [
             "net461",
             "net462",

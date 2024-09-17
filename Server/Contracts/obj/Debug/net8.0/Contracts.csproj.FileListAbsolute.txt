@@ -10,3 +10,7 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net8.0\refint\Contracts.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net8.0\Contracts.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net8.0\ref\Contracts.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\bin\Debug\net8.0\Entities.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\bin\Debug\net8.0\Entities.pdb
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net8.0\Contracts.csproj.AssemblyReference.cache
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Contracts\obj\Debug\net8.0\Contracts.csproj.Up2Date

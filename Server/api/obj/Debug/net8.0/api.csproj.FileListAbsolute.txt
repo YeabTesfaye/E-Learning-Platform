@@ -148,3 +148,7 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\En
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Repository.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Repository.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Entities.pdb
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\E-Learning.Presentation.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Service.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\E-Learning.Presentation.pdb
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Service.pdb

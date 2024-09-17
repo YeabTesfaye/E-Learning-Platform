@@ -14,3 +14,5 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug\net8.0\refint\LoggerService.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug\net8.0\ref\LoggerService.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\bin\Debug\net8.0\Entities.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\bin\Debug\net8.0\Entities.pdb

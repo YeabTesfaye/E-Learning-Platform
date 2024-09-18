@@ -1,6 +1,9 @@
+using Entities;
+
 namespace Contracts;
 
-public interface IInstructorRepository 
+public interface IInstructorRepository
 {
-    
+    IEnumerable<Instructor> GetAllInstructors(bool trackChanges);
+
 }

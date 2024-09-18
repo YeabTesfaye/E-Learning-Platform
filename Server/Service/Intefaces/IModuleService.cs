@@ -1,12 +1,13 @@
 using System.Reflection;
+using Shared.DataTransferObjects;
 
 namespace Service.Intefaces;
 
 public interface IModuleService
 {
-    Task<IEnumerable<Module>> GetAllModulesAsync();
-    Task<Module> GetModuleByIdAsync(Guid moduleId);
-    Task CreateModuleAsync(Module module);
-    Task UpdateModuleAsync(Module module);
-    Task DeleteModuleAsync(Guid moduleId);
+    IEnumerable<ModuleDto> GetAllModules(bool trackChanges);
+    ModuleDto GetModuleById(Guid moduleId);
+    void CreateModule(Module module);
+    void UpdateModule(Module module);
+    void DeleteModule(Guid moduleId);
 }

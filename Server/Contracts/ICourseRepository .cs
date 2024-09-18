@@ -1,6 +1,9 @@
+using Entities;
+
 namespace Contracts;
 
-public interface ICourseRepository 
+public interface ICourseRepository
 {
-    
+    IEnumerable<Course> GetAllCourses(bool trackChanges);
+
 }

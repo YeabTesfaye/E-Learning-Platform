@@ -8,4 +8,10 @@ public class CertificateRepository : RepositoryBase<Certificate>, ICertificateRe
     public CertificateRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
+
+    public IEnumerable<Certificate> GetAllCertificates(bool trackChanges)
+    {
+        return [.. FindAll(trackChanges).OrderBy(c => c.Course)];
+    }
+ 
 }

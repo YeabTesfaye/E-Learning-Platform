@@ -19,13 +19,13 @@ public class CoursesController : ControllerBase
     [HttpGet]
     public IActionResult GetAllCourses()
     {
-        var courses = _courseService.GetAllCoursesAsync();
+        var courses = _courseService.GetAllCourses(trackChanges:false);
         return Ok(courses);
     }
     [HttpGet("{id:Guid}")]
     public IActionResult GetCourseById([FromRoute] Guid id)
     {
-        var course = _courseService.GetCourseByIdAsync(id);
+        var course = _courseService.GetCourseById(id);
         if (course == null)
             return NotFound();
         return Ok(course);

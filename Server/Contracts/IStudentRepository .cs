@@ -4,5 +4,5 @@ namespace Contracts;
 
 public interface IStudentRepository 
 {
-    IEnumerable<Student> GetAllStudenties(bool trackChanges);
+    IEnumerable<Student> GetAllStudents(bool trackChanges);
 }

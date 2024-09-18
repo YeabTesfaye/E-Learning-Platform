@@ -1,5 +1,6 @@
 using api.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers()
 .AddApplicationPart(typeof(E_Learning.Presentation.AssemblyReference).Assembly);
 builder.Services.ConfigureSqlContext(builder.Configuration);
@@ -33,6 +35,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
+app.MapControllers();
 app.UseRouting();
 app.UseCors("CorsPolicy");
 

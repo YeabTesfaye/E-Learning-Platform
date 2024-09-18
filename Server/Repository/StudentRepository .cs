@@ -9,7 +9,7 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
     }
 
-    public IEnumerable<Student> GetAllStudenties(bool trackChanges)
+    public IEnumerable<Student> GetAllStudents(bool trackChanges)
     {
        return [.. FindAll(trackChanges).OrderBy(s => s.FirstName)];
     }

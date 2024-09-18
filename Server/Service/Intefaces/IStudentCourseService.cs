@@ -1,12 +1,13 @@
 using Entities;
+using Shared.DataTransferObjects;
 
 namespace Service.Intefaces;
 
 public interface IStudentCourseService
 {
-    Task<IEnumerable<StudentCourse>> GetAllStudentCoursesAsync();
-    Task<StudentCourse> GetStudentCourseByIdAsync(Guid studentCourseId);
-    Task CreateStudentCourseAsync(StudentCourse studentCourse);
-    Task UpdateStudentCourseAsync(StudentCourse studentCourse);
-    Task DeleteStudentCourseAsync(Guid studentCourseId);
+    IEnumerable<StudentCourseDto> GetAllStudentCourses(bool trackChanges);
+    StudentCourseDto GetStudentCourseById(Guid studentCourseId);
+    void CreateStudentCourse(StudentCourse studentCourse);
+    void UpdateStudentCourse(StudentCourse studentCourse);
+    void DeleteStudentCourse(Guid studentCourseId);
 }

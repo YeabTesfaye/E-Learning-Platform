@@ -1,3 +1,4 @@
+using AutoMapper;
 using Contracts;
 using Service.Intefaces;
 
@@ -12,14 +13,14 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<ICertificateService> _certificateService;
     private readonly Lazy<IStudentCourseService> _studentCourseService;
 
-    public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger)
+    public ServiceManager(IRepositoryManager repositoryManager, ILoggerManager logger,IMapper mapper)
     {
-        _courseService = new Lazy<ICourseService>(() => new CourseService(repositoryManager, logger));
-        _studentService = new Lazy<IStudentService>(() => new StudentService(repositoryManager, logger));
-        _instructorService = new Lazy<IInstructorService>(() => new InstructorService(repositoryManager, logger));
-        _moduleService = new Lazy<IModuleService>(() => new ModuleService(repositoryManager, logger));
-        _certificateService = new Lazy<ICertificateService>(() => new CertificateService(repositoryManager, logger));
-        _studentCourseService = new Lazy<IStudentCourseService>(() => new StudentCourseService(repositoryManager, logger));
+        _courseService = new Lazy<ICourseService>(() => new CourseService(repositoryManager, logger, mapper));
+        _studentService = new Lazy<IStudentService>(() => new StudentService(repositoryManager, logger, mapper));
+        _instructorService = new Lazy<IInstructorService>(() => new InstructorService(repositoryManager, logger,mapper));
+        _moduleService = new Lazy<IModuleService>(() => new ModuleService(repositoryManager, logger,mapper));
+        _certificateService = new Lazy<ICertificateService>(() => new CertificateService(repositoryManager, logger,mapper));
+        _studentCourseService = new Lazy<IStudentCourseService>(() => new StudentCourseService(repositoryManager, logger,mapper));
     }
     public ICourseService CourseService => _courseService.Value;
     public IStudentService StudentService => _studentService.Value;

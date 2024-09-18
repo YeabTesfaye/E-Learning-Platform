@@ -22,3 +22,5 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation\obj\Debug\net8.0\refint\E-Learning.Presentation.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation\obj\Debug\net8.0\E-Learning.Presentation.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation\obj\Debug\net8.0\ref\E-Learning.Presentation.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation\bin\Debug\net8.0\Shared.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\E-Learning.Presentation\bin\Debug\net8.0\Shared.pdb

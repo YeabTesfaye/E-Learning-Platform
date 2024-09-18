@@ -152,3 +152,6 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\E-
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Service.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\E-Learning.Presentation.pdb
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Service.pdb
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Shared.dll
+C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\api\bin\Debug\net8.0\Shared.pdb

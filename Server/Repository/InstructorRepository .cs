@@ -8,4 +8,9 @@ public class InstructorRepository : RepositoryBase<Instructor>, IInstructorRepos
     public InstructorRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
+
+    public IEnumerable<Instructor> GetAllInstructors(bool trackChanges)
+    {
+        return FindAll(trackChanges).OrderBy(i => i.FirstName);
+    }
 }

@@ -1,25 +1,19 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace Entities;
-
+/// <summary>
+/// A Course can have many Modules, many Quizzes, and many Enrolments.
+/// The relationships are one-to-many from Course to each of these entities.
+/// </summary>
 public class Course
 {
-    public Guid CourseId { get; set; }
-    public string? Title { get; set; }
+    public Guid Id { get; set; }
+    public string? Name { get; set; }
     public string? Description { get; set; }
-    public int Credits { get; set; }
-    [ForeignKey(nameof(Instructor))]
-    public Guid InstructorId { get; set; }
-    public Instructor? Instructor { get; set; }
-    public  ICollection<Module> Modules { get; set; }
-    public  ICollection<StudentCourse> StudentCourses { get; set; }
-    public  ICollection<Certificate> Certificates { get; set; }
+    public decimal Price { get; set; }
+    public bool IsProgressLimited { get; set; }
 
-    public Course()
-    {
-        Modules = [];
-        StudentCourses = [];
-        Certificates = [];
-    }
+    public ICollection<Module>? Modules { get; set; }
+    public ICollection<Quiz>? Quizzes { get; set; }
+    public ICollection<Enrolment>? Enrolments { get; set; }
+
 
 }

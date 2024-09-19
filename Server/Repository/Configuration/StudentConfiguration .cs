@@ -2,28 +2,26 @@ using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Repository.Configuration
+namespace Repository.Configuration;
+
+public class StudentConfiguration : IEntityTypeConfiguration<Student>
 {
-    public class StudentConfiguration : IEntityTypeConfiguration<Student>
-    {
-        public void Configure(EntityTypeBuilder<Student> builder)
-        {
-            builder.HasData(
-                new Student
-                {
-                    StudentId = new Guid("e8e8cfcf-349d-4d7e-9f30-c0f0badd55ab"),
-                    FirstName = "Alice",
-                    LastName = "Johnson",
-                    Email = "alice.johnson@example.com"
-                },
-                new Student
-                {
-                    StudentId = new Guid("d9d8cfcf-459d-4d7e-8f21-c0f0badd77cb"),
-                    FirstName = "Bob",
-                    LastName = "Williams",
-                    Email = "bob.williams@example.com"
-                }
-            );
-        }
-    }
+    public void Configure(EntityTypeBuilder<Student> builder) => builder.HasData(
+            new Student
+            {
+                Id = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e"),
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "john.doe@example.com",
+                Password = "hashedpassword1" 
+            },
+            new Student
+            {
+                Id = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329"),
+                FirstName = "Jane",
+                LastName = "Smith",
+                EmailAddress = "jane.smith@example.com",
+                Password = "hashedpassword2" 
+            }
+        );
 }

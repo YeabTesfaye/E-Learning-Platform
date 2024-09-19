@@ -8,21 +8,22 @@ public class ModuleConfiguration : IEntityTypeConfiguration<Module>
 {
     public void Configure(EntityTypeBuilder<Module> builder)
     {
-        builder.HasData(
-            new Module
-            {
-                ModuleId = new Guid("c56b8c60-2f4d-4b77-8f6d-ed2a5ab7c345"),
-                Title = "Introduction to C#",
-                Content = "Basic concepts of C# programming language.",
-                CourseId = new Guid("a56d8b60-2f4d-4b77-8f6d-bd2a5ab7c345")
-            },
-            new Module
-            {
-                ModuleId = new Guid("d65b8c60-2f4d-4b77-8f6d-ed2a5ab7c345"),
-                Title = "Database Design",
-                Content = "Fundamentals of database design and normalization.",
-                CourseId = new Guid("b65d8b60-2f4d-4b77-8f6d-cd2a5ab7c345")
-            }
-        );
+        builder.HasData
+                (
+                    new Module
+                    {
+                        Id = new Guid("f1a2b3c4-d5e6-4f0a-b9a2-fd1234567890"),
+                        CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
+                        Name = "Introduction to Programming",
+                        Number = 1
+                    },
+                    new Module
+                    {
+                        Id = new Guid("b2c3d4e5-f6a7-4b0c-b9a2-fd1234567890"),
+                        CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
+                        Name = "Advanced Programming Concepts",
+                        Number = 2
+                    }
+                );
     }
 }

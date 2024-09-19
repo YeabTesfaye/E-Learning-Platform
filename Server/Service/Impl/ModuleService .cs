@@ -32,7 +32,7 @@ public sealed class ModuleService : IModuleService
     {
          try
         {
-            var modules = _repository.Course.GetAllCourses(trackChanges);
+            var modules = _repository.Module.GetAllModules(trackChanges);
             var modulesDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
             return modulesDto;
         }

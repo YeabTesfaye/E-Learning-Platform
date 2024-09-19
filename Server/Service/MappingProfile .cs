@@ -12,12 +12,8 @@ public class MappingProfile : Profile
         CreateMap<Student, StudentDto>()
             .ForCtorParam("FullName", opt =>
             opt.MapFrom(x => string.Join(' ', x.FirstName, x.LastName)));
-        CreateMap<Certificate, CertificateDto>();
-        CreateMap<Course, CourseDto>();
-        CreateMap<Instructor, InstructorDto>()
-        .ForCtorParam("FullName", opt =>
-        opt.MapFrom(x => string.Join(' ', x.FirstName, x.LastName)));
+        CreateMap<Course, CourseDto>();     
         CreateMap<Module, ModuleDto>();
-        CreateMap<StudentCourse, StudentCourseDto>();
+
     }
 }

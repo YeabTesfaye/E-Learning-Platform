@@ -12,7 +12,7 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
 
     public IEnumerable<Course> GetAllCourses(bool trackChanges)
     {
-        return [.. FindAll(trackChanges).OrderBy(c => c.Title)];
+        return [.. FindAll(trackChanges).OrderBy(c => c.Name)];
     }
 
 }

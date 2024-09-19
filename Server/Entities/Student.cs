@@ -1,15 +1,18 @@
 namespace Entities;
-
+/// <summary>
+/// A one-to-many relationship between Student and Enrolment (one Student can have many Enrolments).
+/// A one-to-many relationship between Student and StudentQuizAttempt (one Student can have many Quiz Attempts).
+/// A one-to-many relationship between Student and StudentLesson (one Student can have many Lessons).
+/// </summary>
 public class Student
 {
-    public Guid StudentId { get; set; }
+    public Guid Id { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public string? Email { get; set; }
-    public ICollection<StudentCourse> EnrolledCourses { get; set; }
+    public string? EmailAddress { get; set; }
+    public string? Password { get; set; }
 
-    public Student()
-    {
-        EnrolledCourses = [];
-    }
+    public ICollection<Enrolment>? Enrolments { get; set; }
+    public ICollection<StudentQuizAttempt>? QuizAttempts { get; set; }
+    public ICollection<StudentLesson>? StudentLessons { get; set; }
 }

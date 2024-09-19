@@ -11,7 +11,7 @@ namespace Repository
 
         public IEnumerable<Module> GetAllModules(bool trackChanges)
         {
-            return [.. FindAll(trackChanges).OrderBy(m => m.Title)];
+            return [.. FindAll(trackChanges).OrderBy(m => m.Name)];
         }
 
         

@@ -1,7 +1,7 @@
 namespace Shared.DataTransferObjects;
 
-public record ModuleDto(
-    Guid ModuleId,
-    string Title,
-    string Content
-);
+public class ModuleDto{
+   public Guid ModuleId;
+    public string? Title;
+    public string? Content;
+}

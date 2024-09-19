@@ -4,28 +4,28 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Configuration;
 
-
 public class CourseConfiguration : IEntityTypeConfiguration<Course>
 {
     public void Configure(EntityTypeBuilder<Course> builder)
     {
-        builder.HasData(
-            new Course
-            {
-                CourseId = new Guid("a56d8b60-2f4d-4b77-8f6d-bd2a5ab7c345"),
-                Title = "Fundamentals of Programming",
-                Description = "An introductory course on programming basics.",
-                Credits = 3,
-                InstructorId = new Guid("8d6a9f34-1f6b-4f1b-bb20-38b75f56d9d5")
-            },
-            new Course
-            {
-                CourseId = new Guid("b65d8b60-2f4d-4b77-8f6d-cd2a5ab7c345"),
-                Title = "Advanced Database Systems",
-                Description = "An advanced course covering database management systems.",
-                Credits = 4,
-                InstructorId = new Guid("8d6a9f34-1f6b-4f1b-bb20-38b75f56d9d5")
-            }
-        );
+        builder.HasData
+         (
+             new Course
+             {
+                 Id = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
+                 Name = "Introduction to Programming",
+                 Description = "A beginner-friendly course on programming fundamentals.",
+                 Price = 99.99m,
+                 IsProgressLimited = false
+             },
+             new Course
+             {
+                 Id = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
+                 Name = "Advanced Web Development",
+                 Description = "Deep dive into modern web development practices and frameworks.",
+                 Price = 199.99m,
+                 IsProgressLimited = true
+             }
+         );
     }
 }

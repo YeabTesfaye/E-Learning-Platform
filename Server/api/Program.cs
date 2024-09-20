@@ -1,4 +1,5 @@
 using api.Extensions;
+using Contracts;
 using Microsoft.AspNetCore.HttpOverrides;
 using Service;
 
@@ -18,17 +19,19 @@ builder.Services.ConfigureServiceManager();
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILoggerManager>();
+app.ConfigureExceptionHandler(logger);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseDeveloperExceptionPage();
     app.UseExceptionHandler("/Home/Error");
 
 }
 else
     app.UseHsts();
+    
 
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions

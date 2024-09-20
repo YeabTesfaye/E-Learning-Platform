@@ -10,19 +10,10 @@ public class CourseController : ControllerBase
     private readonly IServiceManager _service;
     public CourseController(IServiceManager service) => _service = service;
 
-   [HttpGet]
+    [HttpGet]
     public IActionResult GetCourses()
     {
-        try
-        {
-            var courses = _service.CourseService.GetAllCourses(trackChanges: false);
-            return Ok(courses);
-       
-        }
-        catch 
-        {
-
-            return StatusCode(500, "Internal server error");
-        }
+        var courses = _service.CourseService.GetAllCourses(trackChanges: false);
+        return Ok(courses);
     }
 }

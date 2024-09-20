@@ -12,7 +12,7 @@ public class MappingProfile : Profile
         CreateMap<Student, StudentDto>()
         .ForMember(dest =>
          dest.FullName, src => src.MapFrom(x => x.FirstName + " " + x.LastName))
-         .ForMember( dest => dest.Email, src => src.MapFrom(x => $"Email : {x.EmailAddress}"));
+         .ForMember( dest => dest.Email, src => src.MapFrom(x => x.EmailAddress));
          
         CreateMap<Course, CourseDto>();
         CreateMap<Module, ModuleDto>();

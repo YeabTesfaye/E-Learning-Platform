@@ -13,4 +13,8 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
        return [.. FindAll(trackChanges).OrderBy(s => s.FirstName)];
     }
+
+    public Student? GetStudent(Guid studentId, bool trackChanges)
+    => FindByCondition(s => s.Id.Equals(studentId), trackChanges)
+        .SingleOrDefault();
 }

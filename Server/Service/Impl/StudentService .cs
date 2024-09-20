@@ -1,6 +1,7 @@
 using AutoMapper;
 using Contracts;
 using Entities;
+using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 
@@ -23,34 +24,31 @@ public sealed class StudentService : IStudentService
         throw new NotImplementedException();
     }
 
-    public void DeleteStudent(Guid studentId)
+    public void DeleteStudent(Guid id)
     {
         throw new NotImplementedException();
     }
 
     public IEnumerable<StudentDto> GetAllStudents(bool trackChanges)
     {
-        try
-        {
-            var students = _repository.Student.GetAllStudents(trackChanges);
-            var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students); // Ensure mapping is done here
-            return studentsDto;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wrong in the {nameof(GetAllStudents)} service method: {ex}");
-            throw;
+        var students = _repository.Student.GetAllStudents(trackChanges);
+        var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students); // Ensure mapping is done here
+        return studentsDto;
 
-        }
     }
 
-    public IEnumerable<Student> GetStudentById(Guid studentId)
+    public StudentDto GetStudent(Guid id, bool trackChanges)
     {
-        throw new NotImplementedException();
+        var student = _repository.Student.GetStudent(id, trackChanges)
+         ?? throw new StudentNotFoundException(id);
+        var studentDto = _mapper.Map<StudentDto>(student);
+        return studentDto;
     }
 
     public void UpdateStudent(Student student)
     {
         throw new NotImplementedException();
     }
+
+
 }

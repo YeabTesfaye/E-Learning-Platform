@@ -6,8 +6,8 @@ namespace Service.Intefaces;
 public interface IStudentService
 {
     IEnumerable<StudentDto> GetAllStudents(bool trackChanges);
-    IEnumerable<Student> GetStudentById(Guid studentId);
+    StudentDto GetStudent(Guid id, bool trackChanges);
     void CreateStudent(Student student);
     void UpdateStudent(Student student);
-    void DeleteStudent(Guid studentId);
+    void DeleteStudent(Guid id);
 }

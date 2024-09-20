@@ -1,6 +1,7 @@
 using AutoMapper;
 using Contracts;
 using Entities;
+using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 
@@ -24,7 +25,7 @@ public sealed class CourseService : ICourseService
         throw new NotImplementedException();
     }
 
-    public void DeleteCourse(Guid courseId)
+    public void DeleteCourse(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -37,9 +38,13 @@ public sealed class CourseService : ICourseService
 
     }
 
-    public CourseDto GetCourseById(Guid courseId)
+    public CourseDto GetCourse(Guid id, bool trackChanges)
     {
-        throw new NotImplementedException();
+       var course = _repository.Course.GetCourse(id, trackChanges);
+       if(course is null)
+            throw new CourseNotFoundException(id);
+        var courseDto = _mapper.Map<CourseDto>(course);
+       return courseDto;
     }
 
     public void UpdateCourse(Course course)

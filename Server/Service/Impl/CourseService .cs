@@ -1,7 +1,6 @@
 using AutoMapper;
 using Contracts;
 using Entities;
-using Microsoft.Extensions.Logging;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 

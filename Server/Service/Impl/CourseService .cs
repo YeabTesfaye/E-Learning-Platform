@@ -31,7 +31,7 @@ public sealed class CourseService : ICourseService
 
     public IEnumerable<CourseDto> GetAllCourses(bool trackChanges)
     {
-             try
+        try
         {
             var courses = _repository.Course.GetAllCourses(trackChanges);
             var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(courses);

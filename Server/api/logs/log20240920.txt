@@ -1,0 +1,20 @@
+2024-09-20 12:15:41.742 +03:00 [ERR] Something went wrong in the GetAllCourses service method: AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+<>z__ReadOnlyList`1 -> IEnumerable`1
+<>z__ReadOnlyList`1[[Entities.Course, Entities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[Shared.DataTransferObjects.CourseDto, Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> System.ArgumentException: Shared.DataTransferObjects.CourseDto needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+   at lambda_method144(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method144(Closure, Object, IEnumerable`1, ResolutionContext)
+   at Service.Impl.CourseService.GetAllCourses(Boolean trackChanges) in C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Service\Impl\CourseService .cs:line 37
+2024-09-20 12:24:02.129 +03:00 [ERR] Something went wrong in the GetAllCourses service method: AutoMapper.AutoMapperMappingException: Error mapping types.
+
+Mapping types:
+<>z__ReadOnlyList`1 -> IEnumerable`1
+<>z__ReadOnlyList`1[[Entities.Course, Entities, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -> System.Collections.Generic.IEnumerable`1[[Shared.DataTransferObjects.CourseDto, Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]
+ ---> System.ArgumentException: Shared.DataTransferObjects.CourseDto needs to have a constructor with 0 args or only optional args. Validate your configuration for details. (Parameter 'type')
+   at lambda_method142(Closure, Object, IEnumerable`1, ResolutionContext)
+   --- End of inner exception stack trace ---
+   at lambda_method142(Closure, Object, IEnumerable`1, ResolutionContext)
+   at Service.Impl.CourseService.GetAllCourses(Boolean trackChanges) in C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\Service\Impl\CourseService .cs:line 37

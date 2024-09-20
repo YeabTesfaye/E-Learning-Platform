@@ -1,6 +1,11 @@
 namespace Shared.DataTransferObjects;
 
-public record StudentDto(
-        Guid StudentId, 
-        string FullName, 
-        string Email);
+public class StudentDto
+{
+    public Guid Id { get; set; }
+    public string Email { get; set; } = string.Empty;
+    public string FullName { get; set; } = string.Empty;
+}
+
+        
+

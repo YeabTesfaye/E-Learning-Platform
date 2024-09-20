@@ -10,10 +10,19 @@ public class MappingProfile : Profile
     {
         // Ensure this mapping exists
         CreateMap<Student, StudentDto>()
-            .ForCtorParam("FullName", opt =>
-            opt.MapFrom(x => string.Join(' ', x.FirstName, x.LastName)));
-        CreateMap<Course, CourseDto>();     
+        .ForMember(dest =>
+         dest.FullName, src => src.MapFrom(x => x.FirstName + " " + x.LastName))
+         .ForMember( dest => dest.Email, src => src.MapFrom(x => $"Email : {x.EmailAddress}"));
+         
+        CreateMap<Course, CourseDto>();
         CreateMap<Module, ModuleDto>();
+        CreateMap<Enrolment, EnrolmentDto>();
+        CreateMap<Lesson, LessonDto>();
+        CreateMap<QuizAnswer, QuizAnswerDto>();
+        CreateMap<Quiz, QuizDto>();
+        CreateMap<QuizQuestion, QuizQuestionDto>();
+        CreateMap<StudentLesson, StudentLessonDto>();
+        CreateMap<StudentQuizAttempt, StudentQuizAttemptDto>();
 
     }
 }

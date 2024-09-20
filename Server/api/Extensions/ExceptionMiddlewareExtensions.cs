@@ -31,14 +31,6 @@ public static class ExceptionMiddlewareExtensions
                  Message = contextFeature.Error.Message,
              }.ToString());
          }
-         else {
-            context.Response.StatusCode = StatusCodes.Status404NotFound;
-            await context.Response.WriteAsync(new ErrorDetails()
-            {
-                StatusCode = context.Response.StatusCode,
-                Message = "Resource not found."
-            }.ToString());
-         }
      });
  });
 

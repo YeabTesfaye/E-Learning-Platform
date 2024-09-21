@@ -9,11 +9,7 @@ namespace Repository
         {
         }
 
-        public IEnumerable<Module> GetAllModules(bool trackChanges)
-        {
-            return [.. FindAll(trackChanges).OrderBy(m => m.Name)];
-        }
-
-        
+        public IEnumerable<Module> GetModules(Guid courseId, bool trackChanges)
+        => [.. FindByCondition(m => m.CourseId.Equals(courseId), trackChanges).OrderBy(m => m.Name)];
     }
 }

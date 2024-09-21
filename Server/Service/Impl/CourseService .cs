@@ -40,9 +40,8 @@ public sealed class CourseService : ICourseService
 
     public CourseDto GetCourse(Guid id, bool trackChanges)
     {
-       var course = _repository.Course.GetCourse(id, trackChanges);
-       if(course is null)
-            throw new CourseNotFoundException(id);
+       var course = _repository.Course.GetCourse(id, trackChanges) 
+       ?? throw new CourseNotFoundException(id);
         var courseDto = _mapper.Map<CourseDto>(course);
        return courseDto;
     }

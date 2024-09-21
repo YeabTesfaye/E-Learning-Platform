@@ -5,7 +5,7 @@ namespace Service.Intefaces;
 
 public interface IModuleService
 {
-    IEnumerable<ModuleDto> GetAllModules(bool trackChanges);
+    IEnumerable<ModuleDto> GetModules(Guid courseId,bool trackChanges);
     ModuleDto GetModuleById(Guid moduleId);
     void CreateModule(Module module);
     void UpdateModule(Module module);

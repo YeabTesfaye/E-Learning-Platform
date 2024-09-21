@@ -8,4 +8,7 @@ public class QuizQuestionRepository : RepositoryBase<QuizQuestion>, IQuizQuestio
     public QuizQuestionRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
+
+    public IEnumerable<QuizQuestion> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
+    => [.. FindByCondition(q => q.QuizId.Equals(quizId), trackChanges).OrderBy(q => q.QuestionTitle)];
 }

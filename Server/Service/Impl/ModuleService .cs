@@ -1,6 +1,7 @@
 using System.Reflection;
 using AutoMapper;
 using Contracts;
+using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 
@@ -28,25 +29,21 @@ public sealed class ModuleService : IModuleService
         throw new NotImplementedException();
     }
 
-    public IEnumerable<ModuleDto> GetAllModules(bool trackChanges)
-    {
-         try
-        {
-            var modules = _repository.Module.GetAllModules(trackChanges);
-            var modulesDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
-            return modulesDto;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wrong in the {nameof(GetAllModules)} service method: {ex}");
-            throw;
-
-        }
-    }
 
     public ModuleDto GetModuleById(Guid moduleId)
     {
         throw new NotImplementedException();
+    }
+
+    public IEnumerable<ModuleDto> GetModules(Guid courseId, bool trackChanges)
+    {
+        var course = _repository.Course.GetCourse(courseId, trackChanges) 
+        ?? throw new CourseNotFoundException(courseId);
+
+        var modules = _repository.Module.GetModules(courseId, trackChanges);
+
+        var moduleDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
+        return moduleDto;
     }
 
     public void UpdateModule(Module module)

@@ -4,5 +4,6 @@ namespace Service.Intefaces;
 
 public interface ILessonService
 {
-    IEnumerable<LessonDto> GetLessons(Guid moduleId, bool trackChanges);
+    IEnumerable<LessonDto> GetLessonsByModule(Guid moduleId, bool trackChanges);
+    LessonDto GetLessonById(Guid lessonId, bool trackChanges);
 }

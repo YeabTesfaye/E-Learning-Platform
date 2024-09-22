@@ -4,6 +4,7 @@ namespace Contracts;
 
 public interface ILessonRepository
 {
-    IEnumerable<Lesson> GetLessons(Guid moduleId, bool trackChanges);
+    IEnumerable<Lesson> GetLessonsByModule(Guid moduleId, bool trackChanges);
+    Lesson? GetLessonById(Guid lessonId, bool trackChanges);
 
 }

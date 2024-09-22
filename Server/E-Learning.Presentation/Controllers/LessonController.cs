@@ -3,7 +3,7 @@ using Service.Intefaces;
 
 namespace E_Learning.Presentation.Controllers;
 
-[Route("api/module/{moduleId}/lesson")]
+[Route("/api/modules/{moduleId}/lessons")]
 [ApiController]
 public class LessonController : ControllerBase
 {
@@ -11,9 +11,18 @@ public class LessonController : ControllerBase
 
     public LessonController(IServiceManager service) => _service = service;
     [HttpGet]
-    public IActionResult GetLessons(Guid moduleId){
-        var lessons = _service.LessonService.GetLessons(moduleId, trackChanges:false);
+    public IActionResult GetLessonsByModule(Guid moduleId)
+    {
+        var lessons = _service.LessonService.GetLessonsByModule(moduleId, trackChanges: false);
         return Ok(lessons);
     }
-    
+
+    // Get a specific lesson by lessonId
+    [HttpGet("{lessonId:guid}")]
+    public IActionResult GetLessonById(Guid lessonId)
+    {
+        var lesson = _service.LessonService.GetLessonById(lessonId, trackChanges: false);
+        return Ok(lesson);
+    }
+
 }

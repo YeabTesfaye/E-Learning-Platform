@@ -19,14 +19,19 @@ public class LessonService : ILessonService
         _logger = logger;
     }
 
-    public IEnumerable<LessonDto> GetLessons(Guid moduleId, bool trackChanges)
+    public IEnumerable<LessonDto> GetLessonsByModule(Guid moduleId, bool trackChanges)
     {
-        _ = _repository.Module.GetModules(moduleId, trackChanges)
-        ?? throw new ModuleNotFoundException(moduleId);
+        var lessons = _repository.Lesson.GetLessonsByModule(moduleId, trackChanges);
+        return _mapper.Map<IEnumerable<LessonDto>>(lessons);
+    }
 
-        var lessons = _repository.Lesson.GetLessons(moduleId, trackChanges);
-        var lessonsDto = _mapper.Map<IEnumerable<LessonDto>>(lessons);
-        return lessonsDto;
+    public LessonDto GetLessonById(Guid lessonId, bool trackChanges)
+    {
+        var lesson = _repository.Lesson.GetLessonById(lessonId, trackChanges);
+        if (lesson == null)
+            throw new LessonNotFounException(lessonId);
+
+        return _mapper.Map<LessonDto>(lesson);
     }
 }
 

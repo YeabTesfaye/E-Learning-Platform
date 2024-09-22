@@ -20,15 +20,21 @@ public class QuizQuestionService : IQuizQuestionService
         _logger = logger;
     }
 
-    public IEnumerable<QuizQuestionDto> GetQuestions(Guid courseId, Guid quizId, bool trackChanges)
+    public QuizQuestionDto GetQuestion(Guid quizId, Guid questionId, bool trackChanges)
     {
-        // Check if the quiz exists by courseId and quizId
-        var quiz = _repository.Quiz.GetQuiz(courseId, quizId, trackChanges);
-        if (quiz == null)
-        {
-            _logger.LogError($"Quiz with id {quizId} for course {courseId} doesn't exist in the database.");
-            throw new QuizNotFoundException(quizId);  // Custom exception
-        }
+
+
+        // Retrieve the quiz question
+        var question = _repository.QuizQuestion.GetQuizQuestion(quizId, questionId, trackChanges)
+         ?? throw new QuestionNotFoundException(questionId);
+
+        var questionDto = _mapper.Map<QuizQuestionDto>(question);
+
+        return questionDto;
+    }
+
+    public IEnumerable<QuizQuestionDto> GetQuestions(Guid quizId, bool trackChanges)
+    {
 
         // Retrieve the questions for the quiz
         var questions = _repository.QuizQuestion.GetQuestionsByQuiz(quizId, trackChanges);

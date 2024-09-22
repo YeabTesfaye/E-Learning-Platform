@@ -14,5 +14,6 @@ public class Lesson
     public int CourseOrder { get; set; }
 
     public Module? Module { get; set; }
+    
     public ICollection<StudentLesson>? StudentLessons { get; set; }
 }

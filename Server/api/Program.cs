@@ -10,7 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddControllers()
+builder.Services.AddControllers(config =>
+{
+    config.RespectBrowserAcceptHeader = true;
+    config.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters()
 .AddApplicationPart(typeof(E_Learning.Presentation.AssemblyReference).Assembly);
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureLoggerService();
@@ -31,7 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 else
     app.UseHsts();
-    
+
 
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions

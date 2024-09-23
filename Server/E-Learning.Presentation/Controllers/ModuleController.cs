@@ -11,10 +11,15 @@ public class ModuleController : ControllerBase
     public ModuleController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    public IActionResult GetModelForCourse(Guid courseId)
+    public IActionResult GetModulesForCourse(Guid courseId)
     {
         var modules = _service.ModuleService.GetModules(courseId, trackChanges:false);
         return Ok(modules);
+    }
+    [HttpGet("{Id:guid}")]
+    public IActionResult GetModuleForCourse([FromRoute] Guid Id,[FromRoute] Guid courseId){
+        var module = _service.ModuleService.GetModule(Id,courseId,trackChanges:false);
+        return Ok(module);
     }
     
 }

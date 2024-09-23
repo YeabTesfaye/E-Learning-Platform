@@ -25,12 +25,10 @@ public class LessonService : ILessonService
         return _mapper.Map<IEnumerable<LessonDto>>(lessons);
     }
 
-    public LessonDto GetLessonById(Guid lessonId, bool trackChanges)
+    public LessonDto GetLesson(Guid Id,Guid moduleId, bool trackChanges)
     {
-        var lesson = _repository.Lesson.GetLessonById(lessonId, trackChanges);
-        if (lesson == null)
-            throw new LessonNotFounException(lessonId);
-
+        var lesson = _repository.Lesson.GetLesson(Id,moduleId, trackChanges) 
+        ?? throw new LessonNotFounException(Id);
         return _mapper.Map<LessonDto>(lesson);
     }
 }

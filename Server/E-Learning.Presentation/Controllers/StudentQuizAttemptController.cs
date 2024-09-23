@@ -20,8 +20,8 @@ public class StudentQuizAttemptController : ControllerBase
     }
 
     // Get a specific quiz attempt by studentId and attemptId
-    [HttpGet("{attemptId:guid}")]
-    public IActionResult GetAttemptById(Guid studentId, Guid attemptId)
+    [HttpGet("{attemptId:guid}", Name ="QuizAttemptById")]
+    public IActionResult GetAttemptById([FromRoute] Guid studentId,[FromRoute] Guid attemptId)
     {
         var attempt = _service.StudentQuizAttemptService.GetAttemptById(studentId, attemptId, trackChanges: false);
         return Ok(attempt);

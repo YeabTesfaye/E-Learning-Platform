@@ -18,10 +18,10 @@ public class StudentController : ControllerBase
         return Ok(students);
     }
 
-    [HttpGet("{id:guid}")]
-    public IActionResult GetStudent(Guid id)
+    [HttpGet("{Id:guid}", Name ="StudentById")]
+    public IActionResult GetStudent([FromRoute] Guid Id)
     {
-        var student = _service.StudentService.GetStudent(id, trackChanges: false);
+        var student = _service.StudentService.GetStudent(Id, trackChanges: false);
         return Ok(student);
     }
 }

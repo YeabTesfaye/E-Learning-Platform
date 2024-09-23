@@ -16,8 +16,8 @@ public class QuizController : ControllerBase
         return Ok(quizzes);
     }
 
-    [HttpGet("{quizId:guid}")]
-    public IActionResult GetQuizForCourse (Guid courseId, Guid quizId)
+    [HttpGet("{quizId:guid}", Name ="QuizById")]
+    public IActionResult GetQuizForCourse ([FromRoute] Guid courseId,[FromRoute] Guid quizId)
     {
         var quiz = _service.QuizService.GetQuiz(courseId, quizId,trackChanges: false);
         return Ok(quiz);

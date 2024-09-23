@@ -29,11 +29,16 @@ public sealed class ModuleService : IModuleService
         throw new NotImplementedException();
     }
 
-
-    public ModuleDto GetModuleById(Guid moduleId)
+    public ModuleDto GetModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        throw new NotImplementedException();
+        _ = _repository.Course.GetCourse(courseId, trackChanges)
+         ?? throw new CourseNotFoundException(courseId);
+
+        var module = _repository.Module.GetModule(Id,courseId,trackChanges);
+         var moduleDto = _mapper.Map<ModuleDto>(module);
+         return moduleDto;
     }
+
 
     public IEnumerable<ModuleDto> GetModules(Guid courseId, bool trackChanges)
     {

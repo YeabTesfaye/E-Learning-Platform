@@ -20,8 +20,8 @@ public class QuizAnswerController : ControllerBase
     }
 
     // Get a specific answer by questionId and answerId
-    [HttpGet("{answerId:guid}")]
-    public IActionResult GetAnswerById(Guid questionId, Guid answerId)
+    [HttpGet("{answerId:guid}",Name ="AnswerById")]
+    public IActionResult GetAnswerById([FromRoute]Guid questionId,[FromRoute] Guid answerId)
     {
         var answer = _service.QuizAnswerService.GetAnswerById(questionId, answerId, trackChanges: false);
         return Ok(answer);

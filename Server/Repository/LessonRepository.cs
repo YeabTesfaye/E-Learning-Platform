@@ -9,6 +9,10 @@ public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
     {
     }
 
+    public Lesson? GetLesson(Guid Id, Guid moduleId, bool trackChanges)
+    => FindByCondition( l => l.Id.Equals(Id)&&l.ModuleId.Equals(moduleId), trackChanges)
+        .SingleOrDefault();
+
     public IEnumerable<Lesson> GetLessonsByModule(Guid moduleId, bool trackChanges)
     {
         return FindByCondition(l => l.ModuleId.Equals(moduleId), trackChanges)
@@ -16,9 +20,5 @@ public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
                .ToList();
     }
 
-    public Lesson? GetLessonById(Guid lessonId, bool trackChanges)
-    {
-        return FindByCondition(l => l.Id.Equals(lessonId), trackChanges)
-               .SingleOrDefault();
-    }
+    
 }

@@ -19,7 +19,18 @@ public class EnrolmentService : IEnrolmentService
         _mapper = mapper;
         _logger = logger;
     }
-    
+
+    public EnrolmentDto GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, trackChanges)
+        ?? throw new StudentNotFoundException(studentId);
+        _ = _repository.Course.GetCourse(courseId, trackChanges)
+        ?? throw new CourseNotFoundException(courseId);
+
+        var enrolment = _repository.Enrolment.GetEnrolment(Id, studentId, courseId, trackChanges);
+        var enrolmentDto = _mapper.Map<EnrolmentDto>(enrolment);
+        return enrolmentDto;
+    }
 
     public IEnumerable<EnrolmentDto> GetEnrolments(Guid studentId, Guid courseId, bool trackChanges)
     {
@@ -34,6 +45,6 @@ public class EnrolmentService : IEnrolmentService
         return enrolmentDto;
     }
 
-     
+
 
 }

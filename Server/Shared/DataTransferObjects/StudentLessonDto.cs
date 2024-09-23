@@ -1,7 +1,12 @@
+using System.Runtime.Serialization;
+
 namespace Shared.DataTransferObjects;
 
-
-public class StudentLessonDto{
+[DataContract]
+public class StudentLessonDto
+{
+    [DataMember]
     public Guid Id { get; set; }
+    [DataMember]
     public DateTime CompletedDatetime { get; set; }
 }

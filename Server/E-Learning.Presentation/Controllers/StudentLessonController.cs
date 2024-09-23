@@ -19,8 +19,8 @@ public class StudentLessonController : ControllerBase
     }
 
     // Get a specific lesson completed by studentId and lessonId
-    [HttpGet("{lessonId:guid}")]
-    public IActionResult GetLessonById(Guid studentId, Guid lessonId)
+    [HttpGet("{lessonId:guid}", Name ="StudentLessonById")]
+    public IActionResult GetLessonById([FromRoute] Guid studentId,[FromRoute] Guid lessonId)
     {
         var lesson = _service.StudentLessonService.GetLessonById(studentId, lessonId, trackChanges: false);
         return Ok(lesson);

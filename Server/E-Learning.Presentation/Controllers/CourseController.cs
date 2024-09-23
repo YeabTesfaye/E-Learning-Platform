@@ -16,9 +16,9 @@ public class CourseController : ControllerBase
         var courses = _service.CourseService.GetAllCourses(trackChanges: false);
         return Ok(courses);
     }
-    [HttpGet("{id:guid}")]
-    public IActionResult GetCourse(Guid id){
-        var course = _service.CourseService.GetCourse(id,trackChanges:false);
+    [HttpGet("{Id:guid}",Name ="CourseById")]
+    public IActionResult GetCourse([FromRoute] Guid Id){
+        var course = _service.CourseService.GetCourse(Id,trackChanges:false);
         return Ok(course);
     }
 }

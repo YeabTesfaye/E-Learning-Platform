@@ -20,35 +20,40 @@ builder.Services.AddControllers(config =>
     config.ReturnHttpNotAcceptable = true;
 }).AddXmlDataContractSerializerFormatters()
 .AddApplicationPart(typeof(E_Learning.Presentation.AssemblyReference).Assembly);
+
+// Ensure all necessary services are configured
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 
+// Add authorization services if needed
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseExceptionHandler("/Home/Error");
-
 }
 else
+{
     app.UseHsts();
-
-
+}
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
-app.MapControllers();
+
 app.UseRouting();
 app.UseCors("CorsPolicy");
 
-app.Run();
 
+app.Run();

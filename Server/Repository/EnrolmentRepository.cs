@@ -9,6 +9,13 @@ public class EnrolmentRepository : RepositoryBase<Enrolment>, IEnrolmentReposito
     {
     }
 
+    public void CreateEnrolment(Guid studentId, Guid courseId, Enrolment enrolment)
+    {
+        enrolment.StudentId = studentId;
+        enrolment.CourseId = courseId;
+        Create(enrolment);
+    }
+
     public Enrolment? GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)
     => FindByCondition(e => e.Id.Equals(Id) && e.StudentId.Equals(studentId) && e.CourseId.Equals(courseId), trackChanges)
         .SingleOrDefault();

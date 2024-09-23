@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
+using Shared.DtoForCreation;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -13,13 +14,27 @@ public class ModuleController : ControllerBase
     [HttpGet]
     public IActionResult GetModulesForCourse(Guid courseId)
     {
-        var modules = _service.ModuleService.GetModules(courseId, trackChanges:false);
+        var modules = _service.ModuleService.GetModules(courseId, trackChanges: false);
         return Ok(modules);
     }
-    [HttpGet("{Id:guid}")]
-    public IActionResult GetModuleForCourse([FromRoute] Guid Id,[FromRoute] Guid courseId){
-        var module = _service.ModuleService.GetModule(Id,courseId,trackChanges:false);
+    [HttpGet("{Id:guid}",Name ="GetModuleById")]
+    public IActionResult GetModuleForCourse([FromRoute] Guid Id, [FromRoute] Guid courseId)
+    {
+        var module = _service.ModuleService.GetModule(Id, courseId, trackChanges: false);
         return Ok(module);
     }
     
+    [HttpPost]
+    public IActionResult CreateModule(Guid courseId, ModuleForCreation module)
+    {
+        if (module is null)
+            return BadRequest("ModuleForCreation object is null");
+
+        var moduleToReturn =
+       _service.ModuleService.CreateModuleForCourse(courseId, module, trackChanges: false);
+
+        return CreatedAtRoute("GetModuleById", new
+         {  courseId, id =  moduleToReturn.Id}, moduleToReturn);
+    }
+
 }

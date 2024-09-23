@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -18,6 +19,19 @@ public class QuizQuestionService : IQuizQuestionService
         _repository = repository;
         _mapper = mapper;
         _logger = logger;
+    }
+
+    public QuizQuestionDto CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges)
+    {
+        _ = _repository.Quiz.GetQuiz(quizId, trackChanges)
+        ?? throw new QuizNotFoundException(quizId);
+
+        var questionEntity = _mapper.Map<QuizQuestion>(question);
+        _repository.QuizQuestion.CreateQuizQuestion(quizId,questionEntity);
+        _repository.Save();
+
+        var questionToReturn = _mapper.Map<QuizQuestionDto>(questionEntity);
+        return questionToReturn;
     }
 
     public QuizQuestionDto GetQuestion(Guid quizId, Guid questionId, bool trackChanges)

@@ -10,6 +10,9 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
 
     }
 
+    public void CreateCourse(Course course)
+    => Create(course);
+
     public IEnumerable<Course> GetAllCourses(bool trackChanges)
     {
         return [.. FindAll(trackChanges).OrderBy(c => c.Name)];

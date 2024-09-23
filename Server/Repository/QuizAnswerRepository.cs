@@ -20,4 +20,10 @@ public class QuizAnswerRepository : RepositoryBase<QuizAnswer>, IQuizAnswerRepos
         return FindByCondition(qa => qa.QuestionId.Equals(questionId) && qa.Id.Equals(answerId), trackChanges)
                .SingleOrDefault();
     }
+
+    public void CreateAnswer(Guid questionId, QuizAnswer quizAnswer)
+    {
+        quizAnswer.QuestionId = questionId;
+        Create(quizAnswer);
+    }
 }

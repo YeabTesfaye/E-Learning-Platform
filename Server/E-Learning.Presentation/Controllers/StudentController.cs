@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
+using Shared.DtoForCreation;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -18,10 +19,20 @@ public class StudentController : ControllerBase
         return Ok(students);
     }
 
-    [HttpGet("{Id:guid}", Name ="StudentById")]
+    [HttpGet("{Id:guid}", Name = "StudentById")]
     public IActionResult GetStudent([FromRoute] Guid Id)
     {
         var student = _service.StudentService.GetStudent(Id, trackChanges: false);
         return Ok(student);
+    }
+    [HttpPost]
+    public IActionResult CreateStudent([FromBody] StudentForCreation student)
+    {
+        if (student is null)
+            return BadRequest("StudentForCreation object is null");
+       
+        var createdStudent = _service.StudentService.CreateStudent(student);
+        return CreatedAtRoute("StudentById", new { id = createdStudent.Id },
+        createdStudent);
     }
 }

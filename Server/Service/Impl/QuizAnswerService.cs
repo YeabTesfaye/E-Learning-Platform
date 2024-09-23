@@ -1,8 +1,10 @@
 using AutoMapper;
 using Contracts;
+using Entities;
 using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -29,5 +31,18 @@ public class QuizAnswerService : IQuizAnswerService
         var answer = _repository.QuizAnswer.GetAnswerById(questionId, answerId, trackChanges)
         ?? throw new AnswerNotFoundException(answerId);
         return _mapper.Map<QuizAnswerDto>(answer);
+    }
+
+    public QuizAnswerDto CreateAnswer(Guid questionId, QuizAnswerForCreation quizAnswer, bool trackChanges)
+    {
+        _ = _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
+        ?? throw new QuestionNotFoundException(questionId);
+        var answerEntity = _mapper.Map<QuizAnswer>(quizAnswer);
+
+        _repository.QuizAnswer.CreateAnswer(questionId,answerEntity);
+        _repository.Save();
+
+        var quizToReturn = _mapper.Map<QuizAnswerDto>(answerEntity);
+        return quizToReturn;
     }
 }

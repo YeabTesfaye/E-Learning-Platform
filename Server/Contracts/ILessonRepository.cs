@@ -6,4 +6,5 @@ public interface ILessonRepository
 {
     IEnumerable<Lesson> GetLessonsByModule(Guid moduleId, bool trackChanges);
     Lesson? GetLesson(Guid id, Guid moduleId, bool trackChanges);
+    void CreateLessonForMoudle(Guid moduleId, Lesson lesson);
 }

@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -19,9 +20,14 @@ public sealed class StudentService : IStudentService
         _mapper = mapper;
     }
 
-    public void CreateStudent(Student student)
+    public StudentDto CreateStudent(StudentForCreation student)
     {
-        throw new NotImplementedException();
+        var studentEntity = _mapper.Map<Student>(student);
+        _repository.Student.CreatStudent(studentEntity);
+        _repository.Save();
+
+        var studentToEntity = _mapper.Map<StudentDto>(studentEntity);
+        return studentToEntity;
     }
 
     public void DeleteStudent(Guid id)

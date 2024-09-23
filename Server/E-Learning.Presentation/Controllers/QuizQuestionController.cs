@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
+using Shared.DtoForCreation;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -14,14 +15,28 @@ public class QuizQuestionController : ControllerBase
    [HttpGet]
    public IActionResult GetQuestionsForQuiz(Guid quizId)
    {
-      var questions = _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
-      return Ok(questions);
+      return Ok();
+      // var questions = _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
+      // return Ok(questions);
    }
 
-   [HttpGet("{questionId:guid}", Name ="QuestionById")]
-   public IActionResult GetQuestionForQuiz([FromRoute] Guid quizId,[FromRoute] Guid questionId)
+   [HttpGet("{questionId:guid}", Name = "QuestionById")]
+   public IActionResult GetQuestionForQuiz([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
       var question = _service.QuizQuestionService.GetQuestion(quizId, questionId, trackChanges: false);
       return Ok(question);
    }
+
+   [HttpPost]
+   public IActionResult CreateQuestionForQuiz([FromRoute] Guid quizId, [FromBody] QuizQuestionForCreation quizQuestion)
+   {
+
+      if (quizQuestion is null)
+         return BadRequest("QuizQuestionForCreation object is null");
+
+      var question = _service.QuizQuestionService.CreateQuestion(quizId, quizQuestion, trackChanges: false);
+
+      return CreatedAtRoute("QuestionById", new { quizId, questionId = question.Id }, question);
+   }
+
 }

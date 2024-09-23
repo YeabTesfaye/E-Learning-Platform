@@ -1,9 +1,11 @@
 using AutoMapper;
 using Contracts;
+using Entities;
 using Entities.Exceptions;
 using LoggerService;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -18,6 +20,22 @@ public class EnrolmentService : IEnrolmentService
         _repository = repository;
         _mapper = mapper;
         _logger = logger;
+    }
+
+    public EnrolmentDto CreateEnrolment(Guid studentId, Guid courseId, EnrolmentForCreation enrolment, bool trackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, trackChanges:false) 
+        ?? throw new StudentNotFoundException(studentId);
+
+        _ = _repository.Course.GetCourse(courseId, trackChanges: false)
+         ?? throw new CourseNotFoundException(courseId);
+
+         var enrolmentEntity = _mapper.Map<Enrolment>(enrolment);
+         _repository.Enrolment.CreateEnrolment(studentId,courseId,enrolmentEntity);
+         _repository.Save();
+
+         var enrolmentToReturn = _mapper.Map<EnrolmentDto>(enrolmentEntity);
+         return enrolmentToReturn;
     }
 
     public EnrolmentDto GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)

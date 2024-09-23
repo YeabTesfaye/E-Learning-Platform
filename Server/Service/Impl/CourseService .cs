@@ -4,6 +4,7 @@ using Entities;
 using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -20,9 +21,15 @@ public sealed class CourseService : ICourseService
         _mapper = mapper;
     }
 
-    public void CreateCourse(Course course)
+    public CourseDto CreateCourse(CourseForCreationDto course)
     {
-        throw new NotImplementedException();
+        var courseToEntity = _mapper.Map<Course>(course);
+
+        _repository.Course.CreateCourse(courseToEntity);
+        _repository.Save();
+
+        var courseToReturn = _mapper.Map<CourseDto>(courseToEntity);
+        return courseToReturn;
     }
 
     public void DeleteCourse(Guid id)

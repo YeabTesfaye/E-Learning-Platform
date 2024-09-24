@@ -10,9 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureCors();
-builder.Services.Configure<ApiBehaviorOptions>(options => {
-    options.SuppressModelStateInvalidFilter = true;
-});
+builder.Services.ConfigureIISIntegration();
+
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers(config =>
 {
@@ -27,6 +26,10 @@ builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 // Add authorization services if needed
 builder.Services.AddAuthorization();
 
@@ -54,6 +57,6 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseRouting();
 app.UseCors("CorsPolicy");
-
+app.MapControllers();
 
 app.Run();

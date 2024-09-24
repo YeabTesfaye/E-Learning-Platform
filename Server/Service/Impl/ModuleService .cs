@@ -1,8 +1,10 @@
-using System.Reflection;
 using AutoMapper;
 using Contracts;
+using Entities;
+using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
 
 namespace Service.Impl;
 
@@ -18,9 +20,17 @@ public sealed class ModuleService : IModuleService
         _mapper = mapper;
     }
 
-    public void CreateModule(Module module)
+    public ModuleDto CreateModuleForCourse(Guid courseId,ModuleForCreation module, bool trackChanges)
     {
-        throw new NotImplementedException();
+        _ = _repository.Course.GetCourse(courseId,trackChanges) 
+        ?? throw new CourseNotFoundException(courseId);
+
+        var moduleEntity = _mapper.Map<Module>(module);
+        _repository.Module.CreateModuleForCourse(courseId,moduleEntity);
+        _repository.Save();
+
+        var moduleToReturn = _mapper.Map<ModuleDto>(module);
+        return moduleToReturn;
     }
 
     public void DeleteModule(Guid moduleId)
@@ -28,28 +38,34 @@ public sealed class ModuleService : IModuleService
         throw new NotImplementedException();
     }
 
-    public IEnumerable<ModuleDto> GetAllModules(bool trackChanges)
+    public ModuleDto GetModule(Guid Id, Guid courseId, bool trackChanges)
     {
-         try
-        {
-            var modules = _repository.Module.GetAllModules(trackChanges);
-            var modulesDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
-            return modulesDto;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"Something went wrong in the {nameof(GetAllModules)} service method: {ex}");
-            throw;
+        _ = _repository.Course.GetCourse(courseId, trackChanges)
+         ?? throw new CourseNotFoundException(courseId);
 
-        }
+        var module = _repository.Module.GetModule(Id,courseId,trackChanges);
+         var moduleDto = _mapper.Map<ModuleDto>(module);
+         return moduleDto;
     }
 
-    public ModuleDto GetModuleById(Guid moduleId)
+
+    public IEnumerable<ModuleDto> GetModules(Guid courseId, bool trackChanges)
+    {
+        _ = _repository.Course.GetCourse(courseId, trackChanges) 
+        ?? throw new CourseNotFoundException(courseId);
+
+        var modules = _repository.Module.GetModules(courseId, trackChanges);
+
+        var moduleDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
+        return moduleDto;
+    }
+
+    public void UpdateModule(Module module)
     {
         throw new NotImplementedException();
     }
 
-    public void UpdateModule(Module module)
+    public void UpdateModule(System.Reflection.Module module)
     {
         throw new NotImplementedException();
     }

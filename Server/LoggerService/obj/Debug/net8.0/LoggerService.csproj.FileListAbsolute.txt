@@ -16,3 +16,21 @@ C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\obj\Debug\net8.0\ref\LoggerService.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\bin\Debug\net8.0\Entities.dll
 C:\Users\yeabiseraT\Documents\E-Learning Platform\Server\LoggerService\bin\Debug\net8.0\Entities.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\LoggerService.deps.json
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\LoggerService.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\LoggerService.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Contracts.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Entities.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Contracts.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Entities.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.csproj.AssemblyReference.cache
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.AssemblyInfoInputs.cache
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.AssemblyInfo.cs
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.csproj.CoreCompileInputs.cache
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.sourcelink.json
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerSe.E7AEA5A8.Up2Date
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\refint\LoggerService.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\ref\LoggerService.dll

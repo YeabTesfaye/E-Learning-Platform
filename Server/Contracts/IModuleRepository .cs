@@ -5,6 +5,9 @@ namespace Contracts;
 
 public interface IModuleRepository
 {
-        IEnumerable<Module> GetAllModules(bool trackChanges);
+        IEnumerable<Module> GetModules(Guid courseId,bool trackChanges);
+        Module? GetModule(Guid Id, Guid courseId, bool trackChanges);
+        Module? GetModule(Guid Id,bool trackChanges);
+        void CreateModuleForCourse(Guid courseId, Module module);
 
 }

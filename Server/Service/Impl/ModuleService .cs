@@ -20,22 +20,27 @@ public sealed class ModuleService : IModuleService
         _mapper = mapper;
     }
 
-    public ModuleDto CreateModuleForCourse(Guid courseId,ModuleForCreation module, bool trackChanges)
+    public ModuleDto CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId,trackChanges) 
+        _ = _repository.Course.GetCourse(courseId, trackChanges)
         ?? throw new CourseNotFoundException(courseId);
 
         var moduleEntity = _mapper.Map<Module>(module);
-        _repository.Module.CreateModuleForCourse(courseId,moduleEntity);
+        _repository.Module.CreateModuleForCourse(courseId, moduleEntity);
         _repository.Save();
 
         var moduleToReturn = _mapper.Map<ModuleDto>(module);
         return moduleToReturn;
     }
 
-    public void DeleteModule(Guid moduleId)
+    public void DeleteModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        throw new NotImplementedException();
+        _ = _repository.Course.GetCourse(courseId, trackChanges: false)
+        ?? throw new CourseNotFoundException(courseId);
+        var module = _repository.Module.GetModule(Id, courseId, trackChanges: false)
+        ?? throw new ModuleNotFoundException(courseId);
+        _repository.Module.DeleteModule(module);
+        _repository.Save();
     }
 
     public ModuleDto GetModule(Guid Id, Guid courseId, bool trackChanges)
@@ -43,15 +48,15 @@ public sealed class ModuleService : IModuleService
         _ = _repository.Course.GetCourse(courseId, trackChanges)
          ?? throw new CourseNotFoundException(courseId);
 
-        var module = _repository.Module.GetModule(Id,courseId,trackChanges);
-         var moduleDto = _mapper.Map<ModuleDto>(module);
-         return moduleDto;
+        var module = _repository.Module.GetModule(Id, courseId, trackChanges);
+        var moduleDto = _mapper.Map<ModuleDto>(module);
+        return moduleDto;
     }
 
 
     public IEnumerable<ModuleDto> GetModules(Guid courseId, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, trackChanges) 
+        _ = _repository.Course.GetCourse(courseId, trackChanges)
         ?? throw new CourseNotFoundException(courseId);
 
         var modules = _repository.Module.GetModules(courseId, trackChanges);

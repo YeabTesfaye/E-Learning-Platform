@@ -11,13 +11,20 @@ public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
 
     public void CreateLessonForMoudle(Guid moduleId, Lesson lesson)
     {
-         lesson.ModuleId = moduleId;
-         Create(lesson);
+        lesson.ModuleId = moduleId;
+        Create(lesson);
     }
 
+    public void DeleteLesson(Lesson lesson)
+    => Delete(lesson);
+
     public Lesson? GetLesson(Guid Id, Guid moduleId, bool trackChanges)
-    => FindByCondition( l => l.Id.Equals(Id)&&l.ModuleId.Equals(moduleId), trackChanges)
+    => FindByCondition(l => l.Id.Equals(Id) && l.ModuleId.Equals(moduleId), trackChanges)
         .SingleOrDefault();
+
+    public Lesson? GetLesson(Guid id, bool trackChanges)
+    => FindByCondition(l => l.Id.Equals(id), trackChanges)
+    .SingleOrDefault();
 
     public IEnumerable<Lesson> GetLessonsByModule(Guid moduleId, bool trackChanges)
     {
@@ -26,5 +33,5 @@ public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
                .ToList();
     }
 
-    
+
 }

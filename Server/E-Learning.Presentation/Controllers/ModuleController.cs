@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -12,20 +13,20 @@ public class ModuleController : ControllerBase
     public ModuleController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    public IActionResult GetModulesForCourse(Guid courseId)
+    public IActionResult GetModulesForCourse([FromRoute] Guid courseId)
     {
         var modules = _service.ModuleService.GetModules(courseId, trackChanges: false);
         return Ok(modules);
     }
-    [HttpGet("{Id:guid}",Name ="GetModuleById")]
+    [HttpGet("{Id:guid}", Name = "GetModuleById")]
     public IActionResult GetModuleForCourse([FromRoute] Guid Id, [FromRoute] Guid courseId)
     {
         var module = _service.ModuleService.GetModule(Id, courseId, trackChanges: false);
         return Ok(module);
     }
-    
+
     [HttpPost]
-    public IActionResult CreateModule(Guid courseId, ModuleForCreation module)
+    public IActionResult CreateModule([FromRoute] Guid courseId, [FromBody] ModuleForCreation module)
     {
         if (module is null)
             return BadRequest("ModuleForCreation object is null");
@@ -34,7 +35,14 @@ public class ModuleController : ControllerBase
        _service.ModuleService.CreateModuleForCourse(courseId, module, trackChanges: false);
 
         return CreatedAtRoute("GetModuleById", new
-         {  courseId, id =  moduleToReturn.Id}, moduleToReturn);
+        { courseId, id = moduleToReturn.Id }, moduleToReturn);
+    }
+
+    [HttpDelete("{moduleId:guid}")]
+    public IActionResult DeleteModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId)
+    {
+        _service.ModuleService.DeleteModule(moduleId, courseId, trackChanges: false);
+        return NoContent();
     }
 
 }

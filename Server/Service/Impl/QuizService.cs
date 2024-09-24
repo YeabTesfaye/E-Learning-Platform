@@ -34,6 +34,18 @@ public class QuizService : IQuizService
         return quizToReturn;
     }
 
+    public void DeleteQuiz(Guid id, Guid courseId, bool trackChanges)
+    {
+        _ = _repository.Course.GetCourse(courseId, trackChanges: false)
+        ?? throw new CourseNotFoundException(courseId);
+
+        var quiz = _repository.Quiz.GetQuiz(id,courseId,trackChanges:false) 
+        ?? throw new QuizNotFoundException(id);
+
+        _repository.Quiz.DeleteQuiz(quiz);
+        _repository.Save();
+    }
+
     public QuizDto GetQuiz(Guid quizId, Guid courseId, bool trackChanges)
     {
         _ = _repository.Course.GetCourse(courseId, trackChanges)

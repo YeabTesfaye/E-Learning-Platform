@@ -16,6 +16,9 @@ public class EnrolmentRepository : RepositoryBase<Enrolment>, IEnrolmentReposito
         Create(enrolment);
     }
 
+    public void DeleteEnrolment(Enrolment enrolment)
+    => Delete(enrolment);
+
     public Enrolment? GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)
     => FindByCondition(e => e.Id.Equals(Id) && e.StudentId.Equals(studentId) && e.CourseId.Equals(courseId), trackChanges)
         .SingleOrDefault();

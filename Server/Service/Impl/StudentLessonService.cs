@@ -1,7 +1,11 @@
 using AutoMapper;
 using Contracts;
+using Entities;
 using Entities.Exceptions;
+using Service.Intefaces;
 using Shared.DataTransferObjects;
+using Shared.DtoForCreation;
+
 
 namespace Service.Impl;
 
@@ -29,5 +33,33 @@ public class StudentLessonService : IStudentLessonService
         var lesson = _repository.StudentLesson.GetLessonById(studentId, lessonId, trackChanges)
         ?? throw new LessonNotFounException(lessonId);
         return _mapper.Map<StudentLessonDto>(lesson);
+    }
+
+    public StudentLessonDto CreateStudentLesson(Guid studentId, Guid lessonId, StudentLessonForCreation studentLesson, bool trackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
+         ?? throw new StudentNotFoundException(studentId);
+        _ = _repository.Lesson.GetLesson(lessonId, trackChanges: false)
+        ?? throw new LessonNotFounException(lessonId);
+        var studentLessonEntity = _mapper.Map<StudentLesson>(studentLesson);
+        _repository.StudentLesson.CreateLessonForStudent(studentId, lessonId, studentLessonEntity);
+        _repository.Save();
+
+        var studentLessonToReturn = _mapper.Map<StudentLessonDto>(studentLessonEntity);
+        return studentLessonToReturn;
+    }
+
+    public void DeleteStudentLesson(Guid id, Guid studentId, bool trackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
+        ?? throw new StudentNotFoundException(studentId);
+
+
+        var studentLesson = _repository.StudentLesson.GetStudentLessonByStudentId(id,studentId, trackChanges: false)
+         ?? throw new StudentNotFoundException(id);
+        _repository.StudentLesson.DeleteStudentLesson(studentLesson);
+        _repository.Save();
+
+
     }
 }

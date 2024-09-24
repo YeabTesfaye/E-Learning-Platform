@@ -25,4 +25,7 @@ public class StudentQuizAttemptRepository : RepositoryBase<StudentQuizAttempt>, 
         studentQuizAttempt.QuizId = quizId;
         Create(studentQuizAttempt);
     }
+
+    public void DeleteAttempt(StudentQuizAttempt studentQuizAttempt)
+    => Delete(studentQuizAttempt);
 }

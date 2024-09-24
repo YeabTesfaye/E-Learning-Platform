@@ -39,4 +39,11 @@ public class QuizQuestionController : ControllerBase
       return CreatedAtRoute("QuestionById", new { quizId, questionId = question.Id }, question);
    }
 
+   [HttpDelete("{questionId:guid}")]
+   public IActionResult DeleteQuizQuestion([FromRoute] Guid quizId, [FromRoute] Guid questionId)
+   {
+      _service.QuizQuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
+      return NoContent();
+   }
+
 }

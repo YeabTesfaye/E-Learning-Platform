@@ -10,5 +10,5 @@ public interface IModuleService
     ModuleDto GetModule(Guid Id, Guid courseId, bool trackChanges);
     ModuleDto CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges);
     void UpdateModule(Module module);
-    void DeleteModule(Guid moduleId);
+    void DeleteModule(Guid Id,Guid courseId,bool trackChanges);
 }

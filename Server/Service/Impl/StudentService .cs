@@ -30,9 +30,13 @@ public sealed class StudentService : IStudentService
         return studentToEntity;
     }
 
-    public void DeleteStudent(Guid id)
+    public void DeleteStudent(Guid id, bool trackChanges)
     {
-        throw new NotImplementedException();
+        var student = _repository.Student.GetStudent(id, trackChanges: false)
+        ?? throw new StudentNotFoundException(id);
+
+        _repository.Student.DeleteStudent(student);
+        _repository.Save();
     }
 
     public IEnumerable<StudentDto> GetAllStudents(bool trackChanges)

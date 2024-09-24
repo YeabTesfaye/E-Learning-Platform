@@ -9,5 +9,6 @@ public interface IQuizQuestionService
     QuizQuestionDto GetQuestion(Guid quizId, Guid quesionId, bool trackChanges);
 
     QuizQuestionDto CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges);
+    void DeleteQuizQuestion(Guid Id, Guid quizId,bool trackChanges);
 
 }

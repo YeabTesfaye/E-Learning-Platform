@@ -10,6 +10,6 @@ public interface ICourseService
     CourseDto GetCourse(Guid id, bool trackChanges);
     CourseDto CreateCourse(CourseForCreationDto course);
     void UpdateCourse(Course course);
-    void DeleteCourse(Guid id);
+    void DeleteCourse(Guid id,bool trackChanges);
 
 }

@@ -32,9 +32,13 @@ public sealed class CourseService : ICourseService
         return courseToReturn;
     }
 
-    public void DeleteCourse(Guid id)
+    public void DeleteCourse(Guid id, bool trackChanges)
     {
-        throw new NotImplementedException();
+        var course = _repository.Course.GetCourse(id, trackChanges: false)
+        ?? throw new CourseNotFoundException(id);
+
+        _repository.Course.DeleteCourse(course);
+        _repository.Save();
     }
 
     public IEnumerable<CourseDto> GetAllCourses(bool trackChanges)
@@ -47,10 +51,10 @@ public sealed class CourseService : ICourseService
 
     public CourseDto GetCourse(Guid id, bool trackChanges)
     {
-       var course = _repository.Course.GetCourse(id, trackChanges) 
-       ?? throw new CourseNotFoundException(id);
+        var course = _repository.Course.GetCourse(id, trackChanges)
+        ?? throw new CourseNotFoundException(id);
         var courseDto = _mapper.Map<CourseDto>(course);
-       return courseDto;
+        return courseDto;
     }
 
     public void UpdateCourse(Course course)

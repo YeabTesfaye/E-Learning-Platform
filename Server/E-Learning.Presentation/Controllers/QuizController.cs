@@ -18,7 +18,7 @@ public class QuizController : ControllerBase
     }
 
     [HttpGet("{quizId:guid}", Name = "QuizById")]
-    public IActionResult GetQuizForCourse([FromRoute] Guid courseId,[FromRoute] Guid quizId)
+    public IActionResult GetQuizForCourse([FromRoute] Guid courseId, [FromRoute] Guid quizId)
     {
         var quiz = _service.QuizService.GetQuiz(quizId, courseId, trackChanges: false);
         return Ok(quiz);
@@ -33,6 +33,12 @@ public class QuizController : ControllerBase
         var createdQuiz = _service.QuizService.CreateQuiz(courseId, quiz, trackChanges: false);
 
         return CreatedAtRoute("QuizById", new { quizId = createdQuiz.Id, courseId }, createdQuiz);
+    }
+    [HttpDelete("{quizId:guid}")]
+    public IActionResult DeleteQuiz([FromRoute] Guid quizId, [FromRoute] Guid courseId)
+    {
+        _service.QuizService.DeleteQuiz(quizId, courseId, trackChanges: false);
+        return NoContent();
     }
 
 }

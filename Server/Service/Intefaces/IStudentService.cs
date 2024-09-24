@@ -10,5 +10,5 @@ public interface IStudentService
     StudentDto GetStudent(Guid id, bool trackChanges);
     StudentDto CreateStudent(StudentForCreation student);
     void UpdateStudent(Student student);
-    void DeleteStudent(Guid id);
+    void DeleteStudent(Guid id, bool trackChanges);
 }

@@ -31,4 +31,10 @@ public class CourseController : ControllerBase
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id },
                createdCourse);
     }
+    [HttpDelete("{courseId:guid}")]
+    public IActionResult DeleteCourse([FromRoute] Guid courseId)
+    {
+        _service.CourseService.DeleteCourse(courseId, trackChanges: false);
+        return NoContent();
+    }
 }

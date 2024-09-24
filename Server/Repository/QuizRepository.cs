@@ -9,11 +9,14 @@ public class QuizRepository : RepositoryBase<Quiz>, IQuizRepository
     {
     }
 
-    public void CreateQuizForCourse( Guid courseId, Quiz quiz)
+    public void CreateQuizForCourse(Guid courseId, Quiz quiz)
     {
-        quiz.CourseId  = courseId;
+        quiz.CourseId = courseId;
         Create(quiz);
     }
+
+    public void DeleteQuiz(Quiz quiz)
+    => Delete(quiz);
 
     public Quiz? GetQuiz(Guid Id, Guid courseId, bool trackChanges)
     => FindByCondition(q => q.Id.Equals(Id) && q.CourseId.Equals(courseId), trackChanges)

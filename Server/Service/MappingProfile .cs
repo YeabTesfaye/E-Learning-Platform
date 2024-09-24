@@ -13,9 +13,9 @@ public class MappingProfile : Profile
         CreateMap<Student, StudentDto>()
         .ForMember(dest =>
          dest.FullName, src => src.MapFrom(x => x.FirstName + " " + x.LastName))
-         .ForMember( dest => dest.Email, src => src.MapFrom(x => x.EmailAddress));
+         .ForMember(dest => dest.Email, src => src.MapFrom(x => x.EmailAddress));
 
-         
+
         CreateMap<Course, CourseDto>();
         CreateMap<Module, ModuleDto>().ReverseMap();
         CreateMap<Enrolment, EnrolmentDto>();
@@ -26,16 +26,18 @@ public class MappingProfile : Profile
         CreateMap<StudentLesson, StudentLessonDto>();
         CreateMap<StudentQuizAttempt, StudentQuizAttemptDto>();
 
-        CreateMap<StudentForCreation,Student>()
+        CreateMap<StudentForCreation, Student>()
         .ForMember(dest => dest.EmailAddress, src => src.MapFrom(x => x.Email));
-        CreateMap<CourseForCreationDto,Course>();
-        CreateMap<ModuleForCreation, ModuleDto>();
-        CreateMap<LessonForCreation,Lesson>();
-        CreateMap<EnrolmentForCreation,Enrolment>();
+        CreateMap<CourseForCreationDto, Course>();
+        CreateMap<ModuleForCreation, Module>();
+        CreateMap<ModuleForCreation,ModuleDto>();
+        CreateMap<LessonForCreation, Lesson>();
+        CreateMap<EnrolmentForCreation, Enrolment>();
         CreateMap<QuizForCreation, Quiz>();
         CreateMap<QuizQuestionForCreation, QuizQuestion>();
         CreateMap<StudentQuizAttemptForCreation, StudentQuizAttempt>();
         CreateMap<QuizAnswerForCreation, QuizAnswer>();
+        CreateMap<StudentLessonForCreation,StudentLesson>();
 
 
     }

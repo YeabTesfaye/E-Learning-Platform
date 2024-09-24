@@ -15,9 +15,12 @@ namespace Repository
       Create(module);
     }
 
+    public void DeleteModule(Module module)
+    => Delete(module);
+
     public Module? GetModule(Guid Id, Guid courseId, bool trackChanges)
-    => FindByCondition(m => m.Id.Equals(Id) && m.CourseId.Equals(courseId), trackChanges)
-      .SingleOrDefault();
+=> FindByCondition(m => m.Id.Equals(Id) && m.CourseId.Equals(courseId), trackChanges)
+  .SingleOrDefault();
 
     public Module? GetModule(Guid Id, bool trackChanges)
      => FindByCondition(m => m.Id.Equals(Id), trackChanges)

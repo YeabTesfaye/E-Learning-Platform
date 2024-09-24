@@ -38,6 +38,13 @@ public class StudentQuizAttemptController : ControllerBase
 
         var createdAttempt = _service.StudentQuizAttemptService.CreateAttempt(studentId, quizId, studentQuizAttempt, trackChanges: false);
 
-        return CreatedAtRoute("QuizAttemptById", new { attemptId = createdAttempt.Id }, createdAttempt);
+        return CreatedAtRoute("QuizAttemptById", new { studentId, attemptId = createdAttempt.Id }, createdAttempt);
+    }
+
+    [HttpDelete("{attemptId:guid}")]
+    public IActionResult DeleteAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId)
+    {
+        _service.StudentQuizAttemptService.DeleteStudentQuizAttempt(attemptId, studentId, trackChanges: false);
+        return NoContent();
     }
 }

@@ -15,10 +15,13 @@ public class QuizQuestionRepository : RepositoryBase<QuizQuestion>, IQuizQuestio
     Create(question);
   }
 
-  public IEnumerable<QuizQuestion> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
+    public void DeleteQuizQuestion(QuizQuestion quizQuestion)
+    => Delete(quizQuestion);
+
+    public IEnumerable<QuizQuestion> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
   => [.. FindByCondition(q => q.QuizId.Equals(quizId), trackChanges).OrderBy(q => q.QuestionTitle)];
 
-  public QuizQuestion? GetQuizQuestion(Guid quizId, Guid questionId, bool trackChanges)
+  public QuizQuestion? GetQuizQuestion( Guid questionId,Guid quizId, bool trackChanges)
     => FindByCondition(q => q.QuizId.Equals(quizId) && q.Id.Equals(questionId), trackChanges)
       .OrderBy(q => q.QuestionTitle)
       .SingleOrDefault();

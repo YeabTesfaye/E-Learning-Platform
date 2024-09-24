@@ -47,6 +47,18 @@ public class LessonService : ILessonService
         var lessonToReturn = _mapper.Map<LessonDto>(lessonEntity);
         return lessonToReturn;
     }
+
+    public void DeleteLesson(Guid id, Guid moduleId, bool trackChanges)
+    {
+        _ = _repository.Module.GetModule(moduleId, trackChanges: false)
+    ?? throw new ModuleNotFoundException(moduleId);
+
+        var lesson = _repository.Lesson.GetLesson(id, moduleId, trackChanges: false)
+         ?? throw new LessonNotFounException(id);
+
+         _repository.Lesson.DeleteLesson(lesson);
+         _repository.Save();
+    }
 }
 
 

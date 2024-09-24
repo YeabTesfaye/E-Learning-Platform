@@ -9,4 +9,5 @@ public interface IQuizAnswerService
     QuizAnswerDto GetAnswerById(Guid questionId, Guid answerId, bool trackChanges);
 
     QuizAnswerDto CreateAnswer(Guid questionId, QuizAnswerForCreation quizAnswer, bool trackChanges);
+    void DeleteQuizAnswer(Guid id, Guid questionId,bool trackChanges);
 }

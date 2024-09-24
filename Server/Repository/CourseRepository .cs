@@ -13,6 +13,9 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
     public void CreateCourse(Course course)
     => Create(course);
 
+    public void DeleteCourse(Course course)
+    => Delete(course);
+
     public IEnumerable<Course> GetAllCourses(bool trackChanges)
     {
         return [.. FindAll(trackChanges).OrderBy(c => c.Name)];

@@ -30,9 +30,15 @@ public class StudentController : ControllerBase
     {
         if (student is null)
             return BadRequest("StudentForCreation object is null");
-       
+
         var createdStudent = _service.StudentService.CreateStudent(student);
         return CreatedAtRoute("StudentById", new { id = createdStudent.Id },
         createdStudent);
+    }
+    [HttpDelete("{studentId:guid}")]
+    public IActionResult DeleteStudent([FromRoute] Guid studentId)
+    {
+        _service.StudentService.DeleteStudent(studentId, trackChanges: false);
+        return NoContent();
     }
 }

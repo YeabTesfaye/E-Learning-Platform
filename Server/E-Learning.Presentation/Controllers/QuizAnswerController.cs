@@ -34,13 +34,17 @@ public class QuizAnswerController : ControllerBase
         if (quizAnswer is null)
             return BadRequest("QuizAnswerForCreation object is null");
 
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
 
         var quizAnswerToReturn = _service.QuizAnswerService.CreateAnswer(questionId, quizAnswer, trackChanges: false);
 
         // Return CreatedAtRoute with the correct route and newly created answer's id
         return CreatedAtRoute("AnswerById", new { questionId, answerId = quizAnswerToReturn.Id }, quizAnswerToReturn);
+    }
+    [HttpDelete("{answerId:guid}")]
+    public IActionResult DeleteQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId)
+    {
+        _service.QuizAnswerService.DeleteQuizAnswer(answerId, questionId, trackChanges: false);
+        return NoContent();
     }
 
 }

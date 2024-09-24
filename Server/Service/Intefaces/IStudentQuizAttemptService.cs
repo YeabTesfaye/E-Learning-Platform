@@ -9,4 +9,5 @@ public interface IStudentQuizAttemptService
     StudentQuizAttemptDto GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges);
     StudentQuizAttemptDto CreateAttempt(Guid studentId, Guid quizId,
     StudentQuizAttemptForCreation studentQuizAttempt, bool trackChanges);
+    void DeleteStudentQuizAttempt(Guid id,Guid studentId,bool trackChanges);
 }

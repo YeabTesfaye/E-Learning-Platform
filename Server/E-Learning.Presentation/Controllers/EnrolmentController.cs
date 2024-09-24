@@ -37,4 +37,11 @@ public class EnrolmentController : ControllerBase
       return CreatedAtRoute("GetEnrolmentById", new { Id = enrolmentToReturn.Id, studentId, courseId }, enrolmentToReturn);
    }
 
+   [HttpDelete("{enrolmentId:guid}")]
+   public IActionResult DeleteEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId, Guid enrolmentId)
+   {
+      _service.EnrolmentService.DeleteEnrolment(enrolmentId, studentId, courseId, trackChanges: false);
+      return NoContent();
+   }
+
 }

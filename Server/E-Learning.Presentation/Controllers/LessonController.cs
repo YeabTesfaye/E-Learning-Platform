@@ -36,6 +36,13 @@ public class LessonController : ControllerBase
         // Ensure route parameters are named the same as in the route definition (Id = Id, moduleId = moduleId)
         return CreatedAtRoute("LessonById", new { Id = lessonToReturn.Id, moduleId }, lessonToReturn);
     }
+    [HttpDelete("{lessonId:guid}")]
+
+    public IActionResult DeleteLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId)
+    {
+        _service.LessonService.DeleteLesson(lessonId, moduleId, trackChanges: false);
+        return NoContent();
+    }
 
 
 }

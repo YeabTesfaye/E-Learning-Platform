@@ -24,18 +24,33 @@ public class EnrolmentService : IEnrolmentService
 
     public EnrolmentDto CreateEnrolment(Guid studentId, Guid courseId, EnrolmentForCreation enrolment, bool trackChanges)
     {
-        _ = _repository.Student.GetStudent(studentId, trackChanges:false) 
+        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
         ?? throw new StudentNotFoundException(studentId);
 
         _ = _repository.Course.GetCourse(courseId, trackChanges: false)
          ?? throw new CourseNotFoundException(courseId);
 
-         var enrolmentEntity = _mapper.Map<Enrolment>(enrolment);
-         _repository.Enrolment.CreateEnrolment(studentId,courseId,enrolmentEntity);
-         _repository.Save();
+        var enrolmentEntity = _mapper.Map<Enrolment>(enrolment);
+        _repository.Enrolment.CreateEnrolment(studentId, courseId, enrolmentEntity);
+        _repository.Save();
 
-         var enrolmentToReturn = _mapper.Map<EnrolmentDto>(enrolmentEntity);
-         return enrolmentToReturn;
+        var enrolmentToReturn = _mapper.Map<EnrolmentDto>(enrolmentEntity);
+        return enrolmentToReturn;
+    }
+
+    public void DeleteEnrolment(Guid id, Guid studentId, Guid courseId, bool trackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
+       ?? throw new StudentNotFoundException(studentId);
+
+        _ = _repository.Course.GetCourse(courseId, trackChanges: false)
+          ?? throw new CourseNotFoundException(courseId);
+
+        var enrolment = _repository.Enrolment.GetEnrolment(id, studentId, courseId, trackChanges: false)
+        ?? throw new EnrolmentNotFoundException(id);
+
+        _repository.Enrolment.DeleteEnrolment(enrolment);
+        _repository.Save();
     }
 
     public EnrolmentDto GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)

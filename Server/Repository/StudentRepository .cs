@@ -11,6 +11,10 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
 
     public void CreatStudent(Student student)
     => Create(student);
+
+    public void DeleteStudent(Student student)
+    => Delete(student);
+
     public IEnumerable<Student> GetAllStudents(bool trackChanges)
     {
         return [.. FindAll(trackChanges).OrderBy(s => s.FirstName)];

@@ -26,4 +26,7 @@ public class QuizAnswerRepository : RepositoryBase<QuizAnswer>, IQuizAnswerRepos
         quizAnswer.QuestionId = questionId;
         Create(quizAnswer);
     }
+
+    public void DeleteQuizAnswer(QuizAnswer quizAnswer)
+    => Delete(quizAnswer);
 }

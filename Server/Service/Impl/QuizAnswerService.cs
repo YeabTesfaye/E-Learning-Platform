@@ -39,10 +39,22 @@ public class QuizAnswerService : IQuizAnswerService
         ?? throw new QuestionNotFoundException(questionId);
         var answerEntity = _mapper.Map<QuizAnswer>(quizAnswer);
 
-        _repository.QuizAnswer.CreateAnswer(questionId,answerEntity);
+        _repository.QuizAnswer.CreateAnswer(questionId, answerEntity);
         _repository.Save();
 
         var quizToReturn = _mapper.Map<QuizAnswerDto>(answerEntity);
         return quizToReturn;
+    }
+
+    public void DeleteQuizAnswer(Guid id, Guid questionId, bool trackChanges)
+    {
+        _ = _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
+                ?? throw new QuestionNotFoundException(questionId);
+
+        var quizAnswer = _repository.QuizAnswer.GetAnswerById(questionId, id, trackChanges: false)
+         ?? throw new AnswerNotFoundException(id);
+
+        _repository.QuizAnswer.DeleteQuizAnswer(quizAnswer);
+        _repository.Save();
     }
 }

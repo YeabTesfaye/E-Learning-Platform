@@ -9,5 +9,6 @@ public interface IModuleRepository
         Module? GetModule(Guid Id, Guid courseId, bool trackChanges);
         Module? GetModule(Guid Id,bool trackChanges);
         void CreateModuleForCourse(Guid courseId, Module module);
+        void DeleteModule(Module module);
 
 }

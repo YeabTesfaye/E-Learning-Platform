@@ -5,6 +5,7 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -57,8 +58,11 @@ public sealed class CourseService : ICourseService
         return courseDto;
     }
 
-    public void UpdateCourse(Course course)
+    public void UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
     {
-        throw new NotImplementedException();
+        var courseEntity = _repository.Course.GetCourse(Id,trackChanges) 
+        ?? throw new CourseNotFoundException(Id);
+        _mapper.Map(courseForUpdate,courseEntity);
+        _repository.Save();
     }
 }

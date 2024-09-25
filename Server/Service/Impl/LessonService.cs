@@ -5,6 +5,7 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -56,8 +57,21 @@ public class LessonService : ILessonService
         var lesson = _repository.Lesson.GetLesson(id, moduleId, trackChanges: false)
          ?? throw new LessonNotFounException(id);
 
-         _repository.Lesson.DeleteLesson(lesson);
-         _repository.Save();
+        _repository.Lesson.DeleteLesson(lesson);
+        _repository.Save();
+    }
+
+    public void UpdateLesson(Guid Id, Guid moduleId, LessonForUpdateDto lessonForUpdate,
+     bool moduleTrackChanges, bool lessonTrackChanges)
+    {
+        _ = _repository.Module.GetModule(moduleId, moduleTrackChanges)
+        ?? throw new ModuleNotFoundException(moduleId);
+
+        var lessonEntity = _repository.Lesson.GetLesson(Id, lessonTrackChanges)
+        ?? throw new LessonNotFounException(Id);
+
+        _mapper.Map(lessonForUpdate, lessonEntity);
+        _repository.Save();
     }
 }
 

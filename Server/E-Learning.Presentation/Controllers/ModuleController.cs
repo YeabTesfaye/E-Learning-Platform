@@ -1,11 +1,11 @@
-using System.Security.AccessControl;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
-[Route("/api/course/{courseId}/module")]
+[Route("/api/course/{courseId}/modules")]
 [ApiController]
 public class ModuleController : ControllerBase
 {
@@ -42,6 +42,11 @@ public class ModuleController : ControllerBase
     public IActionResult DeleteModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId)
     {
         _service.ModuleService.DeleteModule(moduleId, courseId, trackChanges: false);
+        return NoContent();
+    }
+    [HttpPut("{moduleId:guid}")]
+    public IActionResult UpdateModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId, ModuleForUpdateDto moduleForUpdate){
+        _service.ModuleService.UpdateModule(moduleId,courseId,moduleForUpdate,courseTrackChanges:false,moduleTrackChanges:true);
         return NoContent();
     }
 

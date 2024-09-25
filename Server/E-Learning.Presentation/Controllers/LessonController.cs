@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -41,6 +42,12 @@ public class LessonController : ControllerBase
     public IActionResult DeleteLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId)
     {
         _service.LessonService.DeleteLesson(lessonId, moduleId, trackChanges: false);
+        return NoContent();
+    }
+    [HttpPut("{lessonId:guid}")]
+    public IActionResult UpdateLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId, LessonForUpdateDto lessonForUpdate)
+    {
+        _service.LessonService.UpdateLesson(lessonId, moduleId, lessonForUpdate, moduleTrackChanges: false, lessonTrackChanges: true);
         return NoContent();
     }
 

@@ -5,6 +5,7 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -55,10 +56,13 @@ public sealed class StudentService : IStudentService
         return studentDto;
     }
 
-    public void UpdateStudent(Student student)
+
+    public void UpdateStudent(Guid Id, StudentForUpdateDto studentForUpdate, bool trackChanges)
     {
-        throw new NotImplementedException();
+        var studentEntity = _repository.Student.GetStudent(Id, trackChanges)
+         ?? throw new StudentNotFoundException(Id);
+
+        _mapper.Map(studentForUpdate, studentEntity);
+        _repository.Save();
     }
-
-
 }

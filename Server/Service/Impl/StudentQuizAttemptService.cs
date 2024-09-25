@@ -2,10 +2,10 @@ using AutoMapper;
 using Contracts;
 using Entities;
 using Entities.Exceptions;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -54,12 +54,24 @@ public class StudentQuizAttemptService : IStudentQuizAttemptService
     {
         _ = _repository.Student.GetStudent(studentId, trackChanges: false)
        ?? throw new StudentNotFoundException(studentId);
-   
+
 
         var studentQuizAttempt = _repository.StudentQuizAttempt.GetAttemptById(studentId, id, trackChanges: false)
         ?? throw new QuizNotFoundException(id);
 
         _repository.StudentQuizAttempt.DeleteAttempt(studentQuizAttempt);
+        _repository.Save();
+    }
+
+    public void UpdateStudentQuizAttempt(Guid Id, Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttemptForUpdate,
+    bool quizTrackChanges, bool studentTrackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, studentTrackChanges)
+        ?? throw new StudentNotFoundException(studentId);
+
+        var quizAttemptEntity = _repository.StudentQuizAttempt.GetAttemptById(studentId,Id,quizTrackChanges)
+         ?? throw new QuizAttemptNotFoundException(Id);
+        _mapper.Map(studentQuizAttemptForUpdate,quizAttemptEntity);
         _repository.Save();
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -31,10 +32,17 @@ public class CourseController : ControllerBase
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id },
                createdCourse);
     }
-    [HttpDelete("{courseId:guid}")]
-    public IActionResult DeleteCourse([FromRoute] Guid courseId)
+    [HttpDelete("{Id:guid}")]
+    public IActionResult DeleteCourse([FromRoute] Guid Id)
     {
-        _service.CourseService.DeleteCourse(courseId, trackChanges: false);
+        _service.CourseService.DeleteCourse(Id, trackChanges: false);
+        return NoContent();
+    }
+
+    [HttpPut("{Id:guid}")]
+    public IActionResult UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)
+    {
+        _service.CourseService.UpdateCourse(Id, courseForUpdate, trackChanges: true);
         return NoContent();
     }
 }

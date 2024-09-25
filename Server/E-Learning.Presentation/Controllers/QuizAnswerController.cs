@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -44,6 +45,11 @@ public class QuizAnswerController : ControllerBase
     public IActionResult DeleteQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId)
     {
         _service.QuizAnswerService.DeleteQuizAnswer(answerId, questionId, trackChanges: false);
+        return NoContent();
+    }
+    [HttpPut("{answerId:guid}")]
+    public IActionResult UpdateQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate){
+        _service.QuizAnswerService.UpdateQuizAnswer(answerId,questionId,quizAnswerForUpdate,questionTrackChanges:false,quizTrackChanges:true);
         return NoContent();
     }
 

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 [Route("/api/course/{courseId}/quiz")]
@@ -40,5 +41,12 @@ public class QuizController : ControllerBase
         _service.QuizService.DeleteQuiz(quizId, courseId, trackChanges: false);
         return NoContent();
     }
+    [HttpPut("{quizId:guid}")]
+    public IActionResult UpdateQuiz([FromRoute] Guid quizId, [FromRoute] Guid courseId, QuizForUpdateDto quizForUpdate)
+    {
+        _service.QuizService.UpdateQuiz(quizId, courseId, quizForUpdate, courseTrackChanges: false, quizTrackChanges: true);
+        return NoContent();
+    }
+
 
 }

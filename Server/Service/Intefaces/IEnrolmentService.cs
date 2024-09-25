@@ -1,5 +1,6 @@
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Intefaces;
 
@@ -9,4 +10,6 @@ public interface IEnrolmentService
     EnrolmentDto GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges);
     EnrolmentDto CreateEnrolment(Guid studentId, Guid courseId, EnrolmentForCreation enrolment, bool trackChanges);
     void DeleteEnrolment(Guid id, Guid studentId, Guid courseId, bool trackChanges);
+    void UpdateEnrolment(Guid Id, Guid studentId, Guid courseId, EnrolmentForUpdateDto enrolmentForUpdate,
+     bool enrolmentTrackChanges, bool studentTrackChanges, bool courseTrackChanges);
 }

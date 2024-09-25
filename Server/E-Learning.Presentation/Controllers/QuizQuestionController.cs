@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -15,15 +16,14 @@ public class QuizQuestionController : ControllerBase
    [HttpGet]
    public IActionResult GetQuestionsForQuiz(Guid quizId)
    {
-      return Ok();
-      // var questions = _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
-      // return Ok(questions);
+      var questions = _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
+      return Ok(questions);
    }
 
    [HttpGet("{questionId:guid}", Name = "QuestionById")]
    public IActionResult GetQuestionForQuiz([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
-      var question = _service.QuizQuestionService.GetQuestion(quizId, questionId, trackChanges: false);
+      var question = _service.QuizQuestionService.GetQuestion(questionId, quizId, trackChanges: false);
       return Ok(question);
    }
 
@@ -45,5 +45,13 @@ public class QuizQuestionController : ControllerBase
       _service.QuizQuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
       return NoContent();
    }
+   [HttpPut("{questionId:guid}")]
+   public IActionResult UpdateQuizQuesion([FromRoute] Guid quizId, [FromRoute] Guid questionId, QuizQuestionForUpdateDto quizQuestionForUpdate)
+   {
+      _service.QuizQuestionService.UpdateQuizQuestion(questionId, quizId, quizQuestionForUpdate, quizTrackChanges: false, questionTrackChanges: true);
+      return NoContent();
+
+   }
+
 
 }

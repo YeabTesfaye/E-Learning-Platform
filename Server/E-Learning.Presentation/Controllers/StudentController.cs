@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -39,6 +40,14 @@ public class StudentController : ControllerBase
     public IActionResult DeleteStudent([FromRoute] Guid studentId)
     {
         _service.StudentService.DeleteStudent(studentId, trackChanges: false);
+        return NoContent();
+    }
+
+    [HttpPut("{studentId:guid}")]
+
+    public IActionResult UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
+    {
+        _service.StudentService.UpdateStudent(studentId, studentForUpdate, trackChanges: true);
         return NoContent();
     }
 }

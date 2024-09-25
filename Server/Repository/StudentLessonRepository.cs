@@ -15,9 +15,9 @@ public class StudentLessonRepository : RepositoryBase<StudentLesson>, IStudentLe
                .ToList();
     }
 
-    public StudentLesson? GetLessonById(Guid studentId, Guid lessonId, bool trackChanges)
+    public StudentLesson? StGetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
     {
-        return FindByCondition(sl => sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId), trackChanges)
+        return FindByCondition(sl => sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId) && sl.Id.Equals(Id), trackChanges)
                .SingleOrDefault();
     }
 
@@ -32,7 +32,7 @@ public class StudentLessonRepository : RepositoryBase<StudentLesson>, IStudentLe
     public void DeleteStudentLesson(StudentLesson studentLesson)
     => Delete(studentLesson);
 
-    public StudentLesson? GetStudentLessonByStudentId(Guid Id,Guid studentId, bool trackChanges)
-    => FindByCondition(sl => sl.Id.Equals(Id)&&sl.StudentId.Equals(studentId), trackChanges)
+    public StudentLesson? GetStudentLessonByStudentId(Guid Id, Guid studentId, bool trackChanges)
+    => FindByCondition(sl => sl.Id.Equals(Id) && sl.StudentId.Equals(studentId), trackChanges)
         .SingleOrDefault();
 }

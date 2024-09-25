@@ -5,6 +5,7 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -65,13 +66,18 @@ public sealed class ModuleService : IModuleService
         return moduleDto;
     }
 
-    public void UpdateModule(Module module)
-    {
-        throw new NotImplementedException();
-    }
 
-    public void UpdateModule(System.Reflection.Module module)
+
+
+
+    public void UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
     {
-        throw new NotImplementedException();
+        _ = _repository.Course.GetCourse(courseId, courseTrackChanges)
+         ?? throw new CourseNotFoundException(courseId);
+
+        var moduleEntity = _repository.Module.GetModule(Id, courseId, moduleTrackChanges)
+        ?? throw new ModuleNotFoundException(Id);
+        _mapper.Map(moduleForUpdate,moduleEntity);
+        _repository.Save();
     }
 }

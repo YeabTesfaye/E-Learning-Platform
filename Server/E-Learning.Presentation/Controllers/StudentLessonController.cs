@@ -1,13 +1,11 @@
-using System.Security.AccessControl;
-using Entities.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Service.Intefaces;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
-[Route("/api/student/{studentId}/lessons")]
+[Route("/api/student/{studentId}/lessons/{lessonId}/stlesson")]
 [ApiController]
 public class StudentLessonController : ControllerBase
 {
@@ -23,13 +21,13 @@ public class StudentLessonController : ControllerBase
     }
 
     // Get a specific lesson completed by studentId and lessonId
-    [HttpGet("{lessonId:guid}", Name = "StudentLessonById")]
-    public IActionResult GetLessonById([FromRoute] Guid studentId, [FromRoute] Guid lessonId)
+    [HttpGet("{stlessonId:guid}", Name = "StudentLessonById")]
+    public IActionResult GetLessonById([FromRoute] Guid stlessonId, [FromRoute] Guid studentId, [FromRoute] Guid lessonId)
     {
-        var lesson = _service.StudentLessonService.GetLessonById(studentId, lessonId, trackChanges: false);
+        var lesson = _service.StudentLessonService.GetLesson(stlessonId, studentId, lessonId, trackChanges: false);
         return Ok(lesson);
     }
-    [HttpPost("{lessonId:guid}")]
+    [HttpPost]
     public IActionResult CreateStudentLesson([FromRoute] Guid studentId, [FromRoute] Guid lessonId,
     [FromBody] StudentLessonForCreation studentLesson)
     {
@@ -42,10 +40,19 @@ public class StudentLessonController : ControllerBase
         return CreatedAtRoute("StudentLessonById", new { studentId, lessonId = createdStudentLesson.Id }, createdStudentLesson);
     }
     [HttpDelete("{sudentLessonId:guid}")]
-    public IActionResult DeleteStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid studentId)
+    public IActionResult DeleteStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId)
     {
-        _service.StudentLessonService.DeleteStudentLesson(sudentLessonId, studentId, trackChanges: false);
+        _service.StudentLessonService.DeleteStudentLesson(sudentLessonId, lessonId, studentId, trackChanges: false);
         return NoContent();
     }
+    [HttpPut("{sudentLessonId:guid}")]
+    public IActionResult UpdateStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
+     StudentLessonForUpdateDto studentLessonForUpdate)
+    {
+        _service.StudentLessonService.UpdateStudntLesson(sudentLessonId, lessonId, studentId, studentLessonForUpdate,
+        stlTrackChanges: true, stuTrackChanges: false, lessonTrackChanges: false);
+        return NoContent();
+    }
+
 
 }

@@ -6,6 +6,7 @@ using LoggerService;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
+using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -78,6 +79,17 @@ public class EnrolmentService : IEnrolmentService
         return enrolmentDto;
     }
 
+    public void UpdateEnrolment(Guid Id, Guid studentId, Guid courseId, EnrolmentForUpdateDto enrolmentForUpdate,
+     bool enrolmentTrackChanges, bool studentTrackChanges, bool courseTrackChanges)
+    {
+        _ = _repository.Student.GetStudent(studentId, studentTrackChanges)
+         ?? throw new StudentNotFoundException(studentId);
 
+        _ = _repository.Course.GetCourse(courseId, courseTrackChanges)
+        ?? throw new CourseNotFoundException(courseId);
 
+        var enrolmentEntity = _repository.Enrolment.GetEnrolment(Id,studentId,courseId,enrolmentTrackChanges);
+        _mapper.Map(enrolmentForUpdate,enrolmentEntity);
+        _repository.Save();
+    }
 }

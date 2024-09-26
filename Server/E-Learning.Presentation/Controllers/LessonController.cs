@@ -31,6 +31,8 @@ public class LessonController : ControllerBase
     {
         if (lesson is null)
             return BadRequest("LessonForCreation object is null");
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
 
         var lessonToReturn = _service.LessonService.CreateLesson(moduleId, lesson, trackChanges: false);
 
@@ -47,6 +49,9 @@ public class LessonController : ControllerBase
     [HttpPut("{lessonId:guid}")]
     public IActionResult UpdateLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId, LessonForUpdateDto lessonForUpdate)
     {
+        if(!ModelState.IsValid){
+            return UnprocessableEntity(ModelState);
+        }
         _service.LessonService.UpdateLesson(lessonId, moduleId, lessonForUpdate, moduleTrackChanges: false, lessonTrackChanges: true);
         return NoContent();
     }

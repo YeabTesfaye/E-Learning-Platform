@@ -67,9 +67,6 @@ public sealed class ModuleService : IModuleService
     }
 
 
-
-
-
     public void UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
     {
         _ = _repository.Course.GetCourse(courseId, courseTrackChanges)

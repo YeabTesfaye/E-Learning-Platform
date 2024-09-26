@@ -95,14 +95,14 @@ namespace api.Migrations
                         {
                             Id = new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"),
                             CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
-                            EnrolmentDatetime = new DateTime(2024, 9, 19, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8505),
+                            EnrolmentDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2702),
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"),
                             CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
-                            EnrolmentDatetime = new DateTime(2024, 9, 19, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8508),
+                            EnrolmentDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2705),
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
                 });
@@ -358,16 +358,23 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Sex")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -378,18 +385,20 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e"),
+                            Age = 25,
                             EmailAddress = "john.doe@example.com",
                             FirstName = "John",
                             LastName = "Doe",
-                            Password = "hashedpassword1"
+                            Sex = "Male"
                         },
                         new
                         {
                             Id = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329"),
+                            Age = 18,
                             EmailAddress = "jane.smith@example.com",
                             FirstName = "Jane",
                             LastName = "Smith",
-                            Password = "hashedpassword2"
+                            Sex = "Female"
                         });
                 });
 
@@ -420,14 +429,14 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 9, 19, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8561),
+                            CompletedDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2765),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 9, 18, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8564),
+                            CompletedDatetime = new DateTime(2024, 9, 25, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2768),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
@@ -463,7 +472,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 9, 19, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8655),
+                            AttemptDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2861),
                             QuizId = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
                             ScoreAchieved = 85,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
@@ -471,7 +480,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 9, 19, 12, 50, 54, 787, DateTimeKind.Utc).AddTicks(8657),
+                            AttemptDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2864),
                             QuizId = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
                             ScoreAchieved = 90,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")

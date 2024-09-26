@@ -28,7 +28,14 @@ public class CourseController : ControllerBase
     [HttpPost]
     public IActionResult CreateCourse(CourseForCreationDto course)
     {
+        if (course is null)
+            return BadRequest("CourseForCreationDto object is null");
+
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         var createdCourse = _service.CourseService.CreateCourse(course);
+
+
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id },
                createdCourse);
     }
@@ -42,6 +49,8 @@ public class CourseController : ControllerBase
     [HttpPut("{Id:guid}")]
     public IActionResult UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)
     {
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         _service.CourseService.UpdateCourse(Id, courseForUpdate, trackChanges: true);
         return NoContent();
     }

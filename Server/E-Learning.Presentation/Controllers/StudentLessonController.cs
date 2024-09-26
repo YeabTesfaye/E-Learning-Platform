@@ -33,6 +33,10 @@ public class StudentLessonController : ControllerBase
     {
         if (studentLesson is null)
             return BadRequest("StudentLessonForCreation object is null");
+        if (!ModelState.IsValid)
+        {
+            return UnprocessableEntity(ModelState);
+        }
 
         var createdStudentLesson = _service.StudentLessonService.CreateStudentLesson(studentId, lessonId, studentLesson, trackChanges: false);
 
@@ -49,6 +53,8 @@ public class StudentLessonController : ControllerBase
     public IActionResult UpdateStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
      StudentLessonForUpdateDto studentLessonForUpdate)
     {
+        if(!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         _service.StudentLessonService.UpdateStudntLesson(sudentLessonId, lessonId, studentId, studentLessonForUpdate,
         stlTrackChanges: true, stuTrackChanges: false, lessonTrackChanges: false);
         return NoContent();

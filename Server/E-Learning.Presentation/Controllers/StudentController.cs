@@ -31,6 +31,10 @@ public class StudentController : ControllerBase
     {
         if (student is null)
             return BadRequest("StudentForCreation object is null");
+        if (!ModelState.IsValid)
+        {
+            return UnprocessableEntity(ModelState);
+        }
 
         var createdStudent = _service.StudentService.CreateStudent(student);
         return CreatedAtRoute("StudentById", new { id = createdStudent.Id },
@@ -47,6 +51,8 @@ public class StudentController : ControllerBase
 
     public IActionResult UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
     {
+        if(!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         _service.StudentService.UpdateStudent(studentId, studentForUpdate, trackChanges: true);
         return NoContent();
     }

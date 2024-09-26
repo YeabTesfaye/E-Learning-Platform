@@ -30,6 +30,9 @@ public class QuizController : ControllerBase
     {
         if (quiz is null)
             return BadRequest("QuizForCreation object is null");
+        if(!ModelState.IsValid){
+            return UnprocessableEntity(ModelState);
+        }
 
         var createdQuiz = _service.QuizService.CreateQuiz(courseId, quiz, trackChanges: false);
 
@@ -44,6 +47,8 @@ public class QuizController : ControllerBase
     [HttpPut("{quizId:guid}")]
     public IActionResult UpdateQuiz([FromRoute] Guid quizId, [FromRoute] Guid courseId, QuizForUpdateDto quizForUpdate)
     {
+        if(!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         _service.QuizService.UpdateQuiz(quizId, courseId, quizForUpdate, courseTrackChanges: false, quizTrackChanges: true);
         return NoContent();
     }

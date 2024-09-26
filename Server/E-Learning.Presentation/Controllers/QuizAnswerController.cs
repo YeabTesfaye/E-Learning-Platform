@@ -35,6 +35,11 @@ public class QuizAnswerController : ControllerBase
         if (quizAnswer is null)
             return BadRequest("QuizAnswerForCreation object is null");
 
+        if (!ModelState.IsValid)
+        {
+            return UnprocessableEntity(ModelState);
+        }
+
 
         var quizAnswerToReturn = _service.QuizAnswerService.CreateAnswer(questionId, quizAnswer, trackChanges: false);
 
@@ -48,8 +53,11 @@ public class QuizAnswerController : ControllerBase
         return NoContent();
     }
     [HttpPut("{answerId:guid}")]
-    public IActionResult UpdateQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate){
-        _service.QuizAnswerService.UpdateQuizAnswer(answerId,questionId,quizAnswerForUpdate,questionTrackChanges:false,quizTrackChanges:true);
+    public IActionResult UpdateQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate)
+    {
+        if(!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
+        _service.QuizAnswerService.UpdateQuizAnswer(answerId, questionId, quizAnswerForUpdate, questionTrackChanges: false, quizTrackChanges: true);
         return NoContent();
     }
 

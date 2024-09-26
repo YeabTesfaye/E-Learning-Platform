@@ -1,7 +1,5 @@
+using Shared.ManipulationDto;
+
 namespace Shared.DtoForUpdate;
 
-public class ModuleForUpdateDto
-{
-    public string? Name { get; set; }
-    public int Number { get; set; }
-}
+public class ModuleForUpdateDto: ModuleForManipulationDto;

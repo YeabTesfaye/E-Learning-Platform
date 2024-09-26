@@ -1,6 +1,5 @@
+using Shared.ManipulationDto;
+
 namespace Shared.DtoForUpdate;
 
-public class QuizQuestionForUpdateDto
-{
-    public string? QuestionTitle { get; set; }
-}
+public class QuizQuestionForUpdateDto : QuizQuestionForManipulationDto;

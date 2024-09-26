@@ -1,8 +1,5 @@
+using Shared.ManipulationDto;
+
 namespace Shared.DtoForUpdate;
 
-public class QuizAnswerForUpdateDto
-{
-    public string? AnswerText { get; set; }
-    public bool IsCorrect { get; set; }
-
-}
+public class QuizAnswerForUpdateDto : QuizAnswerForManipulationDto;

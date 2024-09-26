@@ -13,7 +13,9 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                 FirstName = "John",
                 LastName = "Doe",
                 EmailAddress = "john.doe@example.com",
-                Password = "hashedpassword1" 
+                Sex = "Male",
+                Age = 25
+
             },
             new Student
             {
@@ -21,7 +23,8 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                 FirstName = "Jane",
                 LastName = "Smith",
                 EmailAddress = "jane.smith@example.com",
-                Password = "hashedpassword2" 
+                Sex = "Female",
+                Age = 18
             }
         );
 }

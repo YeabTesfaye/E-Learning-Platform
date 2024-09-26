@@ -36,6 +36,10 @@ public class StudentQuizAttemptController : ControllerBase
     {
         if (studentQuizAttempt is null)
             return BadRequest("StudentQuizAttemptForCreation object is null");
+        if (!ModelState.IsValid)
+        {
+            return UnprocessableEntity(ModelState);
+        }
 
         var createdAttempt = _service.StudentQuizAttemptService.CreateAttempt(studentId, quizId, studentQuizAttempt, trackChanges: false);
 
@@ -51,6 +55,8 @@ public class StudentQuizAttemptController : ControllerBase
     [HttpPut("{attemptId:guid}")]
     public IActionResult UpdateAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttempt)
     {
+        if (!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
         _service.StudentQuizAttemptService.UpdateStudentQuizAttempt(attemptId, studentId, studentQuizAttempt,
          attemptTrackChanges: true, studentTrackChanges: false);
         return NoContent();

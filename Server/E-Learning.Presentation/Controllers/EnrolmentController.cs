@@ -32,6 +32,8 @@ public class EnrolmentController : ControllerBase
    {
       if (enrolment is null)
          return BadRequest("EnrolmentForCreation object is null");
+      if (!ModelState.IsValid)
+         return UnprocessableEntity(ModelState);
 
       var enrolmentToReturn = _service.EnrolmentService.CreateEnrolment(studentId, courseId, enrolment, trackChanges: false);
 
@@ -48,6 +50,10 @@ public class EnrolmentController : ControllerBase
    public IActionResult UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     Guid enrolmentId, EnrolmentForUpdateDto enrolmentForUpdate)
    {
+      if (!ModelState.IsValid)
+      {
+         return UnprocessableEntity(ModelState);
+      }
       _service.EnrolmentService.UpdateEnrolment(enrolmentId, studentId, courseId, enrolmentForUpdate, enrolmentTrackChanges: true,
       studentTrackChanges: false, courseTrackChanges: false);
       return NoContent();

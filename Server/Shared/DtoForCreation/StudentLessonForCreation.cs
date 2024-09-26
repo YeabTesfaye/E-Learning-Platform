@@ -1,7 +1,5 @@
+using Shared.ManipulationDto;
+
 namespace Shared.DtoForCreation;
 
-public class StudentLessonForCreation
-{
-    public DateTime CompletedDatetime { get; set; }
-
-}
+public class StudentLessonForCreation: StudentLessonForManipulationDto;

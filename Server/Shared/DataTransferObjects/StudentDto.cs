@@ -11,6 +11,10 @@ public class StudentDto
     public string Email { get; set; } = string.Empty;
     [DataMember]
     public string FullName { get; set; } = string.Empty;
+    [DataMember]
+    public string Sex { get; set; } = string.Empty;
+    [DataMember]
+    public int Age { get; set; }
 }
 
 

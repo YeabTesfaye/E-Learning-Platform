@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace Shared.DataTransferObjects;
 
-[DataContract] 
+[DataContract]
 public class ModuleDto
 {
     [DataMember]

@@ -30,6 +30,10 @@ public class ModuleController : ControllerBase
     {
         if (module is null)
             return BadRequest("ModuleForCreation object is null");
+        if (!ModelState.IsValid)
+        {
+            return UnprocessableEntity(ModelState);
+        }
 
         var moduleToReturn =
        _service.ModuleService.CreateModuleForCourse(courseId, module, trackChanges: false);
@@ -45,8 +49,11 @@ public class ModuleController : ControllerBase
         return NoContent();
     }
     [HttpPut("{moduleId:guid}")]
-    public IActionResult UpdateModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId, ModuleForUpdateDto moduleForUpdate){
-        _service.ModuleService.UpdateModule(moduleId,courseId,moduleForUpdate,courseTrackChanges:false,moduleTrackChanges:true);
+    public IActionResult UpdateModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId, ModuleForUpdateDto moduleForUpdate)
+    {
+        if(!ModelState.IsValid)
+            return UnprocessableEntity(ModelState);
+        _service.ModuleService.UpdateModule(moduleId, courseId, moduleForUpdate, courseTrackChanges: false, moduleTrackChanges: true);
         return NoContent();
     }
 

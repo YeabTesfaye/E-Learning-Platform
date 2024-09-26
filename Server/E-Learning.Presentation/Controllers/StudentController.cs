@@ -14,20 +14,20 @@ public class StudentController : ControllerBase
     public StudentController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    public IActionResult GetStudents()
+    public async Task<IActionResult> GetStudents()
     {
-        var students = _service.StudentService.GetAllStudents(trackChanges: false);
+        var students = await _service.StudentService.GetAllStudents(trackChanges: false);
         return Ok(students);
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]
-    public IActionResult GetStudent([FromRoute] Guid Id)
+    public async Task<IActionResult> GetStudent([FromRoute] Guid Id)
     {
-        var student = _service.StudentService.GetStudent(Id, trackChanges: false);
+        var student = await _service.StudentService.GetStudent(Id, trackChanges: false);
         return Ok(student);
     }
     [HttpPost]
-    public IActionResult CreateStudent([FromBody] StudentForCreation student)
+    public async Task<IActionResult> CreateStudent([FromBody] StudentForCreation student)
     {
         if (student is null)
             return BadRequest("StudentForCreation object is null");
@@ -36,24 +36,24 @@ public class StudentController : ControllerBase
             return UnprocessableEntity(ModelState);
         }
 
-        var createdStudent = _service.StudentService.CreateStudent(student);
+        var createdStudent = await _service.StudentService.CreateStudent(student);
         return CreatedAtRoute("StudentById", new { id = createdStudent.Id },
         createdStudent);
     }
     [HttpDelete("{studentId:guid}")]
-    public IActionResult DeleteStudent([FromRoute] Guid studentId)
+    public async Task<IActionResult> DeleteStudent([FromRoute] Guid studentId)
     {
-        _service.StudentService.DeleteStudent(studentId, trackChanges: false);
+        await _service.StudentService.DeleteStudent(studentId, trackChanges: false);
         return NoContent();
     }
 
     [HttpPut("{studentId:guid}")]
 
-    public IActionResult UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
+    public async Task<IActionResult> UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
-        _service.StudentService.UpdateStudent(studentId, studentForUpdate, trackChanges: true);
+        await _service.StudentService.UpdateStudent(studentId, studentForUpdate, trackChanges: true);
         return NoContent();
     }
 }

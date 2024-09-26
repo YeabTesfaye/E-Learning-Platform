@@ -12,5 +12,5 @@ public interface IRepositoryManager
     IQuizRepository Quiz {get;}
     IStudentLessonRepository StudentLesson {get;}
     IStudentQuizAttemptRepository StudentQuizAttempt {get;}
-    void Save();
+    Task SaveAsync();
 }

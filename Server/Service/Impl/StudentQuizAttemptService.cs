@@ -22,56 +22,56 @@ public class StudentQuizAttemptService : IStudentQuizAttemptService
         _mapper = mapper;
     }
 
-    public IEnumerable<StudentQuizAttemptDto> GetAttemptsByStudent(Guid studentId, bool trackChanges)
+    public async Task<IEnumerable<StudentQuizAttemptDto>> GetAttemptsByStudent(Guid studentId, bool trackChanges)
     {
-        var attempts = _repository.StudentQuizAttempt.GetAttemptsByStudent(studentId, trackChanges);
+        var attempts = await _repository.StudentQuizAttempt.GetAttemptsByStudent(studentId, trackChanges);
         return _mapper.Map<IEnumerable<StudentQuizAttemptDto>>(attempts);
     }
 
-    public StudentQuizAttemptDto GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
+    public async Task<StudentQuizAttemptDto> GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
     {
-        var attempt = _repository.StudentQuizAttempt.GetAttemptById(studentId, attemptId, trackChanges)
+        var attempt = await _repository.StudentQuizAttempt.GetAttemptById(studentId, attemptId, trackChanges)
         ?? throw new QuizAttemptNotFoundException(attemptId);
         return _mapper.Map<StudentQuizAttemptDto>(attempt);
     }
 
-    public StudentQuizAttemptDto CreateAttempt(Guid studentId, Guid quizId, StudentQuizAttemptForCreation studentQuizAttempt, bool trackChanges)
+    public async Task<StudentQuizAttemptDto> CreateAttempt(Guid studentId, Guid quizId, StudentQuizAttemptForCreation studentQuizAttempt, bool trackChanges)
     {
-        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
+        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
         ?? throw new StudentNotFoundException(studentId);
-        _ = _repository.Quiz.GetQuiz(quizId, trackChanges: false)
+        _ = await _repository.Quiz.GetQuiz(quizId, trackChanges: false)
         ?? throw new QuizNotFoundException(quizId);
 
         var quizAttemptEntity = _mapper.Map<StudentQuizAttempt>(studentQuizAttempt);
         _repository.StudentQuizAttempt.CreateAppempt(studentId, quizId, quizAttemptEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
 
         var quizAttemtToReturn = _mapper.Map<StudentQuizAttemptDto>(quizAttemptEntity);
         return quizAttemtToReturn;
     }
 
-    public void DeleteStudentQuizAttempt(Guid id, Guid studentId, bool trackChanges)
+    public async Task DeleteStudentQuizAttempt(Guid id, Guid studentId, bool trackChanges)
     {
-        _ = _repository.Student.GetStudent(studentId, trackChanges: false)
+        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
        ?? throw new StudentNotFoundException(studentId);
 
 
-        var studentQuizAttempt = _repository.StudentQuizAttempt.GetAttemptById(studentId, id, trackChanges: false)
+        var studentQuizAttempt = await _repository.StudentQuizAttempt.GetAttemptById(studentId, id, trackChanges: false)
         ?? throw new QuizNotFoundException(id);
 
         _repository.StudentQuizAttempt.DeleteAttempt(studentQuizAttempt);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
 
-    public void UpdateStudentQuizAttempt(Guid Id, Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttemptForUpdate,
+    public async Task UpdateStudentQuizAttempt(Guid Id, Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttemptForUpdate,
     bool quizTrackChanges, bool studentTrackChanges)
     {
-        _ = _repository.Student.GetStudent(studentId, studentTrackChanges)
+        _ = await _repository.Student.GetStudent(studentId, studentTrackChanges)
         ?? throw new StudentNotFoundException(studentId);
 
-        var quizAttemptEntity = _repository.StudentQuizAttempt.GetAttemptById(studentId,Id,quizTrackChanges)
+        var quizAttemptEntity = await _repository.StudentQuizAttempt.GetAttemptById(studentId, Id, quizTrackChanges)
          ?? throw new QuizAttemptNotFoundException(Id);
-        _mapper.Map(studentQuizAttemptForUpdate,quizAttemptEntity);
-        _repository.Save();
+        _mapper.Map(studentQuizAttemptForUpdate, quizAttemptEntity);
+        await _repository.SaveAsync();
     }
 }

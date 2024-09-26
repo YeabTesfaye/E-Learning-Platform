@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
@@ -8,17 +9,17 @@ public class QuizAnswerRepository : RepositoryBase<QuizAnswer>, IQuizAnswerRepos
     public QuizAnswerRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
-    public IEnumerable<QuizAnswer> GetAnswersByQuestion(Guid questionId, bool trackChanges)
+    public async Task<IEnumerable<QuizAnswer>> GetAnswersByQuestion(Guid questionId, bool trackChanges)
     {
-        return FindByCondition(qa => qa.QuestionId.Equals(questionId), trackChanges)
+        return await FindByCondition(qa => qa.QuestionId.Equals(questionId), trackChanges)
                .OrderBy(qa => qa.AnswerText)
-               .ToList();
+               .ToListAsync();
     }
 
-    public QuizAnswer? GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
+    public async Task<QuizAnswer?> GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
     {
-        return FindByCondition(qa => qa.QuestionId.Equals(questionId) && qa.Id.Equals(answerId), trackChanges)
-               .SingleOrDefault();
+        return await FindByCondition(qa => qa.QuestionId.Equals(questionId) && qa.Id.Equals(answerId), trackChanges)
+               .SingleOrDefaultAsync();
     }
 
     public void CreateAnswer(Guid questionId, QuizAnswer quizAnswer)

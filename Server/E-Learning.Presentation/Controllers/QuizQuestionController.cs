@@ -14,21 +14,21 @@ public class QuizQuestionController : ControllerBase
    public QuizQuestionController(IServiceManager service) => _service = service;
 
    [HttpGet]
-   public IActionResult GetQuestionsForQuiz(Guid quizId)
+   public async Task<IActionResult> GetQuestionsForQuiz(Guid quizId)
    {
-      var questions = _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
+      var questions =await _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
       return Ok(questions);
    }
 
    [HttpGet("{questionId:guid}", Name = "QuestionById")]
-   public IActionResult GetQuestionForQuiz([FromRoute] Guid quizId, [FromRoute] Guid questionId)
+   public async Task<IActionResult> GetQuestionForQuiz([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
-      var question = _service.QuizQuestionService.GetQuestion(questionId, quizId, trackChanges: false);
+      var question =await _service.QuizQuestionService.GetQuestion(questionId, quizId, trackChanges: false);
       return Ok(question);
    }
 
    [HttpPost]
-   public IActionResult CreateQuestionForQuiz([FromRoute] Guid quizId, [FromBody] QuizQuestionForCreation quizQuestion)
+   public async Task<IActionResult> CreateQuestionForQuiz([FromRoute] Guid quizId, [FromBody] QuizQuestionForCreation quizQuestion)
    {
 
       if (quizQuestion is null)
@@ -39,23 +39,23 @@ public class QuizQuestionController : ControllerBase
          return UnprocessableEntity(ModelState);
       }
 
-      var question = _service.QuizQuestionService.CreateQuestion(quizId, quizQuestion, trackChanges: false);
+      var question =await _service.QuizQuestionService.CreateQuestion(quizId, quizQuestion, trackChanges: false);
 
       return CreatedAtRoute("QuestionById", new { quizId, questionId = question.Id }, question);
    }
 
    [HttpDelete("{questionId:guid}")]
-   public IActionResult DeleteQuizQuestion([FromRoute] Guid quizId, [FromRoute] Guid questionId)
+   public async Task<IActionResult> DeleteQuizQuestion([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
-      _service.QuizQuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
+     await _service.QuizQuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
       return NoContent();
    }
    [HttpPut("{questionId:guid}")]
-   public IActionResult UpdateQuizQuesion([FromRoute] Guid quizId, [FromRoute] Guid questionId, QuizQuestionForUpdateDto quizQuestionForUpdate)
+   public async Task<IActionResult> UpdateQuizQuesion([FromRoute] Guid quizId, [FromRoute] Guid questionId, QuizQuestionForUpdateDto quizQuestionForUpdate)
    {
       if(!ModelState.IsValid)
          return UnprocessableEntity(ModelState);
-      _service.QuizQuestionService.UpdateQuizQuestion(questionId, quizId, quizQuestionForUpdate, quizTrackChanges: false, questionTrackChanges: true);
+      await _service.QuizQuestionService.UpdateQuizQuestion(questionId, quizId, quizQuestionForUpdate, quizTrackChanges: false, questionTrackChanges: true);
       return NoContent();
 
    }

@@ -13,21 +13,21 @@ public class EnrolmentController : ControllerBase
    public EnrolmentController(IServiceManager service) => _service = service;
 
    [HttpGet]
-   public IActionResult GetEnrolmentsForCourse(Guid studentId, Guid courseId)
+   public async Task<IActionResult> GetEnrolmentsForCourse(Guid studentId, Guid courseId)
    {
-      var enrolments = _service.EnrolmentService.GetEnrolments(studentId, courseId, trackChanges: false);
+      var enrolments = await _service.EnrolmentService.GetEnrolments(studentId, courseId, trackChanges: false);
       return Ok(enrolments);
    }
 
    [HttpGet("{Id:guid}", Name = "GetEnrolmentById")]
-   public IActionResult GetEnrolmentForCourse([FromRoute] Guid Id, [FromRoute] Guid studentId, [FromRoute] Guid courseId)
+   public async Task<IActionResult> GetEnrolmentForCourse([FromRoute] Guid Id, [FromRoute] Guid studentId, [FromRoute] Guid courseId)
    {
-      var enrolment = _service.EnrolmentService.GetEnrolment(Id, studentId, courseId, trackChanges: false);
+      var enrolment = await _service.EnrolmentService.GetEnrolment(Id, studentId, courseId, trackChanges: false);
       return Ok(enrolment);
    }
 
    [HttpPost]
-   public IActionResult CreateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
+   public async Task<IActionResult> CreateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     [FromBody] EnrolmentForCreation enrolment)
    {
       if (enrolment is null)
@@ -35,27 +35,27 @@ public class EnrolmentController : ControllerBase
       if (!ModelState.IsValid)
          return UnprocessableEntity(ModelState);
 
-      var enrolmentToReturn = _service.EnrolmentService.CreateEnrolment(studentId, courseId, enrolment, trackChanges: false);
+      var enrolmentToReturn = await _service.EnrolmentService.CreateEnrolment(studentId, courseId, enrolment, trackChanges: false);
 
       return CreatedAtRoute("GetEnrolmentById", new { Id = enrolmentToReturn.Id, studentId, courseId }, enrolmentToReturn);
    }
 
    [HttpDelete("{enrolmentId:guid}")]
-   public IActionResult DeleteEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId, Guid enrolmentId)
+   public async Task<IActionResult> DeleteEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId, Guid enrolmentId)
    {
-      _service.EnrolmentService.DeleteEnrolment(enrolmentId, studentId, courseId, trackChanges: false);
+      await _service.EnrolmentService.DeleteEnrolment(enrolmentId, studentId, courseId, trackChanges: false);
       return NoContent();
    }
    [HttpPut("{enrolmentId:guid}")]
-   public IActionResult UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
+   public async Task<IActionResult> UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     Guid enrolmentId, EnrolmentForUpdateDto enrolmentForUpdate)
    {
       if (!ModelState.IsValid)
       {
          return UnprocessableEntity(ModelState);
       }
-      _service.EnrolmentService.UpdateEnrolment(enrolmentId, studentId, courseId, enrolmentForUpdate, enrolmentTrackChanges: true,
-      studentTrackChanges: false, courseTrackChanges: false);
+      await _service.EnrolmentService.UpdateEnrolment(enrolmentId, studentId, courseId, enrolmentForUpdate, enrolmentTrackChanges: true,
+        studentTrackChanges: false, courseTrackChanges: false);
       return NoContent();
    }
 

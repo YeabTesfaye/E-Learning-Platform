@@ -6,10 +6,10 @@ namespace Service.Intefaces;
 
 public interface IQuizQuestionService
 {
-    IEnumerable<QuizQuestionDto> GetQuestions( Guid quizId, bool trackChanges);
-    QuizQuestionDto GetQuestion(Guid Id, Guid quizId, bool trackChanges);
-    QuizQuestionDto CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges);
-    void DeleteQuizQuestion(Guid Id, Guid quizId,bool trackChanges);
-    void UpdateQuizQuestion(Guid Id, Guid quizId, QuizQuestionForUpdateDto quizQuestionForUpdate, bool quizTrackChanges, bool questionTrackChanges);
+    Task<IEnumerable<QuizQuestionDto>> GetQuestions( Guid quizId, bool trackChanges);
+    Task<QuizQuestionDto> GetQuestion(Guid Id, Guid quizId, bool trackChanges);
+    Task<QuizQuestionDto> CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges);
+    Task DeleteQuizQuestion(Guid Id, Guid quizId,bool trackChanges);
+    Task UpdateQuizQuestion(Guid Id, Guid quizId, QuizQuestionForUpdateDto quizQuestionForUpdate, bool quizTrackChanges, bool questionTrackChanges);
 
 }

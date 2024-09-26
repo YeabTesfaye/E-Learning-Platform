@@ -7,9 +7,9 @@ namespace Service.Intefaces;
 
 public interface IStudentService
 {
-    IEnumerable<StudentDto> GetAllStudents(bool trackChanges);
-    StudentDto GetStudent(Guid id, bool trackChanges);
-    StudentDto CreateStudent(StudentForCreation studentForUpdate);
-    void UpdateStudent(Guid Id, StudentForUpdateDto student,bool trackChanges);
-    void DeleteStudent(Guid id, bool trackChanges);
+    Task<IEnumerable<StudentDto>> GetAllStudents(bool trackChanges);
+    Task<StudentDto> GetStudent(Guid id, bool trackChanges);
+    Task<StudentDto> CreateStudent(StudentForCreation studentForUpdate);
+    Task UpdateStudent(Guid Id, StudentForUpdateDto student, bool trackChanges);
+    Task DeleteStudent(Guid id, bool trackChanges);
 }

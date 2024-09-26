@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -18,14 +19,15 @@ namespace Repository
     public void DeleteModule(Module module)
     => Delete(module);
 
-    public Module? GetModule(Guid Id, Guid courseId, bool trackChanges)
-=> FindByCondition(m => m.Id.Equals(Id) && m.CourseId.Equals(courseId), trackChanges)
-  .SingleOrDefault();
+    public async Task<Module?> GetModule(Guid Id, Guid courseId, bool trackChanges)
+=> await FindByCondition(m => m.Id.Equals(Id) && m.CourseId.Equals(courseId), trackChanges)
+  .SingleOrDefaultAsync();
 
-    public Module? GetModule(Guid Id, bool trackChanges)
-     => FindByCondition(m => m.Id.Equals(Id), trackChanges)
-      .SingleOrDefault();
-    public IEnumerable<Module> GetModules(Guid courseId, bool trackChanges)
-=> [.. FindByCondition(m => m.CourseId.Equals(courseId), trackChanges).OrderBy(m => m.Name)];
+    public async Task<Module?> GetModule(Guid Id, bool trackChanges)
+     => await FindByCondition(m => m.Id.Equals(Id), trackChanges)
+      .SingleOrDefaultAsync();
+    public async Task<IEnumerable<Module>> GetModules(Guid courseId, bool trackChanges)
+=> await FindByCondition(m => m.CourseId.Equals(courseId), trackChanges)
+  .OrderBy(m => m.Name).ToListAsync();
   }
 }

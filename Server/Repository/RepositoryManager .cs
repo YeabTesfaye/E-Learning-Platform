@@ -19,12 +19,12 @@ public class RepositoryManager : IRepositoryManager
     public RepositoryManager(RepositoryContext repositoryContext)
     {
         _repositoryContext = repositoryContext;
-        
+
         _courseRepository = new Lazy<ICourseRepository>(() => new CourseRepository(repositoryContext));
         _studentRepository = new Lazy<IStudentRepository>(() => new StudentRepository(repositoryContext));
         _moduleRepository = new Lazy<IModuleRepository>(() => new ModuleRepository(repositoryContext));
         _enrolmentRepository = new Lazy<IEnrolmentRepository>(() => new EnrolmentRepository(repositoryContext));
-        _lessonRepository  = new Lazy<ILessonRepository>(() => new LessonRepository(repositoryContext));
+        _lessonRepository = new Lazy<ILessonRepository>(() => new LessonRepository(repositoryContext));
         _quizAnswerRepository = new Lazy<IQuizAnswerRepository>(() => new QuizAnswerRepository(repositoryContext));
         _quizQuestionRepository = new Lazy<IQuizQuestionRepository>(() => new QuizQuestionRepository(repositoryContext));
         _quizRepository = new Lazy<IQuizRepository>(() => new QuizRepository(repositoryContext));
@@ -43,6 +43,6 @@ public class RepositoryManager : IRepositoryManager
     public IQuizRepository Quiz => _quizRepository.Value;
     public IStudentLessonRepository StudentLesson => _studentLessonRepository.Value;
     public IStudentQuizAttemptRepository StudentQuizAttempt => _studentQuizAttemptRepository.Value;
+    public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 
-    public void Save() => _repositoryContext.SaveChanges();
 }

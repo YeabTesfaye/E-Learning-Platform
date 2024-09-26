@@ -6,11 +6,11 @@ namespace Service.Intefaces;
 
 public interface IStudentLessonService
 {
-    IEnumerable<StudentLessonDto> GetLessonsByStudent(Guid studentId, bool trackChanges);
-    StudentLessonDto GetLesson(Guid Id,Guid studentId, Guid lessonId, bool trackChanges);
-    StudentLessonDto CreateStudentLesson(Guid studentId,Guid lessonId, StudentLessonForCreation studentLesson, bool trackChanges);
-    void DeleteStudentLesson(Guid id,Guid lessonId, Guid studentId,bool trackChanges);
-    void UpdateStudntLesson(Guid Id,Guid lessonId, Guid studentId,StudentLessonForUpdateDto studentLessonForUpdate,
+    Task<IEnumerable<StudentLessonDto>> GetLessonsByStudent(Guid studentId, bool trackChanges);
+    Task<StudentLessonDto> GetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges);
+    Task<StudentLessonDto> CreateStudentLesson(Guid studentId, Guid lessonId, StudentLessonForCreation studentLesson, bool trackChanges);
+    Task DeleteStudentLesson(Guid id, Guid lessonId, Guid studentId, bool trackChanges);
+    Task UpdateStudntLesson(Guid Id, Guid lessonId, Guid studentId, StudentLessonForUpdateDto studentLessonForUpdate,
     bool stlTrackChanges, bool stuTrackChanges, bool lessonTrackChanges);
 
 }

@@ -13,45 +13,45 @@ public class CourseController : ControllerBase
     public CourseController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    public IActionResult GetCourses()
+    public async Task<IActionResult> GetCourses()
     {
-        var courses = _service.CourseService.GetAllCourses(trackChanges: false);
+        var courses = await _service.CourseService.GetAllCourses(trackChanges: false);
         return Ok(courses);
     }
     [HttpGet("{Id:guid}", Name = "CourseById")]
-    public IActionResult GetCourse([FromRoute] Guid Id)
+    public async Task<IActionResult> GetCourse([FromRoute] Guid Id)
     {
-        var course = _service.CourseService.GetCourse(Id, trackChanges: false);
+        var course = await _service.CourseService.GetCourse(Id, trackChanges: false);
         return Ok(course);
     }
 
     [HttpPost]
-    public IActionResult CreateCourse(CourseForCreationDto course)
+    public async Task<IActionResult> CreateCourse(CourseForCreationDto course)
     {
         if (course is null)
             return BadRequest("CourseForCreationDto object is null");
 
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
-        var createdCourse = _service.CourseService.CreateCourse(course);
+        var createdCourse = await _service.CourseService.CreateCourse(course);
 
 
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id },
                createdCourse);
     }
     [HttpDelete("{Id:guid}")]
-    public IActionResult DeleteCourse([FromRoute] Guid Id)
+    public async Task<IActionResult> DeleteCourse([FromRoute] Guid Id)
     {
-        _service.CourseService.DeleteCourse(Id, trackChanges: false);
+        await _service.CourseService.DeleteCourse(Id, trackChanges: false);
         return NoContent();
     }
 
     [HttpPut("{Id:guid}")]
-    public IActionResult UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)
+    public async Task<IActionResult> UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)
     {
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
-        _service.CourseService.UpdateCourse(Id, courseForUpdate, trackChanges: true);
+        await _service.CourseService.UpdateCourse(Id, courseForUpdate, trackChanges: true);
         return NoContent();
     }
 }

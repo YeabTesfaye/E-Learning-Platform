@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
@@ -8,15 +9,15 @@ public class StudentQuizAttemptRepository : RepositoryBase<StudentQuizAttempt>, 
     public StudentQuizAttemptRepository(RepositoryContext repositoryContext) : base(repositoryContext)
     {
     }
-    public IEnumerable<StudentQuizAttempt> GetAttemptsByStudent(Guid studentId, bool trackChanges)
+    public async Task<IEnumerable<StudentQuizAttempt>> GetAttemptsByStudent(Guid studentId, bool trackChanges)
     {
-        return [.. FindByCondition(a => a.StudentId.Equals(studentId), trackChanges)
-        .OrderBy(a => a.AttemptDatetime)];
+        return await FindByCondition(a => a.StudentId.Equals(studentId), trackChanges)
+        .OrderBy(a => a.AttemptDatetime).ToListAsync();
     }
-    public StudentQuizAttempt? GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
+    public async Task<StudentQuizAttempt?> GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
     {
-        return FindByCondition(a => a.StudentId.Equals(studentId) && a.Id.Equals(attemptId), trackChanges)
-               .SingleOrDefault();
+        return await FindByCondition(a => a.StudentId.Equals(studentId) && a.Id.Equals(attemptId), trackChanges)
+               .SingleOrDefaultAsync();
     }
 
     public void CreateAppempt(Guid studentId, Guid quizId, StudentQuizAttempt studentQuizAttempt)

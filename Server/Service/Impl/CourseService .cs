@@ -22,47 +22,47 @@ public sealed class CourseService : ICourseService
         _mapper = mapper;
     }
 
-    public CourseDto CreateCourse(CourseForCreationDto course)
+    public async Task<CourseDto> CreateCourse(CourseForCreationDto course)
     {
         var courseToEntity = _mapper.Map<Course>(course);
 
         _repository.Course.CreateCourse(courseToEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
 
         var courseToReturn = _mapper.Map<CourseDto>(courseToEntity);
         return courseToReturn;
     }
 
-    public void DeleteCourse(Guid id, bool trackChanges)
+    public async Task DeleteCourse(Guid id, bool trackChanges)
     {
-        var course = _repository.Course.GetCourse(id, trackChanges: false)
+        var course = await _repository.Course.GetCourse(id, trackChanges: false)
         ?? throw new CourseNotFoundException(id);
 
         _repository.Course.DeleteCourse(course);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
 
-    public IEnumerable<CourseDto> GetAllCourses(bool trackChanges)
+    public async Task<IEnumerable<CourseDto>> GetAllCourses(bool trackChanges)
     {
-        var courses = _repository.Course.GetAllCourses(trackChanges);
+        var courses = await _repository.Course.GetAllCourses(trackChanges);
         var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(courses);
         return coursesDto;
 
     }
 
-    public CourseDto GetCourse(Guid id, bool trackChanges)
+    public async Task<CourseDto> GetCourse(Guid id, bool trackChanges)
     {
-        var course = _repository.Course.GetCourse(id, trackChanges)
+        var course = await _repository.Course.GetCourse(id, trackChanges)
         ?? throw new CourseNotFoundException(id);
         var courseDto = _mapper.Map<CourseDto>(course);
         return courseDto;
     }
 
-    public void UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
+    public async Task UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
     {
-        var courseEntity = _repository.Course.GetCourse(Id,trackChanges) 
+        var courseEntity = await _repository.Course.GetCourse(Id, trackChanges)
         ?? throw new CourseNotFoundException(Id);
-        _mapper.Map(courseForUpdate,courseEntity);
-        _repository.Save();
+        _mapper.Map(courseForUpdate, courseEntity);
+       await _repository.SaveAsync();
     }
 }

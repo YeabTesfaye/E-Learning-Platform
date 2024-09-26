@@ -1,5 +1,6 @@
 using Contracts;
 using Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
@@ -18,15 +19,16 @@ public class QuizQuestionRepository : RepositoryBase<QuizQuestion>, IQuizQuestio
   public void DeleteQuizQuestion(QuizQuestion quizQuestion)
   => Delete(quizQuestion);
 
-  public IEnumerable<QuizQuestion> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
-=> [.. FindByCondition(q => q.QuizId.Equals(quizId), trackChanges).OrderBy(q => q.QuestionTitle)];
+  public async Task<IEnumerable<QuizQuestion>> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
+=> await FindByCondition(q => q.QuizId.Equals(quizId), trackChanges)
+  .OrderBy(q => q.QuestionTitle).ToListAsync();
 
-  public QuizQuestion? GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
-    => FindByCondition(q => q.QuizId.Equals(quizId) && q.Id.Equals(Id), trackChanges)
+  public async Task<QuizQuestion?> GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
+    => await FindByCondition(q => q.QuizId.Equals(quizId) && q.Id.Equals(Id), trackChanges)
       .OrderBy(q => q.QuestionTitle)
-      .SingleOrDefault();
+      .SingleOrDefaultAsync();
 
-  public QuizQuestion? GetQuizQuestion(Guid questionId, bool trackChanges)
-   => FindByCondition(q => q.Id.Equals(questionId), trackChanges)
-    .SingleOrDefault();
+  public async Task<QuizQuestion?> GetQuizQuestion(Guid questionId, bool trackChanges)
+   => await FindByCondition(q => q.Id.Equals(questionId), trackChanges)
+    .SingleOrDefaultAsync();
 }

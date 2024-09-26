@@ -21,43 +21,43 @@ public sealed class ModuleService : IModuleService
         _mapper = mapper;
     }
 
-    public ModuleDto CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
+    public async Task<ModuleDto> CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, trackChanges)
+        _ = await _repository.Course.GetCourse(courseId, trackChanges)
         ?? throw new CourseNotFoundException(courseId);
 
         var moduleEntity = _mapper.Map<Module>(module);
         _repository.Module.CreateModuleForCourse(courseId, moduleEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
 
         var moduleToReturn = _mapper.Map<ModuleDto>(module);
         return moduleToReturn;
     }
 
-    public void DeleteModule(Guid Id, Guid courseId, bool trackChanges)
+    public async Task DeleteModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, trackChanges: false)
+        _ = await _repository.Course.GetCourse(courseId, trackChanges: false)
         ?? throw new CourseNotFoundException(courseId);
-        var module = _repository.Module.GetModule(Id, courseId, trackChanges: false)
+        var module = await _repository.Module.GetModule(Id, courseId, trackChanges: false)
         ?? throw new ModuleNotFoundException(courseId);
         _repository.Module.DeleteModule(module);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
 
-    public ModuleDto GetModule(Guid Id, Guid courseId, bool trackChanges)
+    public async Task<ModuleDto> GetModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, trackChanges)
+        _ = await _repository.Course.GetCourse(courseId, trackChanges)
          ?? throw new CourseNotFoundException(courseId);
 
-        var module = _repository.Module.GetModule(Id, courseId, trackChanges);
+        var module = await _repository.Module.GetModule(Id, courseId, trackChanges);
         var moduleDto = _mapper.Map<ModuleDto>(module);
         return moduleDto;
     }
 
 
-    public IEnumerable<ModuleDto> GetModules(Guid courseId, bool trackChanges)
+    public async Task<IEnumerable<ModuleDto>> GetModules(Guid courseId, bool trackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, trackChanges)
+        _ = await _repository.Course.GetCourse(courseId, trackChanges)
         ?? throw new CourseNotFoundException(courseId);
 
         var modules = _repository.Module.GetModules(courseId, trackChanges);
@@ -67,14 +67,14 @@ public sealed class ModuleService : IModuleService
     }
 
 
-    public void UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
+    public async Task UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
     {
-        _ = _repository.Course.GetCourse(courseId, courseTrackChanges)
+        _ = await _repository.Course.GetCourse(courseId, courseTrackChanges)
          ?? throw new CourseNotFoundException(courseId);
 
-        var moduleEntity = _repository.Module.GetModule(Id, courseId, moduleTrackChanges)
+        var moduleEntity = await _repository.Module.GetModule(Id, courseId, moduleTrackChanges)
         ?? throw new ModuleNotFoundException(Id);
-        _mapper.Map(moduleForUpdate,moduleEntity);
-        _repository.Save();
+        _mapper.Map(moduleForUpdate, moduleEntity);
+        await _repository.SaveAsync();
     }
 }

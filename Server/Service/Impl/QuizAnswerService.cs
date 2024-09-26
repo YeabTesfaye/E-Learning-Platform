@@ -21,53 +21,53 @@ public class QuizAnswerService : IQuizAnswerService
         _mapper = mapper;
         _repository = repository;
     }
-    public IEnumerable<QuizAnswerDto> GetAnswersByQuestion(Guid questionId, bool trackChanges)
+    public async Task<IEnumerable<QuizAnswerDto>> GetAnswersByQuestion(Guid questionId, bool trackChanges)
     {
-        var answers = _repository.QuizAnswer.GetAnswersByQuestion(questionId, trackChanges);
+        var answers = await _repository.QuizAnswer.GetAnswersByQuestion(questionId, trackChanges);
         return _mapper.Map<IEnumerable<QuizAnswerDto>>(answers);
     }
 
-    public QuizAnswerDto GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
+    public async Task<QuizAnswerDto> GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
     {
-        var answer = _repository.QuizAnswer.GetAnswerById(questionId, answerId, trackChanges)
+        var answer = await _repository.QuizAnswer.GetAnswerById(questionId, answerId, trackChanges)
         ?? throw new AnswerNotFoundException(answerId);
         return _mapper.Map<QuizAnswerDto>(answer);
     }
 
-    public QuizAnswerDto CreateAnswer(Guid questionId, QuizAnswerForCreation quizAnswer, bool trackChanges)
+    public async Task<QuizAnswerDto> CreateAnswer(Guid questionId, QuizAnswerForCreation quizAnswer, bool trackChanges)
     {
-        _ = _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
+        _ = await _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
         ?? throw new QuestionNotFoundException(questionId);
         var answerEntity = _mapper.Map<QuizAnswer>(quizAnswer);
 
         _repository.QuizAnswer.CreateAnswer(questionId, answerEntity);
-        _repository.Save();
+        await _repository.SaveAsync();
 
         var quizToReturn = _mapper.Map<QuizAnswerDto>(answerEntity);
         return quizToReturn;
     }
 
-    public void DeleteQuizAnswer(Guid id, Guid questionId, bool trackChanges)
+    public async Task DeleteQuizAnswer(Guid id, Guid questionId, bool trackChanges)
     {
-        _ = _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
+        _ = await _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
                 ?? throw new QuestionNotFoundException(questionId);
 
-        var quizAnswer = _repository.QuizAnswer.GetAnswerById(questionId, id, trackChanges: false)
+        var quizAnswer = await _repository.QuizAnswer.GetAnswerById(questionId, id, trackChanges: false)
          ?? throw new AnswerNotFoundException(id);
 
         _repository.QuizAnswer.DeleteQuizAnswer(quizAnswer);
-        _repository.Save();
+        await _repository.SaveAsync();
     }
 
-    public void UpdateQuizAnswer(Guid Id, Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate, 
+    public async Task UpdateQuizAnswer(Guid Id, Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate,
     bool questionTrackChanges, bool quizTrackChanges)
     {
-        _ = _repository.QuizQuestion.GetQuizQuestion(questionId, questionTrackChanges)
+        _ =await _repository.QuizQuestion.GetQuizQuestion(questionId, questionTrackChanges)
         ?? throw new QuestionNotFoundException(questionId);
 
-        var quizAnswerEntity = _repository.QuizAnswer.GetAnswerById(questionId,Id,quizTrackChanges) 
+        var quizAnswerEntity =await _repository.QuizAnswer.GetAnswerById(questionId, Id, quizTrackChanges)
         ?? throw new QuizAttemptNotFoundException(Id);
         _mapper.Map(quizAnswerForUpdate, quizAnswerEntity);
-        _repository.Save();
+       await _repository.SaveAsync();
     }
 }

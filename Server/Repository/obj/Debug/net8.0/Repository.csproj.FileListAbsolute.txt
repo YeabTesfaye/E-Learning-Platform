@@ -34,3 +34,5 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\De
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\ref\Repository.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.pdb

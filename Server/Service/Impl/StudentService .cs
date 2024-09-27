@@ -33,9 +33,7 @@ public sealed class StudentService : IStudentService
 
     public async Task DeleteStudent(Guid id, bool trackChanges)
     {
-        var student = await _repository.Student.GetStudent(id, trackChanges: false)
-        ?? throw new StudentNotFoundException(id);
-
+        var student = await GetStudentAndCheckIfItExists(id, trackChanges);
         _repository.Student.DeleteStudent(student);
         await _repository.SaveAsync();
     }
@@ -50,8 +48,7 @@ public sealed class StudentService : IStudentService
 
     public async Task<StudentDto> GetStudent(Guid id, bool trackChanges)
     {
-        var student = await _repository.Student.GetStudent(id, trackChanges)
-         ?? throw new StudentNotFoundException(id);
+        var student = await GetStudentAndCheckIfItExists(id, trackChanges);
         var studentDto = _mapper.Map<StudentDto>(student);
         return studentDto;
     }
@@ -59,10 +56,17 @@ public sealed class StudentService : IStudentService
 
     public async Task UpdateStudent(Guid Id, StudentForUpdateDto studentForUpdate, bool trackChanges)
     {
-        var studentEntity = await _repository.Student.GetStudent(Id, trackChanges)
-         ?? throw new StudentNotFoundException(Id);
+        var studentEntity = await GetStudentAndCheckIfItExists(Id, trackChanges);
 
         _mapper.Map(studentForUpdate, studentEntity);
         await _repository.SaveAsync();
+    }
+
+    private async Task<Student> GetStudentAndCheckIfItExists(Guid Id, bool trackChanges)
+    {
+        var student = await _repository.Student.GetStudent(Id, trackChanges: false);
+        if (student is null)
+            throw new StudentNotFoundException(Id);
+        return student;
     }
 }

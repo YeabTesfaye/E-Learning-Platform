@@ -1,5 +1,6 @@
 using api.Extensions;
 using Contracts;
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -30,9 +31,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;
 });
-// Add authorization services if needed
-builder.Services.AddAuthorization();
-
+builder.Services.AddScoped<ValidationFilterAttribute>();
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();

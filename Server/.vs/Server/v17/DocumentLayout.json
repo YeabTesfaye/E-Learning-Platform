@@ -1,33 +1,27 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\",
+  "WorkspaceRootPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5DBD1543-972E-4320-82A2-802BD1BC1FCC}|Shared\\Shared.csproj|c:\\users\\yeabiserat\\documents\\e-learning platform\\server\\shared\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5DBD1543-972E-4320-82A2-802BD1BC1FCC}|Shared\\Shared.csproj|solutionrelative:shared\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Service\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Service.Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Service.Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,22 +42,20 @@
               "DocumentIndex": 0,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Class1.cs",
-              "RelativeDocumentMoniker": "Shared\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Class1.cs",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Class1.cs",
-              "RelativeToolTip": "Shared\\Class1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Class1.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T12:10:48.477Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-17T12:10:48.477Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs",
-              "RelativeDocumentMoniker": "Service\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs",
-              "RelativeToolTip": "Service\\Class1.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Class1.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-17T05:50:04.493Z"
             },
@@ -72,9 +64,9 @@
               "DocumentIndex": 2,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs",
-              "RelativeDocumentMoniker": "Service.Contracts\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs",
-              "RelativeToolTip": "Service.Contracts\\Class1.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service.Contracts\\Class1.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T13:44:36.001Z"
             },
@@ -83,9 +75,9 @@
               "DocumentIndex": 3,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Service.Contracts\\Class1.cs",
-              "RelativeDocumentMoniker": "..\\Service.Contracts\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Service.Contracts\\Class1.cs",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Service.Contracts\\Class1.cs",
-              "RelativeToolTip": "..\\Service.Contracts\\Class1.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Service.Contracts\\Class1.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T13:37:44.505Z"
             },
@@ -94,9 +86,9 @@
               "DocumentIndex": 4,
               "Title": "docker-compose.yml",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml",
-              "RelativeDocumentMoniker": "docker-compose.yml",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml",
-              "RelativeToolTip": "docker-compose.yml",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\docker-compose.yml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
               "WhenOpened": "2024-09-16T09:22:45.205Z"
             },
@@ -105,9 +97,9 @@
               "DocumentIndex": 6,
               "Title": ".dockerignore",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore",
-              "RelativeDocumentMoniker": ".dockerignore",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore",
-              "RelativeToolTip": ".dockerignore",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\.dockerignore",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-09-16T09:22:32.424Z"
@@ -117,9 +109,9 @@
               "DocumentIndex": 5,
               "Title": "Class1.cs",
               "DocumentMoniker": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs",
-              "RelativeDocumentMoniker": "Contracts\\Class1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs",
               "ToolTip": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs",
-              "RelativeToolTip": "Contracts\\Class1.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Contracts\\Class1.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-16T07:20:33.665Z"
             },

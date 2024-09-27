@@ -37,8 +37,7 @@ public class LessonService : ILessonService
 
     public async Task<LessonDto> CreateLesson(Guid moduleId, LessonForCreation lesson, bool trackChanges)
     {
-        _ = await _repository.Module.GetModule(moduleId, trackChanges: false)
-        ?? throw new ModuleNotFoundException(moduleId);
+        await CheckIfModuleExists(moduleId, trackChanges);
 
         var lessonEntity = _mapper.Map<Lesson>(lesson);
         lessonEntity.ModuleId = moduleId;
@@ -51,11 +50,9 @@ public class LessonService : ILessonService
 
     public async Task DeleteLesson(Guid id, Guid moduleId, bool trackChanges)
     {
-        _ = await _repository.Module.GetModule(moduleId, trackChanges: false)
-    ?? throw new ModuleNotFoundException(moduleId);
+        await CheckIfModuleExists(moduleId, trackChanges);
 
-        var lesson = await _repository.Lesson.GetLesson(id, moduleId, trackChanges: false)
-         ?? throw new LessonNotFounException(id);
+        var lesson = await GetLessonAndCheckIfItExist(id, trackChanges);
 
         _repository.Lesson.DeleteLesson(lesson);
         await _repository.SaveAsync();
@@ -64,14 +61,30 @@ public class LessonService : ILessonService
     public async Task UpdateLesson(Guid Id, Guid moduleId, LessonForUpdateDto lessonForUpdate,
      bool moduleTrackChanges, bool lessonTrackChanges)
     {
-        _ = await _repository.Module.GetModule(moduleId, moduleTrackChanges)
-        ?? throw new ModuleNotFoundException(moduleId);
+        await CheckIfModuleExists(moduleId, moduleTrackChanges);
 
-        var lessonEntity = await _repository.Lesson.GetLesson(Id, lessonTrackChanges)
-        ?? throw new LessonNotFounException(Id);
+        var lessonEntity = await CheckIfLessonExistsAndReturn(Id, lessonTrackChanges);
 
         _mapper.Map(lessonForUpdate, lessonEntity);
         await _repository.SaveAsync();
+    }
+    private async Task<Lesson> CheckIfLessonExistsAndReturn(Guid Id, bool trackChanges)
+    {
+        var lesson = await _repository.Lesson.GetLesson(Id, trackChanges)
+         ?? throw new LessonNotFounException(Id);
+        return lesson;
+    }
+    private async Task CheckIfModuleExists(Guid moduleId, bool trackChanges)
+    {
+        _ = await _repository.Module.GetModule(moduleId, trackChanges)
+       ?? throw new ModuleNotFoundException(moduleId);
+    }
+    private async Task<Lesson> GetLessonAndCheckIfItExist(
+         Guid id, bool trackChanges)
+    {
+        var lesson = await _repository.Lesson.GetLesson(id, trackChanges)
+         ?? throw new CourseNotFoundException(id);
+        return lesson;
     }
 }
 

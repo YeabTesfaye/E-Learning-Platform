@@ -1365,7 +1365,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Entities": "1.0.0"
+          "Entities": "1.0.0",
+          "Shared": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Contracts.dll": {}
@@ -4548,19 +4549,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yeabiseraT\\.nuget\\packages\\": {}
+    "C:\\Users\\Yeabsra\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
+      "projectUniqueName": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
       "projectName": "E-Learning.Presentation",
-      "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
-      "packagesPath": "C:\\Users\\yeabiseraT\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\E-Learning.Presentation\\obj\\",
+      "projectPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
+      "packagesPath": "C:\\Users\\Yeabsra\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\E-Learning.Presentation\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\yeabiseraT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yeabsra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4575,8 +4581,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj": {
-              "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Service\\Service.csproj"
+            "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Service\\Service.csproj"
             }
           }
         }
@@ -4617,7 +4623,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

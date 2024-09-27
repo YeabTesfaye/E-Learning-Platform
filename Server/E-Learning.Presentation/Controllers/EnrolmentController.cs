@@ -1,3 +1,4 @@
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -27,6 +28,7 @@ public class EnrolmentController : ControllerBase
    }
 
    [HttpPost]
+   [ServiceFilter(typeof(ValidationFilterAttribute))]
    public async Task<IActionResult> CreateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     [FromBody] EnrolmentForCreation enrolment)
    {
@@ -47,6 +49,7 @@ public class EnrolmentController : ControllerBase
       return NoContent();
    }
    [HttpPut("{enrolmentId:guid}")]
+   [ServiceFilter(typeof(ValidationFilterAttribute))]
    public async Task<IActionResult> UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     Guid enrolmentId, EnrolmentForUpdateDto enrolmentForUpdate)
    {

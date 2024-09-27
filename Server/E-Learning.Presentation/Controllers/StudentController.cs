@@ -1,3 +1,4 @@
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -27,6 +28,7 @@ public class StudentController : ControllerBase
         return Ok(student);
     }
     [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateStudent([FromBody] StudentForCreation student)
     {
         if (student is null)

@@ -23,9 +23,7 @@ public sealed class ModuleService : IModuleService
 
     public async Task<ModuleDto> CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges)
-        ?? throw new CourseNotFoundException(courseId);
-
+        await CheckIfCourseExists(courseId, trackChanges);
         var moduleEntity = _mapper.Map<Module>(module);
         _repository.Module.CreateModuleForCourse(courseId, moduleEntity);
         await _repository.SaveAsync();
@@ -36,18 +34,15 @@ public sealed class ModuleService : IModuleService
 
     public async Task DeleteModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges: false)
-        ?? throw new CourseNotFoundException(courseId);
-        var module = await _repository.Module.GetModule(Id, courseId, trackChanges: false)
-        ?? throw new ModuleNotFoundException(courseId);
+        await CheckIfCourseExists(courseId, trackChanges);
+        var module = await CheckIfModuleExistsAndReturn(Id, trackChanges);
         _repository.Module.DeleteModule(module);
         await _repository.SaveAsync();
     }
 
     public async Task<ModuleDto> GetModule(Guid Id, Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges)
-         ?? throw new CourseNotFoundException(courseId);
+        await CheckIfCourseExists(courseId, trackChanges);
 
         var module = await _repository.Module.GetModule(Id, courseId, trackChanges);
         var moduleDto = _mapper.Map<ModuleDto>(module);
@@ -57,10 +52,8 @@ public sealed class ModuleService : IModuleService
 
     public async Task<IEnumerable<ModuleDto>> GetModules(Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges)
-        ?? throw new CourseNotFoundException(courseId);
-
-        var modules = _repository.Module.GetModules(courseId, trackChanges);
+        await CheckIfCourseExists(courseId, trackChanges);
+        var modules = await _repository.Module.GetModules(courseId, trackChanges);
 
         var moduleDto = _mapper.Map<IEnumerable<ModuleDto>>(modules);
         return moduleDto;
@@ -69,12 +62,23 @@ public sealed class ModuleService : IModuleService
 
     public async Task UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, courseTrackChanges)
-         ?? throw new CourseNotFoundException(courseId);
+        await CheckIfCourseExists(courseId, courseTrackChanges);
 
-        var moduleEntity = await _repository.Module.GetModule(Id, courseId, moduleTrackChanges)
-        ?? throw new ModuleNotFoundException(Id);
+        var moduleEntity = await CheckIfModuleExistsAndReturn(Id, moduleTrackChanges);
         _mapper.Map(moduleForUpdate, moduleEntity);
         await _repository.SaveAsync();
     }
+
+    private async Task<Module> CheckIfModuleExistsAndReturn(Guid moduleId, bool trackChanges)
+    {
+        var module = await _repository.Module.GetModule(moduleId, trackChanges)
+       ?? throw new ModuleNotFoundException(moduleId);
+        return module;
+    }
+    private async Task CheckIfCourseExists(Guid courseId, bool trackChanges)
+    {
+        _ = await _repository.Course.GetCourse(courseId, trackChanges)
+        ?? throw new CourseNotFoundException(courseId);
+    }
+
 }

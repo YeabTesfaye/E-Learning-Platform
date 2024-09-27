@@ -1,3 +1,4 @@
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -28,6 +29,7 @@ public class StudentLessonController : ControllerBase
         return Ok(lesson);
     }
     [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateStudentLesson([FromRoute] Guid studentId, [FromRoute] Guid lessonId,
     [FromBody] StudentLessonForCreation studentLesson)
     {
@@ -50,6 +52,7 @@ public class StudentLessonController : ControllerBase
         return NoContent();
     }
     [HttpPut("{sudentLessonId:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
      StudentLessonForUpdateDto studentLessonForUpdate)
     {

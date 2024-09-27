@@ -35,9 +35,7 @@ public sealed class CourseService : ICourseService
 
     public async Task DeleteCourse(Guid id, bool trackChanges)
     {
-        var course = await _repository.Course.GetCourse(id, trackChanges: false)
-        ?? throw new CourseNotFoundException(id);
-
+        var course = await GetCourseAndCheckIfItExist(id, trackChanges);
         _repository.Course.DeleteCourse(course);
         await _repository.SaveAsync();
     }
@@ -52,17 +50,23 @@ public sealed class CourseService : ICourseService
 
     public async Task<CourseDto> GetCourse(Guid id, bool trackChanges)
     {
-        var course = await _repository.Course.GetCourse(id, trackChanges)
-        ?? throw new CourseNotFoundException(id);
+        var course = await GetCourseAndCheckIfItExist(id, trackChanges);
         var courseDto = _mapper.Map<CourseDto>(course);
         return courseDto;
     }
 
     public async Task UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
     {
-        var courseEntity = await _repository.Course.GetCourse(Id, trackChanges)
-        ?? throw new CourseNotFoundException(Id);
+        var courseEntity = await GetCourseAndCheckIfItExist(Id, trackChanges);
         _mapper.Map(courseForUpdate, courseEntity);
-       await _repository.SaveAsync();
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Course> GetCourseAndCheckIfItExist(
+         Guid id, bool trackChanges)
+    {
+        var employeeDb = await _repository.Course.GetCourse(id, trackChanges)
+         ?? throw new CourseNotFoundException(id);
+        return employeeDb;
     }
 }

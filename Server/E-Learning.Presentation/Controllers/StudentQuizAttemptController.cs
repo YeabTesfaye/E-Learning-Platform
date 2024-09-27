@@ -1,3 +1,4 @@
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -31,6 +32,7 @@ public class StudentQuizAttemptController : ControllerBase
 
     // Create a new quiz attempt for a specific student and quiz
     [HttpPost("{quizId:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateAttempt([FromRoute] Guid studentId, [FromRoute] Guid quizId,
      [FromBody] StudentQuizAttemptForCreation studentQuizAttempt)
     {
@@ -53,6 +55,7 @@ public class StudentQuizAttemptController : ControllerBase
         return NoContent();
     }
     [HttpPut("{attemptId:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttempt)
     {
         if (!ModelState.IsValid)

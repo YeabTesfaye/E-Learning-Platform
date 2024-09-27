@@ -34,3 +34,5 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\refint\LoggerService.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\ref\LoggerService.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.pdb

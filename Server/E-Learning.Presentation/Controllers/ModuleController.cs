@@ -1,3 +1,4 @@
+using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -26,6 +27,7 @@ public class ModuleController : ControllerBase
     }
 
     [HttpPost]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> CreateModule([FromRoute] Guid courseId, [FromBody] ModuleForCreation module)
     {
         if (module is null)
@@ -49,6 +51,7 @@ public class ModuleController : ControllerBase
         return NoContent();
     }
     [HttpPut("{moduleId:guid}")]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
     public async Task<IActionResult> UpdateModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId, ModuleForUpdateDto moduleForUpdate)
     {
         if (!ModelState.IsValid)

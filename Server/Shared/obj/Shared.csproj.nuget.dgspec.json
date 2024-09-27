@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj": {}
+    "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Shared\\Shared.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj": {
+    "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\yeabiseraT\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\Yeabsra\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Shared\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\yeabiseraT\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Yeabsra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

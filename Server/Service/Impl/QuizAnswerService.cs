@@ -29,15 +29,13 @@ public class QuizAnswerService : IQuizAnswerService
 
     public async Task<QuizAnswerDto> GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
     {
-        var answer = await _repository.QuizAnswer.GetAnswerById(questionId, answerId, trackChanges)
-        ?? throw new AnswerNotFoundException(answerId);
+        var answer = await CheckIfAnswerExistsAndReturn(questionId, answerId, trackChanges);
         return _mapper.Map<QuizAnswerDto>(answer);
     }
 
     public async Task<QuizAnswerDto> CreateAnswer(Guid questionId, QuizAnswerForCreation quizAnswer, bool trackChanges)
     {
-        _ = await _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
-        ?? throw new QuestionNotFoundException(questionId);
+        await CheckIfQuestionExists(questionId, trackChanges);
         var answerEntity = _mapper.Map<QuizAnswer>(quizAnswer);
 
         _repository.QuizAnswer.CreateAnswer(questionId, answerEntity);
@@ -49,11 +47,9 @@ public class QuizAnswerService : IQuizAnswerService
 
     public async Task DeleteQuizAnswer(Guid id, Guid questionId, bool trackChanges)
     {
-        _ = await _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
-                ?? throw new QuestionNotFoundException(questionId);
+        await CheckIfAnswerExists(id, trackChanges);
 
-        var quizAnswer = await _repository.QuizAnswer.GetAnswerById(questionId, id, trackChanges: false)
-         ?? throw new AnswerNotFoundException(id);
+        var quizAnswer = await CheckIfAnswerExistsAndReturn(id, questionId, trackChanges);
 
         _repository.QuizAnswer.DeleteQuizAnswer(quizAnswer);
         await _repository.SaveAsync();
@@ -62,12 +58,28 @@ public class QuizAnswerService : IQuizAnswerService
     public async Task UpdateQuizAnswer(Guid Id, Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate,
     bool questionTrackChanges, bool quizTrackChanges)
     {
-        _ =await _repository.QuizQuestion.GetQuizQuestion(questionId, questionTrackChanges)
-        ?? throw new QuestionNotFoundException(questionId);
+        await CheckIfQuestionExists(questionId, questionTrackChanges);
 
-        var quizAnswerEntity =await _repository.QuizAnswer.GetAnswerById(questionId, Id, quizTrackChanges)
-        ?? throw new QuizAttemptNotFoundException(Id);
+        var quizAnswerEntity = await CheckIfAnswerExistsAndReturn(Id, questionId, quizTrackChanges);
         _mapper.Map(quizAnswerForUpdate, quizAnswerEntity);
-       await _repository.SaveAsync();
+        await _repository.SaveAsync();
+    }
+    private async Task<QuizAnswer> CheckIfAnswerExistsAndReturn(Guid questionId, Guid answerId, bool trackChanges)
+    {
+        var answer = await _repository.QuizAnswer.GetAnswerById(questionId, answerId, trackChanges)
+        ?? throw new AnswerNotFoundException(answerId);
+        return answer;
+    }
+    private async Task CheckIfAnswerExists(Guid questionId, bool trackChanges)
+    {
+        _ = await _repository.QuizQuestion.GetQuestionsByQuiz(questionId, trackChanges)
+          ?? throw new QuestionNotFoundException(questionId);
+    }
+     
+    private async Task CheckIfQuestionExists(Guid questionId, bool trackChanges)
+    {
+        _ = await _repository.QuizQuestion.GetQuizQuestion(questionId, trackChanges)
+           ?? throw new QuestionNotFoundException(questionId);
+
     }
 }

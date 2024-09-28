@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
 using Contracts;
 using Entities;
@@ -30,17 +31,14 @@ public class StudentQuizAttemptService : IStudentQuizAttemptService
 
     public async Task<StudentQuizAttemptDto> GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
     {
-        var attempt = await _repository.StudentQuizAttempt.GetAttemptById(studentId, attemptId, trackChanges)
-        ?? throw new QuizAttemptNotFoundException(attemptId);
+        var attempt = await CheckIfQuizAttemptExistsAndReturn(attemptId, studentId, trackChanges);
         return _mapper.Map<StudentQuizAttemptDto>(attempt);
     }
 
     public async Task<StudentQuizAttemptDto> CreateAttempt(Guid studentId, Guid quizId, StudentQuizAttemptForCreation studentQuizAttempt, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
-        ?? throw new StudentNotFoundException(studentId);
-        _ = await _repository.Quiz.GetQuiz(quizId, trackChanges: false)
-        ?? throw new QuizNotFoundException(quizId);
+        await CheckIfStudentExists(studentId, trackChanges);
+        await CheckIfQuizExists(quizId);
 
         var quizAttemptEntity = _mapper.Map<StudentQuizAttempt>(studentQuizAttempt);
         _repository.StudentQuizAttempt.CreateAppempt(studentId, quizId, quizAttemptEntity);
@@ -52,12 +50,9 @@ public class StudentQuizAttemptService : IStudentQuizAttemptService
 
     public async Task DeleteStudentQuizAttempt(Guid id, Guid studentId, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
-       ?? throw new StudentNotFoundException(studentId);
+        await CheckIfStudentExists(studentId, trackChanges);
 
-
-        var studentQuizAttempt = await _repository.StudentQuizAttempt.GetAttemptById(studentId, id, trackChanges: false)
-        ?? throw new QuizNotFoundException(id);
+        var studentQuizAttempt = await CheckIfQuizAttemptExistsAndReturn(studentId, id, trackChanges);
 
         _repository.StudentQuizAttempt.DeleteAttempt(studentQuizAttempt);
         await _repository.SaveAsync();
@@ -66,12 +61,27 @@ public class StudentQuizAttemptService : IStudentQuizAttemptService
     public async Task UpdateStudentQuizAttempt(Guid Id, Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttemptForUpdate,
     bool quizTrackChanges, bool studentTrackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, studentTrackChanges)
-        ?? throw new StudentNotFoundException(studentId);
+        await CheckIfStudentExists(studentId, studentTrackChanges);
 
-        var quizAttemptEntity = await _repository.StudentQuizAttempt.GetAttemptById(studentId, Id, quizTrackChanges)
-         ?? throw new QuizAttemptNotFoundException(Id);
+        var quizAttemptEntity = await CheckIfQuizAttemptExistsAndReturn(studentId, Id, quizTrackChanges);
         _mapper.Map(studentQuizAttemptForUpdate, quizAttemptEntity);
         await _repository.SaveAsync();
+    }
+    private async Task CheckIfStudentExists(Guid studentId, bool trackChanges)
+    {
+        var student = await _repository.Student.GetStudent(studentId, trackChanges: false)
+         ?? throw new StudentNotFoundException(studentId);
+    }
+    private async Task CheckIfQuizExists(Guid quizId)
+    {
+        _ = await _repository.Quiz.GetQuiz(quizId, trackChanges: false)
+         ?? throw new QuizNotFoundException(quizId);
+    }
+    private async Task<StudentQuizAttempt> CheckIfQuizAttemptExistsAndReturn(Guid attemptId, Guid studentId, bool trackChanges)
+    {
+        var attempt = await _repository.StudentQuizAttempt.GetAttemptById(studentId, attemptId, trackChanges)
+        ?? throw new QuizAttemptNotFoundException(attemptId);
+        return attempt;
+
     }
 }

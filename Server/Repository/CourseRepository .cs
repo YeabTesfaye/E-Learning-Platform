@@ -1,6 +1,7 @@
 using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Shared.RequestFeatures;
 
 namespace Repository;
 
@@ -17,9 +18,12 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
     public void DeleteCourse(Course course)
     => Delete(course);
 
-    public async Task<IEnumerable<Course>> GetAllCourses(bool trackChanges)
+    public async Task<PagedList<Course>> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
-        return await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+        var courses = await FindAll(trackChanges).OrderBy(c => c.Name)
+            .ToListAsync();
+        return PagedList<Course>
+                  .ToPagedList(courses, courseParameters.PageNumber, courseParameters.PageSize);
     }
 
 

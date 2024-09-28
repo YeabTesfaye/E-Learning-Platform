@@ -6,6 +6,7 @@ using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;
+using Shared.RequestFeatures;
 
 namespace Service.Impl;
 
@@ -38,11 +39,11 @@ public sealed class StudentService : IStudentService
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<StudentDto>> GetAllStudents(bool trackChanges)
+    public async Task<(IEnumerable<StudentDto> students, MetaData metaData)> GetAllStudents(StudentParameters studentParameters, bool trackChanges)
     {
-        var students = await _repository.Student.GetAllStudents(trackChanges);
-        var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students);
-        return studentsDto;
+        var studentWithMetaData = await _repository.Student.GetAllStudents(studentParameters, trackChanges);
+        var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(studentWithMetaData);
+        return (students: studentsDto, metaData: studentWithMetaData.MetaData);
 
     }
 
@@ -69,4 +70,5 @@ public sealed class StudentService : IStudentService
             throw new StudentNotFoundException(Id);
         return student;
     }
+
 }

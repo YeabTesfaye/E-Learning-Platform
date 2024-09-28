@@ -6,6 +6,7 @@ using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;
+using Shared.RequestFeatures;
 
 namespace Service.Impl;
 
@@ -40,11 +41,11 @@ public sealed class CourseService : ICourseService
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<CourseDto>> GetAllCourses(bool trackChanges)
+    public async Task<(IEnumerable<CourseDto> courses, MetaData metaData)> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
-        var courses = await _repository.Course.GetAllCourses(trackChanges);
-        var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(courses);
-        return coursesDto;
+        var coursesWithMetadata = await _repository.Course.GetAllCourses(courseParameters, trackChanges);
+        var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(coursesWithMetadata);
+        return (courses: coursesDto, metaData: coursesWithMetadata.MetaData);
 
     }
 

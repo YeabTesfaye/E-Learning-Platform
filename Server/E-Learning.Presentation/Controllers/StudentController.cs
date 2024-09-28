@@ -1,8 +1,10 @@
+using System.Text.Json;
 using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;
+using Shared.RequestFeatures;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -15,10 +17,12 @@ public class StudentController : ControllerBase
     public StudentController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    public async Task<IActionResult> GetStudents()
+    public async Task<IActionResult> GetStudents([FromQuery] StudentParameters studentParameters)
     {
-        var students = await _service.StudentService.GetAllStudents(trackChanges: false);
-        return Ok(students);
+        var pagedResult = await _service.StudentService.GetAllStudents(studentParameters, trackChanges: false);
+
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
+        return Ok(pagedResult.students);
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]

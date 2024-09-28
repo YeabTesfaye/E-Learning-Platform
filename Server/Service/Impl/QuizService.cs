@@ -24,9 +24,7 @@ public class QuizService : IQuizService
 
     public async Task<QuizDto> CreateQuiz(Guid courseId, QuizForCreation quiz, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges: false)
-         ?? throw new CourseNotFoundException(courseId);
-
+        await CheckIfCourseExists(courseId, trackChanges);
         var quizEntity = _mapper.Map<Quiz>(quiz);
         _repository.Quiz.CreateQuizForCourse(courseId, quizEntity);
         await _repository.SaveAsync();
@@ -37,11 +35,9 @@ public class QuizService : IQuizService
 
     public async Task DeleteQuiz(Guid id, Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Course.GetCourse(courseId, trackChanges: false)
-        ?? throw new CourseNotFoundException(courseId);
+        await CheckIfCourseExists(courseId, trackChanges);
 
-        var quiz = await _repository.Quiz.GetQuiz(id, courseId, trackChanges: false)
-        ?? throw new QuizNotFoundException(id);
+        var quiz = await CheckIfQuizExistsAndReturn(id, courseId, trackChanges);
 
         _repository.Quiz.DeleteQuiz(quiz);
         await _repository.SaveAsync();
@@ -49,32 +45,40 @@ public class QuizService : IQuizService
 
     public async Task<QuizDto> GetQuiz(Guid quizId, Guid courseId, bool trackChanges)
     {
-        _ =await _repository.Course.GetCourse(courseId, trackChanges)
-                ?? throw new CourseNotFoundException(courseId);
-        var quiz =await _repository.Quiz.GetQuiz(quizId, courseId, trackChanges)
-        ?? throw new QuizNotFoundException(quizId);
+        await CheckIfCourseExists(courseId, trackChanges);
+        var quiz = await CheckIfQuizExistsAndReturn(quizId, courseId, trackChanges);
         var quizDto = _mapper.Map<QuizDto>(quiz);
         return quizDto;
     }
 
     public async Task<IEnumerable<QuizDto>> GetQuizzes(Guid courseId, bool trackChanges)
     {
-        _ =await _repository.Course.GetCourse(courseId, trackChanges)
+        _ = await _repository.Course.GetCourse(courseId, trackChanges)
         ?? throw new CourseNotFoundException(courseId);
 
-        var quizes =await _repository.Quiz.GetQuizzes(courseId, trackChanges);
+        var quizes = await _repository.Quiz.GetQuizzes(courseId, trackChanges);
         var quizesDto = _mapper.Map<IEnumerable<QuizDto>>(quizes);
         return quizesDto;
     }
 
     public async Task UpdateQuiz(Guid id, Guid courseId, QuizForUpdateDto quizForUpdate, bool courseTrackChanges, bool quizTrackChanges)
     {
-        _ =await _repository.Course.GetCourse(courseId, courseTrackChanges)
-        ?? throw new CourseNotFoundException(courseId);
-
-        var quizEntity = await _repository.Quiz.GetQuiz(id, quizTrackChanges)
-        ?? throw new QuizNotFoundException(id);
+        await CheckIfCourseExists(courseId, courseTrackChanges);
+        var quizEntity = await CheckIfQuizExistsAndReturn(id, courseId, courseTrackChanges);
         _mapper.Map(quizForUpdate, quizEntity);
         await _repository.SaveAsync();
+    }
+    private async Task CheckIfCourseExists(Guid courseId, bool trackChanges)
+    {
+        _ = await _repository.Course.GetCourse(courseId, trackChanges: false)
+         ?? throw new CourseNotFoundException(courseId);
+    }
+
+    private async Task<Quiz> CheckIfQuizExistsAndReturn(Guid id, Guid courseId, bool trackChanges)
+    {
+        var quiz = await _repository.Quiz.GetQuiz(id, courseId, trackChanges: false)
+        ?? throw new QuizNotFoundException(id);
+        return quiz;
+
     }
 }

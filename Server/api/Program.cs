@@ -36,18 +36,20 @@ var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerManager>();
 app.ConfigureExceptionHandler(logger);
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseExceptionHandler("/Home/Error");
-}
-else
-{
+if (app.Environment.IsProduction())
     app.UseHsts();
-}
+
+// // Configure the HTTP request pipeline.
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+//     app.UseExceptionHandler("/Home/Error");
+// }
+// else
+// {
+//     app.UseHsts();
+// }
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {

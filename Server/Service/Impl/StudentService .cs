@@ -41,6 +41,9 @@ public sealed class StudentService : IStudentService
 
     public async Task<(IEnumerable<StudentDto> students, MetaData metaData)> GetAllStudents(StudentParameters studentParameters, bool trackChanges)
     {
+        
+        if(!studentParameters.ValidAgeRange)
+            throw new MaxAgeRangeBadRequestException();
         var studentWithMetaData = await _repository.Student.GetAllStudents(studentParameters, trackChanges);
         var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(studentWithMetaData);
         return (students: studentsDto, metaData: studentWithMetaData.MetaData);

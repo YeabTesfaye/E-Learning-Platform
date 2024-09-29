@@ -1,6 +1,7 @@
 using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 using Shared.RequestFeatures;
 
 namespace Repository;
@@ -20,7 +21,8 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
 
     public async Task<PagedList<Course>> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
-        var courses = await FindAll(trackChanges).OrderBy(c => c.Name)
+        var courses = await FindAll(trackChanges)
+            .OrderBy(c => c.Name)
             .ToListAsync();
         return PagedList<Course>
                   .ToPagedList(courses, courseParameters.PageNumber, courseParameters.PageSize);

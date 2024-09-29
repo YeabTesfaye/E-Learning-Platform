@@ -19,10 +19,11 @@ public class StudentController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetStudents([FromQuery] StudentParameters studentParameters)
     {
-        var pagedResult = await _service.StudentService.GetAllStudents(studentParameters, trackChanges: false);
+        // return Ok(studentParameters);
+        var (students, metaData) = await _service.StudentService.GetAllStudents(studentParameters, trackChanges: false);
 
-        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagedResult.metaData));
-        return Ok(pagedResult.students);
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
+        return Ok(students);
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]

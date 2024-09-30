@@ -22,6 +22,8 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
     public async Task<PagedList<Course>> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
         var courses = await FindAll(trackChanges)
+           .FilterCourses(courseParameters.MinPrice, courseParameters.MaxPrice)
+           .Search(courseParameters.SearchTerm ?? string.Empty)
             .OrderBy(c => c.Name)
             .ToListAsync();
         return PagedList<Course>

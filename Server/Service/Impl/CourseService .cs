@@ -43,7 +43,10 @@ public sealed class CourseService : ICourseService
 
     public async Task<(IEnumerable<CourseDto> courses, MetaData metaData)> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
-        
+        if (!courseParameters.ValidPriceRange)
+        {
+            throw new MaxAgeRangeBadRequestException("Max Price can't be less than min price");
+        }
         var coursesWithMetadata = await _repository.Course.GetAllCourses(courseParameters, trackChanges);
         var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(coursesWithMetadata);
         return (courses: coursesDto, metaData: coursesWithMetadata.MetaData);

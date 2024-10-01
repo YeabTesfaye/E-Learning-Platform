@@ -312,3 +312,4 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\obj\Debug\net
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\obj\Debug\net8.0\api.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\obj\Debug\net8.0\ref\api.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\System.Linq.Dynamic.Core.dll

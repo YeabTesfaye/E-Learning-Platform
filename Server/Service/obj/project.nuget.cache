@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bsdupPN+ohE=",
+  "dgSpecHash": "Xlr3Fns/EyA=",
   "success": true,
   "projectFilePath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\Service\\Service.csproj",
   "expectedPackageFiles": [
@@ -18,7 +18,8 @@
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\serilog\\4.0.1\\serilog.4.0.1.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\serilog.sinks.console\\6.0.0\\serilog.sinks.console.6.0.0.nupkg.sha512",
-    "C:\\Users\\Yeabsra\\.nuget\\packages\\serilog.sinks.file\\6.0.0\\serilog.sinks.file.6.0.0.nupkg.sha512"
+    "C:\\Users\\Yeabsra\\.nuget\\packages\\serilog.sinks.file\\6.0.0\\serilog.sinks.file.6.0.0.nupkg.sha512",
+    "C:\\Users\\Yeabsra\\.nuget\\packages\\system.linq.dynamic.core\\1.4.5\\system.linq.dynamic.core.1.4.5.nupkg.sha512"
   ],
   "logs": []
 }

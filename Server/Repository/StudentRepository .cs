@@ -24,6 +24,7 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
     var students = await FindAll(trackChanges)
         .FilterStudents(studentParameters.MinAge, studentParameters.MaxAge)
         .Search(studentParameters.SearchTerm ?? string.Empty)
+        .Sort(studentParameters.OrderBy ?? string.Empty)
         .OrderBy(s => s.FirstName)
         .ToListAsync();
 

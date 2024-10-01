@@ -1,4 +1,7 @@
 using Entities;
+using System.Linq.Dynamic.Core;
+using System.Reflection;
+using System.Text;
 
 namespace Repository.Extensions;
 
@@ -17,5 +20,38 @@ public static class RepositoryCourseExtensions
 
         // Ensure null values in FirstName don't cause an issue
         return courses.Where(c => c.Name != null && c.Name.ToLower().Contains(lowerCaseTerm));
+    }
+    public static IQueryable<Course> Sort(this IQueryable<Course> courses, string orderByQueryString)
+    {
+        if (string.IsNullOrWhiteSpace(orderByQueryString))
+            return courses.OrderBy(c => c.Name);
+
+        var orderParams = orderByQueryString.Trim().Split(',');
+        var propertyInfos = typeof(Course).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        var orderQueryBuilder = new StringBuilder();
+
+        foreach (var param in orderParams)
+        {
+            if (string.IsNullOrWhiteSpace(param))
+                continue;
+
+            var propertyFromQueryName = param.Split(" ")[0];
+            var objectProperty = propertyInfos.FirstOrDefault(pi =>
+                pi.Name.Equals(propertyFromQueryName, StringComparison.InvariantCultureIgnoreCase));
+
+            if (objectProperty == null)
+                continue;
+
+            var direction = param.EndsWith(" desc") ? "descending" : "ascending";
+            orderQueryBuilder.Append($"{objectProperty.Name} {direction}, ");
+        }
+
+        var orderQuery = orderQueryBuilder.ToString().TrimEnd(',', ' ');
+
+        if (string.IsNullOrWhiteSpace(orderQuery))
+            return courses.OrderBy(c => c.Name);
+
+        // Use dynamic OrderBy from System.Linq.Dynamic.Core
+        return courses.OrderBy(orderQuery);
     }
 }

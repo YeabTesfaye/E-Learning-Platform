@@ -24,6 +24,7 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
         var courses = await FindAll(trackChanges)
            .FilterCourses(courseParameters.MinPrice, courseParameters.MaxPrice)
            .Search(courseParameters.SearchTerm ?? string.Empty)
+           .Sort(courseParameters.OrderBy ?? string.Empty)
             .OrderBy(c => c.Name)
             .ToListAsync();
         return PagedList<Course>

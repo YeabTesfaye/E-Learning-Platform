@@ -18,6 +18,10 @@ builder.Services.AddControllers(config =>
 {
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;
+    config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+    {
+        Duration = 120
+    });
 }).AddXmlDataContractSerializerFormatters()
 .AddApplicationPart(typeof(E_Learning.Presentation.AssemblyReference).Assembly);
 
@@ -26,6 +30,9 @@ builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
+builder.Services.ConfigureResponseCaching();
+builder.Services.ConfigureHttpCacheHeaders(); 
+
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -58,6 +65,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseRouting();
 app.UseCors("CorsPolicy");
+app.UseResponseCaching();
+app.UseHttpCacheHeaders(); 
 app.MapControllers();
 
 app.Run();

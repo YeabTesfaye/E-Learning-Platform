@@ -1,5 +1,6 @@
 using System.Text.Json;
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -19,7 +20,7 @@ public class CourseController : ControllerBase
     public async Task<IActionResult> GetCourses([FromQuery] CourseParameters courseParameters)
     {
         var (courses, metaData) = await _service.CourseService.GetAllCourses(courseParameters, trackChanges: false);
-        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
+        Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metaData));
         return Ok(courses);
     }
     [HttpGet("{Id:guid}", Name = "CourseById")]

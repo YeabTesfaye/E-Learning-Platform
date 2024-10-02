@@ -1,5 +1,6 @@
 using System.Text.Json;
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -22,7 +23,7 @@ public class StudentController : ControllerBase
         // return Ok(studentParameters);
         var (students, metaData) = await _service.StudentService.GetAllStudents(studentParameters, trackChanges: false);
 
-        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metaData));
+        Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metaData));
         return Ok(students);
     }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vViPsG6ebB4=",
+  "dgSpecHash": "tJJ8zcD+BAg=",
   "success": true,
   "projectFilePath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\api\\api.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Yeabsra\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Yeabsra\\.nuget\\packages\\marvin.cache.headers\\7.2.0\\marvin.cache.headers.7.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

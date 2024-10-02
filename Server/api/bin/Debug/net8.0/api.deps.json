@@ -78,6 +78,14 @@
           }
         }
       },
+      "Marvin.Cache.Headers/7.2.0": {
+        "runtime": {
+          "lib/net8.0/Marvin.Cache.Headers.dll": {
+            "assemblyVersion": "7.2.0.0",
+            "fileVersion": "7.2.0.0"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
@@ -1129,6 +1137,7 @@
       },
       "E-Learning.Presentation/1.0.0": {
         "dependencies": {
+          "Marvin.Cache.Headers": "7.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Service": "1.0.0"
         },
@@ -1215,6 +1224,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "Marvin.Cache.Headers/7.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Oth02BbD/kYpv/lbH8wHUIn4PR5Gf2r8Ff43NBFxfGYnS257++bsgKxic/24lqOLkyaS2oPcZ+P2pxIbk5tjwA==",
+      "path": "marvin.cache.headers/7.2.0",
+      "hashPath": "marvin.cache.headers.7.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
       "type": "package",

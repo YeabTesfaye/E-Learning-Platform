@@ -1,5 +1,6 @@
 using Contracts;
 using LoggerService;
+using Marvin.Cache.Headers;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service.Impl;
@@ -35,4 +36,19 @@ public static class ServiceExtensions
     IConfiguration configuration) => services.AddSqlServer<RepositoryContext>((
         configuration.GetConnectionString("sqlConnection")
     ));
+    public static void ConfigureResponseCaching(this IServiceCollection services) =>
+        services.AddResponseCaching();
+    public static void ConfigureHttpCacheHeaders(this IServiceCollection services) =>
+       services.AddHttpCacheHeaders(
+        (expirationOpt) =>
+        {
+            expirationOpt.MaxAge = 65;
+            expirationOpt.CacheLocation = CacheLocation.Private;
+
+        },
+        (validationOpt) =>
+        {
+            validationOpt.MustRevalidate = true;
+        }
+       );
 }

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5E0J4F3I5wM=",
+  "dgSpecHash": "x5v8qc8wJ74=",
   "success": true,
   "projectFilePath": "C:\\Users\\Yeabsra\\Documents\\Projects\\E-Learning-Platform\\Server\\E-Learning.Presentation\\E-Learning.Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yeabsra\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
+    "C:\\Users\\Yeabsra\\.nuget\\packages\\marvin.cache.headers\\7.2.0\\marvin.cache.headers.7.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "C:\\Users\\Yeabsra\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

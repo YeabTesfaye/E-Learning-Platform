@@ -1,4 +1,5 @@
 using api.Extensions;
+using AspNetCoreRateLimit;
 using Contracts;
 using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -31,7 +32,10 @@ builder.Services.ConfigureLoggerService();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
 builder.Services.ConfigureResponseCaching();
-builder.Services.ConfigureHttpCacheHeaders(); 
+builder.Services.ConfigureHttpCacheHeaders();
+builder.Services.AddMemoryCache();
+builder.Services.ConfigureRateLimitingOptions();
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
@@ -66,7 +70,8 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseRouting();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
-app.UseHttpCacheHeaders(); 
+app.UseHttpCacheHeaders();
+app.UseIpRateLimiting();
 app.MapControllers();
 
 app.Run();

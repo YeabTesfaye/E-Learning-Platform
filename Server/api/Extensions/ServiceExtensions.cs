@@ -1,8 +1,10 @@
 using System.Threading.RateLimiting;
 using AspNetCoreRateLimit;
 using Contracts;
+using Entities;
 using LoggerService;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Service.Impl;
@@ -60,7 +62,7 @@ public static class ServiceExtensions
         new RateLimitRule
         {
             Endpoint = "*",
-            Limit = 5,
+            Limit = 50,
             Period = "5m"
         }
 
@@ -74,7 +76,23 @@ public static class ServiceExtensions
         MemoryCacheRateLimitCounterStore>();
         services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
         services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-        services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>(); 
+        services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 
+    }
+
+    public static void ConfigureIdentity(this IServiceCollection services)
+    {
+        var builder = services.AddIdentity<User, IdentityRole>(o =>
+        {
+            o.Password.RequireDigit = true;
+            o.Password.RequireLowercase = true;
+            o.Password.RequireUppercase = true;
+            o.Password.RequireNonAlphanumeric = true;
+            o.Password.RequiredLength = 8;
+            o.User.RequireUniqueEmail = true;
+
+        })
+        .AddEntityFrameworkStores<RepositoryContext>()
+        .AddDefaultTokenProviders();
     }
 }

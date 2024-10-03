@@ -52,6 +52,9 @@ public class MappingProfile : Profile
         CreateMap<StudentLessonForUpdateDto, StudentLesson>();
         CreateMap<StudentQuizAttemptForUpdateDto, StudentQuizAttempt>();
 
+        CreateMap<UserForRegistrationDto, User>();
+
+
 
     }
 }

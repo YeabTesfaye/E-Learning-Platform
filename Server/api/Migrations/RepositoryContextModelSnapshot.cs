@@ -95,14 +95,14 @@ namespace api.Migrations
                         {
                             Id = new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"),
                             CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
-                            EnrolmentDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2702),
+                            EnrolmentDatetime = new DateTime(2024, 10, 2, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(1688),
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"),
                             CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
-                            EnrolmentDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2705),
+                            EnrolmentDatetime = new DateTime(2024, 10, 2, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(1701),
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
                 });
@@ -429,14 +429,14 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2765),
+                            CompletedDatetime = new DateTime(2024, 10, 2, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(2128),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 9, 25, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2768),
+                            CompletedDatetime = new DateTime(2024, 10, 1, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(2143),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
@@ -472,7 +472,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2861),
+                            AttemptDatetime = new DateTime(2024, 10, 2, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(2639),
                             QuizId = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
                             ScoreAchieved = 85,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
@@ -480,11 +480,237 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 9, 26, 7, 12, 51, 825, DateTimeKind.Utc).AddTicks(2864),
+                            AttemptDatetime = new DateTime(2024, 10, 2, 18, 44, 47, 603, DateTimeKind.Utc).AddTicks(2655),
                             QuizId = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
                             ScoreAchieved = 90,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
+                });
+
+            modelBuilder.Entity("Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c176df6b-08e6-452b-b86b-364aca8db27c",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        },
+                        new
+                        {
+                            Id = "90b5715c-f3d3-49b3-b6a8-97191bca2f1c",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "44b87adc-5708-4114-8741-30ff7319fef1",
+                            Name = "Instructor",
+                            NormalizedName = "INSTRUCTOR"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Enrolment", b =>
@@ -597,6 +823,57 @@ namespace api.Migrations
                     b.Navigation("Quiz");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Course", b =>

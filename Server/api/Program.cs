@@ -2,6 +2,7 @@ using api.Extensions;
 using AspNetCoreRateLimit;
 using Contracts;
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -36,8 +37,13 @@ builder.Services.ConfigureHttpCacheHeaders();
 builder.Services.AddMemoryCache();
 builder.Services.ConfigureRateLimitingOptions();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+});
 builder.Services.ConfigureIdentity();
+builder.Services.ConfigureJWT(builder.Configuration);
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
@@ -52,16 +58,16 @@ if (app.Environment.IsProduction())
     app.UseHsts();
 
 // // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-//     app.UseExceptionHandler("/Home/Error");
-// }
-// else
-// {
-//     app.UseHsts();
-// }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Home/Error");
+}
+else
+{
+    app.UseHsts();
+}
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
@@ -69,12 +75,16 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 });
 
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseRouting();
+app.UseAuthorization();
 app.UseCors("CorsPolicy");
 app.UseResponseCaching();
 app.UseHttpCacheHeaders();
 app.UseIpRateLimiting();
 app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    _ = endpoints.MapControllers();
+});
 
 app.Run();

@@ -1,5 +1,6 @@
 using System.Text.Json;
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
@@ -17,7 +18,8 @@ public class StudentController : ControllerBase
 
     public StudentController(IServiceManager service) => _service = service;
 
-    [HttpGet]
+    [HttpGet(Name ="GetStudentes")]
+    [Authorize]
     public async Task<IActionResult> GetStudents([FromQuery] StudentParameters studentParameters)
     {
         // return Ok(studentParameters);
@@ -28,6 +30,7 @@ public class StudentController : ControllerBase
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]
+    [Authorize]
     public async Task<IActionResult> GetStudent([FromRoute] Guid Id)
     {
         var student = await _service.StudentService.GetStudent(Id, trackChanges: false);

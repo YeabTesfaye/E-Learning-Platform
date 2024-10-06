@@ -322,3 +322,6 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\api\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll

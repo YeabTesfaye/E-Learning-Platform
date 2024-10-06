@@ -1,4 +1,5 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -21,6 +22,7 @@ public class LessonController : ControllerBase
     }
 
     [HttpGet("{Id:guid}", Name = "LessonById")]
+    [Authorize]
     public async Task<IActionResult> GetLessonById([FromRoute] Guid Id, [FromRoute] Guid moduleId)
     {
         var lesson = await _service.LessonService.GetLesson(Id, moduleId, trackChanges: false);
@@ -29,6 +31,7 @@ public class LessonController : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> CreateLesson([FromRoute] Guid moduleId, [FromBody] LessonForCreation lesson)
     {
         if (lesson is null)
@@ -42,6 +45,7 @@ public class LessonController : ControllerBase
         return CreatedAtRoute("LessonById", new { Id = lessonToReturn.Id, moduleId }, lessonToReturn);
     }
     [HttpDelete("{lessonId:guid}")]
+    [Authorize]
 
     public async Task<IActionResult> DeleteLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId)
     {
@@ -50,6 +54,7 @@ public class LessonController : ControllerBase
     }
     [HttpPut("{lessonId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> UpdateLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId, LessonForUpdateDto lessonForUpdate)
     {
         if (!ModelState.IsValid)

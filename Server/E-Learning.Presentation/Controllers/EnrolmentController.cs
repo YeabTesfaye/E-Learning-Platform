@@ -1,4 +1,5 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -14,6 +15,7 @@ public class EnrolmentController : ControllerBase
    public EnrolmentController(IServiceManager service) => _service = service;
 
    [HttpGet]
+   [Authorize]
    public async Task<IActionResult> GetEnrolmentsForCourse(Guid studentId, Guid courseId)
    {
       var enrolments = await _service.EnrolmentService.GetEnrolments(studentId, courseId, trackChanges: false);
@@ -21,6 +23,7 @@ public class EnrolmentController : ControllerBase
    }
 
    [HttpGet("{Id:guid}", Name = "GetEnrolmentById")]
+   [Authorize]
    public async Task<IActionResult> GetEnrolmentForCourse([FromRoute] Guid Id, [FromRoute] Guid studentId, [FromRoute] Guid courseId)
    {
       var enrolment = await _service.EnrolmentService.GetEnrolment(Id, studentId, courseId, trackChanges: false);
@@ -29,6 +32,7 @@ public class EnrolmentController : ControllerBase
 
    [HttpPost]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
+   [Authorize]
    public async Task<IActionResult> CreateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     [FromBody] EnrolmentForCreation enrolment)
    {
@@ -43,6 +47,7 @@ public class EnrolmentController : ControllerBase
    }
 
    [HttpDelete("{enrolmentId:guid}")]
+   [Authorize]
    public async Task<IActionResult> DeleteEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId, Guid enrolmentId)
    {
       await _service.EnrolmentService.DeleteEnrolment(enrolmentId, studentId, courseId, trackChanges: false);
@@ -50,6 +55,7 @@ public class EnrolmentController : ControllerBase
    }
    [HttpPut("{enrolmentId:guid}")]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
+   [Authorize]
    public async Task<IActionResult> UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     Guid enrolmentId, EnrolmentForUpdateDto enrolmentForUpdate)
    {

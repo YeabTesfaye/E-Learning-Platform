@@ -1,4 +1,5 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -14,12 +15,14 @@ public class ModuleController : ControllerBase
     public ModuleController(IServiceManager service) => _service = service;
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetModulesForCourse([FromRoute] Guid courseId)
     {
         var modules = await _service.ModuleService.GetModules(courseId, trackChanges: false);
         return Ok(modules);
     }
     [HttpGet("{Id:guid}", Name = "GetModuleById")]
+    [Authorize]
     public async Task<IActionResult> GetModuleForCourse([FromRoute] Guid Id, [FromRoute] Guid courseId)
     {
         var module = await _service.ModuleService.GetModule(Id, courseId, trackChanges: false);
@@ -28,6 +31,7 @@ public class ModuleController : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> CreateModule([FromRoute] Guid courseId, [FromBody] ModuleForCreation module)
     {
         if (module is null)
@@ -45,6 +49,7 @@ public class ModuleController : ControllerBase
     }
 
     [HttpDelete("{moduleId:guid}")]
+    [Authorize]
     public async Task<IActionResult> DeleteModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId)
     {
         await _service.ModuleService.DeleteModule(moduleId, courseId, trackChanges: false);
@@ -52,6 +57,7 @@ public class ModuleController : ControllerBase
     }
     [HttpPut("{moduleId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> UpdateModule([FromRoute] Guid moduleId, [FromRoute] Guid courseId, ModuleForUpdateDto moduleForUpdate)
     {
         if (!ModelState.IsValid)

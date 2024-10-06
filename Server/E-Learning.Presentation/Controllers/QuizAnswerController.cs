@@ -1,4 +1,5 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -14,16 +15,16 @@ public class QuizAnswerController : ControllerBase
 
     public QuizAnswerController(IServiceManager service) => _service = service;
 
-    // Get all answers for a specific question
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAnswersByQuestion(Guid questionId)
     {
         var answers = await _service.QuizAnswerService.GetAnswersByQuestion(questionId, trackChanges: false);
         return Ok(answers);
     }
 
-    // Get a specific answer by questionId and answerId
     [HttpGet("{answerId:guid}", Name = "AnswerById")]
+    [Authorize]
     public async Task<IActionResult> GetAnswerById([FromRoute] Guid questionId, [FromRoute] Guid answerId)
     {
         var answer = await _service.QuizAnswerService.GetAnswerById(questionId, answerId, trackChanges: false);
@@ -32,6 +33,7 @@ public class QuizAnswerController : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> CreateAnswer([FromRoute] Guid questionId, [FromBody] QuizAnswerForCreation quizAnswer)
     {
         if (quizAnswer is null)
@@ -49,6 +51,7 @@ public class QuizAnswerController : ControllerBase
         return CreatedAtRoute("AnswerById", new { questionId, answerId = quizAnswerToReturn.Id }, quizAnswerToReturn);
     }
     [HttpDelete("{answerId:guid}")]
+    [Authorize]
     public async Task<IActionResult> DeleteQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId)
     {
         await _service.QuizAnswerService.DeleteQuizAnswer(answerId, questionId, trackChanges: false);
@@ -56,6 +59,7 @@ public class QuizAnswerController : ControllerBase
     }
     [HttpPut("{answerId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> UpdateQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId, QuizAnswerForUpdateDto quizAnswerForUpdate)
     {
         if (!ModelState.IsValid)

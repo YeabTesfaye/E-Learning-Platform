@@ -1,4 +1,5 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -15,6 +16,7 @@ public class QuizQuestionController : ControllerBase
    public QuizQuestionController(IServiceManager service) => _service = service;
 
    [HttpGet]
+   [Authorize]
    public async Task<IActionResult> GetQuestionsForQuiz(Guid quizId)
    {
       var questions = await _service.QuizQuestionService.GetQuestions(quizId, trackChanges: false);
@@ -22,6 +24,7 @@ public class QuizQuestionController : ControllerBase
    }
 
    [HttpGet("{questionId:guid}", Name = "QuestionById")]
+   [Authorize]
    public async Task<IActionResult> GetQuestionForQuiz([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
       var question = await _service.QuizQuestionService.GetQuestion(questionId, quizId, trackChanges: false);
@@ -30,6 +33,7 @@ public class QuizQuestionController : ControllerBase
 
    [HttpPost]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
+   [Authorize]
    public async Task<IActionResult> CreateQuestionForQuiz([FromRoute] Guid quizId, [FromBody] QuizQuestionForCreation quizQuestion)
    {
 
@@ -47,6 +51,7 @@ public class QuizQuestionController : ControllerBase
    }
 
    [HttpDelete("{questionId:guid}")]
+   [Authorize]
    public async Task<IActionResult> DeleteQuizQuestion([FromRoute] Guid quizId, [FromRoute] Guid questionId)
    {
       await _service.QuizQuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
@@ -54,6 +59,7 @@ public class QuizQuestionController : ControllerBase
    }
    [HttpPut("{questionId:guid}")]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
+   [Authorize]
    public async Task<IActionResult> UpdateQuizQuesion([FromRoute] Guid quizId, [FromRoute] Guid questionId, QuizQuestionForUpdateDto quizQuestionForUpdate)
    {
       if (!ModelState.IsValid)

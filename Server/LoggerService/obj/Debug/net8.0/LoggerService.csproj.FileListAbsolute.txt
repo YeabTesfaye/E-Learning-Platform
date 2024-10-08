@@ -21,8 +21,10 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\LoggerService.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Contracts.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Entities.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Contracts.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Entities.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.csproj.AssemblyReference.cache
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.AssemblyInfoInputs.cache
@@ -34,5 +36,3 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\refint\LoggerService.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\LoggerService.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\obj\Debug\net8.0\ref\LoggerService.dll
-C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.dll
-C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\LoggerService\bin\Debug\net8.0\Shared.pdb

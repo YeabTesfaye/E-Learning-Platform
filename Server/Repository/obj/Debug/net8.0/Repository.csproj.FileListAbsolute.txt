@@ -21,8 +21,10 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\De
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Repository.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Contracts.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Entities.dll
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Contracts.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Entities.pdb
+C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\Repository.AssemblyInfoInputs.cache
@@ -34,5 +36,3 @@ C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\De
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\obj\Debug\net8.0\ref\Repository.dll
-C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.dll
-C:\Users\Yeabsra\Documents\Projects\E-Learning-Platform\Server\Repository\bin\Debug\net8.0\Shared.pdb

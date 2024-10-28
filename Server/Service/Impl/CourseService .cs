@@ -6,6 +6,7 @@ using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;
+using Shared.RequestFeatures;
 
 namespace Service.Impl;
 
@@ -35,34 +36,42 @@ public sealed class CourseService : ICourseService
 
     public async Task DeleteCourse(Guid id, bool trackChanges)
     {
-        var course = await _repository.Course.GetCourse(id, trackChanges: false)
-        ?? throw new CourseNotFoundException(id);
-
+        var course = await GetCourseAndCheckIfItExist(id, trackChanges);
         _repository.Course.DeleteCourse(course);
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<CourseDto>> GetAllCourses(bool trackChanges)
+    public async Task<(IEnumerable<CourseDto> courses, MetaData metaData)> GetAllCourses(CourseParameters courseParameters, bool trackChanges)
     {
-        var courses = await _repository.Course.GetAllCourses(trackChanges);
-        var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(courses);
-        return coursesDto;
+        if (!courseParameters.ValidPriceRange)
+        {
+            throw new MaxAgeRangeBadRequestException("Max Price can't be less than min price");
+        }
+        var coursesWithMetadata = await _repository.Course.GetAllCourses(courseParameters, trackChanges);
+        var coursesDto = _mapper.Map<IEnumerable<CourseDto>>(coursesWithMetadata);
+        return (courses: coursesDto, metaData: coursesWithMetadata.MetaData);
 
     }
 
     public async Task<CourseDto> GetCourse(Guid id, bool trackChanges)
     {
-        var course = await _repository.Course.GetCourse(id, trackChanges)
-        ?? throw new CourseNotFoundException(id);
+        var course = await GetCourseAndCheckIfItExist(id, trackChanges);
         var courseDto = _mapper.Map<CourseDto>(course);
         return courseDto;
     }
 
     public async Task UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
     {
-        var courseEntity = await _repository.Course.GetCourse(Id, trackChanges)
-        ?? throw new CourseNotFoundException(Id);
+        var courseEntity = await GetCourseAndCheckIfItExist(Id, trackChanges);
         _mapper.Map(courseForUpdate, courseEntity);
-       await _repository.SaveAsync();
+        await _repository.SaveAsync();
+    }
+
+    private async Task<Course> GetCourseAndCheckIfItExist(
+         Guid id, bool trackChanges)
+    {
+        var employeeDb = await _repository.Course.GetCourse(id, trackChanges)
+         ?? throw new CourseNotFoundException(id);
+        return employeeDb;
     }
 }

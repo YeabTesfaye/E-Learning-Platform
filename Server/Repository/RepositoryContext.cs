@@ -1,10 +1,11 @@
 using Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repository.Configuration;
 
 namespace Repository;
 
-public class RepositoryContext : DbContext
+public class RepositoryContext : IdentityDbContext<User>
 {
     public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
     {
@@ -36,7 +37,7 @@ public class RepositoryContext : DbContext
         modelBuilder.ApplyConfiguration(new EnrolmentConfiguration());
         modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
         modelBuilder.ApplyConfiguration(new StudentQuizAttemptConfiguration());
-
+        modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
         // Course Configuration
         modelBuilder.Entity<Course>()

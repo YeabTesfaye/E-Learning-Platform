@@ -1,5 +1,8 @@
 using AutoMapper;
 using Contracts;
+using Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Service.Intefaces;
 
 namespace Service.Impl;
@@ -16,7 +19,9 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<IStudentLessonService> _studentLessonService;
     private readonly Lazy<IStudentQuizAttemptService> _studentQuizAttemptService;
     private readonly Lazy<IQuizQuestionService> _quizQuestionService;
-    public ServiceManager(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    private readonly Lazy<IAuthenticationService> _authenticationService;
+    public ServiceManager(IRepositoryManager repository, ILoggerManager logger, IMapper mapper,
+    UserManager<User> userManager, IConfiguration configuration)
     {
         _courseService = new Lazy<ICourseService>(() => new CourseService(repository, logger, mapper));
         _studentService = new Lazy<IStudentService>(() => new StudentService(repository, logger, mapper));
@@ -28,6 +33,7 @@ public class ServiceManager : IServiceManager
         _studentLessonService = new Lazy<IStudentLessonService>(() => new StudentLessonService(repository, logger, mapper));
         _studentQuizAttemptService = new Lazy<IStudentQuizAttemptService>(() => new StudentQuizAttemptService(repository, logger, mapper));
         _quizQuestionService = new Lazy<IQuizQuestionService>(() => new QuizQuestionService(repository, logger, mapper));
+        _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(logger, mapper, userManager, configuration));
 
     }
     public ICourseService CourseService => _courseService.Value;
@@ -47,4 +53,5 @@ public class ServiceManager : IServiceManager
     public IStudentQuizAttemptService StudentQuizAttemptService => _studentQuizAttemptService.Value;
 
     public IQuizQuestionService QuizQuestionService => _quizQuestionService.Value;
+    public IAuthenticationService AuthenticationService => _authenticationService.Value;
 }

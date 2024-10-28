@@ -31,17 +31,14 @@ public class StudentLessonService : IStudentLessonService
 
     public async Task<StudentLessonDto> GetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
     {
-        var lesson = await _repository.StudentLesson.StGetLesson(Id, studentId, lessonId, trackChanges)
-        ?? throw new LessonNotFounException(lessonId);
+        var lesson = await CheckIfStLessonExistsAndReturn(Id, studentId, lessonId, trackChanges);
         return _mapper.Map<StudentLessonDto>(lesson);
     }
 
     public async Task<StudentLessonDto> CreateStudentLesson(Guid studentId, Guid lessonId, StudentLessonForCreation studentLesson, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
-         ?? throw new StudentNotFoundException(studentId);
-        _ = await _repository.Lesson.GetLesson(lessonId, trackChanges: false)
-        ?? throw new LessonNotFounException(lessonId);
+        await CheckIfStudentExists(studentId, trackChanges);
+        await CheckIfLessonExists(lessonId, trackChanges);
         var studentLessonEntity = _mapper.Map<StudentLesson>(studentLesson);
         _repository.StudentLesson.CreateLessonForStudent(studentId, lessonId, studentLessonEntity);
         await _repository.SaveAsync();
@@ -52,14 +49,10 @@ public class StudentLessonService : IStudentLessonService
 
     public async Task DeleteStudentLesson(Guid id, Guid lessonId, Guid studentId, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
-        ?? throw new StudentNotFoundException(studentId);
+        await CheckIfStudentExists(studentId, trackChanges);
+        await CheckIfLessonExists(lessonId, trackChanges);
 
-        _ = await _repository.Lesson.GetLesson(lessonId, trackChanges: false)
-        ?? throw new LessonNotFounException(lessonId);
-
-        var studentLesson = await _repository.StudentLesson.GetStudentLessonByStudentId(id, studentId, trackChanges: false)
-         ?? throw new StudentLessonNotFound(id);
+        var studentLesson = await CheckIfStLessonExistsAndReturn(id, lessonId, studentId, trackChanges);
         _repository.StudentLesson.DeleteStudentLesson(studentLesson);
         await _repository.SaveAsync();
 
@@ -68,16 +61,30 @@ public class StudentLessonService : IStudentLessonService
     public async Task UpdateStudntLesson(Guid Id, Guid lessonId, Guid studentId, StudentLessonForUpdateDto studentLessonForUpdate,
     bool stlTrackChanges, bool stuTrackChanges, bool lessonTrackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, stuTrackChanges)
-       ?? throw new StudentNotFoundException(studentId);
+        await CheckIfStudentExists(studentId, stuTrackChanges);
 
-        _ = await _repository.Lesson.GetLesson(lessonId, lessonTrackChanges)
-        ?? throw new LessonNotFounException(lessonId);
+        await CheckIfLessonExists(lessonId, lessonTrackChanges);
 
-        var studentLessonEntity = await _repository.StudentLesson.StGetLesson(Id, studentId, lessonId, stlTrackChanges)
-        ?? throw new StudentLessonNotFound(Id);
+        var studentLessonEntity = await CheckIfStLessonExistsAndReturn(Id, lessonId, studentId, stlTrackChanges);
 
         _mapper.Map(studentLessonForUpdate, studentLessonEntity);
         await _repository.SaveAsync();
+    }
+    private async Task CheckIfStudentExists(Guid studentId, bool trackChanges)
+    {
+        _ = await _repository.Student.GetStudent(studentId, trackChanges: false)
+         ?? throw new StudentNotFoundException(studentId);
+    }
+    private async Task CheckIfLessonExists(Guid lessonId, bool trackChanges)
+    {
+        _ = await _repository.Lesson.GetLesson(lessonId, trackChanges: false)
+           ?? throw new LessonNotFounException(lessonId);
+    }
+    private async Task<StudentLesson> CheckIfStLessonExistsAndReturn(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
+    {
+        var lesson = await _repository.StudentLesson.StGetLesson(Id, studentId, lessonId, trackChanges)
+        ?? throw new LessonNotFounException(lessonId);
+        return lesson;
+
     }
 }

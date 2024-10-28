@@ -6,6 +6,7 @@ using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;
+using Shared.RequestFeatures;
 
 namespace Service.Impl;
 
@@ -33,25 +34,25 @@ public sealed class StudentService : IStudentService
 
     public async Task DeleteStudent(Guid id, bool trackChanges)
     {
-        var student = await _repository.Student.GetStudent(id, trackChanges: false)
-        ?? throw new StudentNotFoundException(id);
-
+        var student = await GetStudentAndCheckIfItExists(id, trackChanges);
         _repository.Student.DeleteStudent(student);
         await _repository.SaveAsync();
     }
 
-    public async Task<IEnumerable<StudentDto>> GetAllStudents(bool trackChanges)
+    public async Task<(IEnumerable<StudentDto> students, MetaData metaData)> GetAllStudents(StudentParameters studentParameters, bool trackChanges)
     {
-        var students = await _repository.Student.GetAllStudents(trackChanges);
-        var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(students);
-        return studentsDto;
+
+        if (!studentParameters.ValidAgeRange)
+            throw new MaxAgeRangeBadRequestException("Max age can't be less than min age.");
+        var studentWithMetaData = await _repository.Student.GetAllStudents(studentParameters, trackChanges);
+        var studentsDto = _mapper.Map<IEnumerable<StudentDto>>(studentWithMetaData);
+        return (students: studentsDto, metaData: studentWithMetaData.MetaData);
 
     }
 
     public async Task<StudentDto> GetStudent(Guid id, bool trackChanges)
     {
-        var student = await _repository.Student.GetStudent(id, trackChanges)
-         ?? throw new StudentNotFoundException(id);
+        var student = await GetStudentAndCheckIfItExists(id, trackChanges);
         var studentDto = _mapper.Map<StudentDto>(student);
         return studentDto;
     }
@@ -59,10 +60,18 @@ public sealed class StudentService : IStudentService
 
     public async Task UpdateStudent(Guid Id, StudentForUpdateDto studentForUpdate, bool trackChanges)
     {
-        var studentEntity = await _repository.Student.GetStudent(Id, trackChanges)
-         ?? throw new StudentNotFoundException(Id);
+        var studentEntity = await GetStudentAndCheckIfItExists(Id, trackChanges);
 
         _mapper.Map(studentForUpdate, studentEntity);
         await _repository.SaveAsync();
     }
+
+    private async Task<Student> GetStudentAndCheckIfItExists(Guid Id, bool trackChanges)
+    {
+        var student = await _repository.Student.GetStudent(Id, trackChanges: false);
+        if (student is null)
+            throw new StudentNotFoundException(Id);
+        return student;
+    }
+
 }

@@ -55,11 +55,9 @@ public class EnrolmentService : IEnrolmentService
 
     public async Task<EnrolmentDto> GetEnrolment(Guid Id, Guid studentId, Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges)
-        ?? throw new StudentNotFoundException(studentId);
-        _ = await _repository.Course.GetCourse(courseId, trackChanges)
-        ?? throw new CourseNotFoundException(courseId);
-
+        await CheckIfStudentExists(studentId, trackChanges);
+        await CheckIfCourseExists(courseId, trackChanges);
+       
         var enrolment = await _repository.Enrolment.GetEnrolment(Id, studentId, courseId, trackChanges);
         var enrolmentDto = _mapper.Map<EnrolmentDto>(enrolment);
         return enrolmentDto;
@@ -67,10 +65,8 @@ public class EnrolmentService : IEnrolmentService
 
     public async Task<IEnumerable<EnrolmentDto>> GetEnrolments(Guid studentId, Guid courseId, bool trackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, trackChanges)
-            ?? throw new StudentNotFoundException(studentId);
-        _ = await _repository.Course.GetCourse(courseId, trackChanges)
-            ?? throw new CourseNotFoundException(courseId);
+        await CheckIfStudentExists(studentId, trackChanges);
+        await CheckIfCourseExists(courseId, trackChanges);
 
         var enrolments = await _repository.Enrolment.GetEnrolments(studentId, courseId, trackChanges);
 
@@ -81,16 +77,26 @@ public class EnrolmentService : IEnrolmentService
     public async Task UpdateEnrolment(Guid Id, Guid studentId, Guid courseId, EnrolmentForUpdateDto enrolmentForUpdate,
      bool enrolmentTrackChanges, bool studentTrackChanges, bool courseTrackChanges)
     {
-        _ = await _repository.Student.GetStudent(studentId, studentTrackChanges)
-         ?? throw new StudentNotFoundException(studentId);
-
-        _ = await _repository.Course.GetCourse(courseId, courseTrackChanges)
-        ?? throw new CourseNotFoundException(courseId);
+        await CheckIfStudentExists(studentId, studentTrackChanges);
+        await CheckIfCourseExists(courseId, courseTrackChanges);
 
         var enrolmentEntity = await _repository.Enrolment.GetEnrolment(Id, studentId, courseId, enrolmentTrackChanges);
         _mapper.Map(enrolmentForUpdate, enrolmentEntity);
         await _repository.SaveAsync();
     }
 
+    private async Task CheckIfStudentExists(Guid Id, bool trackChanges)
+    {
+        _ = await _repository.Student.GetStudent(Id, trackChanges)
+        ?? throw new StudentNotFoundException(Id);
+    }
+    private async Task CheckIfCourseExists(Guid Id, bool trackChanges)
+    {
+        _ = await _repository.Course.GetCourse(Id, trackChanges)
+        ?? throw new CourseNotFoundException(Id);
+    }
+
     
+
+
 }

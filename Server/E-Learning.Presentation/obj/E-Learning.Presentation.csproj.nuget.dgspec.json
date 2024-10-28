@@ -31,6 +31,9 @@
             "projectReferences": {
               "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj": {
                 "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Entities\\Entities.csproj"
+              },
+              "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\yeabiseraT\\Documents\\E-Learning Platform\\Server\\Shared\\Shared.csproj"
               }
             }
           }
@@ -115,6 +118,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Marvin.Cache.Headers": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -181,6 +188,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -332,6 +345,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.8, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.4.5, )"
             }
           },
           "imports": [
@@ -412,6 +429,18 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.1.1, )"
             }
           },
           "imports": [

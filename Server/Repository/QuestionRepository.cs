@@ -4,13 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class QuizQuestionRepository : RepositoryBase<QuizQuestion>, IQuizQuestionRepository
+public class QuizQuestionRepository(RepositoryContext repositoryContext) :
+ RepositoryBase<QuizQuestion>(repositoryContext), IQuizQuestionRepository
 {
-  public QuizQuestionRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-  {
-  }
-
-  public void CreateQuizQuestion(Guid quizId, QuizQuestion question)
+    public void CreateQuizQuestion(Guid quizId, QuizQuestion question)
   {
     question.QuizId = quizId;
     Create(question);

@@ -8,11 +8,11 @@ public class StudentDto
     [DataMember]
     public Guid Id { get; set; }
     [DataMember]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
     [DataMember]
-    public string FullName { get; set; } = string.Empty;
+    public string FullName { get; set; }
     [DataMember]
-    public string Sex { get; set; } = string.Empty;
+    public string Sex { get; set; }
     [DataMember]
     public int Age { get; set; }
 }

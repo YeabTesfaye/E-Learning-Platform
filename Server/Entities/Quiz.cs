@@ -9,14 +9,14 @@ public class Quiz
 {
     public Guid Id { get; set; }
     public Guid CourseId { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; }
     public int Number { get; set; }
     public int CourseOrder { get; set; }
     public int MinPassScore { get; set; }
     public bool IsPassRequired { get; set; }
 
-    public Course? Course { get; set; }
-    public ICollection<QuizQuestion>? Questions { get; set; }
-    public ICollection<StudentQuizAttempt>? Attempts { get; set; }
+    public Course Course { get; set; }
+    public ICollection<QuizQuestion> Questions { get; set; }
+    public ICollection<StudentQuizAttempt> Attempts { get; set; }
 
 }

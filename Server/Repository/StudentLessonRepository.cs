@@ -16,7 +16,7 @@ public class StudentLessonRepository : RepositoryBase<StudentLesson>, IStudentLe
                .ToListAsync();
     }
 
-    public async Task<StudentLesson?> StGetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
+    public async Task<StudentLesson> StGetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
     {
         return await FindByCondition(sl => sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId) && sl.Id.Equals(Id), trackChanges)
                .SingleOrDefaultAsync();
@@ -33,7 +33,7 @@ public class StudentLessonRepository : RepositoryBase<StudentLesson>, IStudentLe
     public void DeleteStudentLesson(StudentLesson studentLesson)
     => Delete(studentLesson);
 
-    public async Task<StudentLesson?> GetStudentLessonByStudentId(Guid Id, Guid studentId, bool trackChanges)
+    public async Task<StudentLesson> GetStudentLessonByStudentId(Guid Id, Guid studentId, bool trackChanges)
     => await FindByCondition(sl => sl.Id.Equals(Id) && sl.StudentId.Equals(studentId), trackChanges)
         .SingleOrDefaultAsync();
 }

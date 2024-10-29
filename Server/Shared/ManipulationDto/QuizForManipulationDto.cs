@@ -6,7 +6,7 @@ public class QuizForManipulationDto
 {
     [Required(ErrorMessage = "Quiz name is required.")]
     [StringLength(100, ErrorMessage = "Quiz name cannot be longer than 100 characters.")]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } 
 
     [Required(ErrorMessage = "Quiz number is required.")]
     [Range(1, int.MaxValue, ErrorMessage = "Quiz number must be greater than zero.")]

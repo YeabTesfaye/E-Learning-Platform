@@ -14,7 +14,7 @@ public class StudentQuizAttemptRepository : RepositoryBase<StudentQuizAttempt>, 
         return await FindByCondition(a => a.StudentId.Equals(studentId), trackChanges)
         .OrderBy(a => a.AttemptDatetime).ToListAsync();
     }
-    public async Task<StudentQuizAttempt?> GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
+    public async Task<StudentQuizAttempt> GetAttemptById(Guid studentId, Guid attemptId, bool trackChanges)
     {
         return await FindByCondition(a => a.StudentId.Equals(studentId) && a.Id.Equals(attemptId), trackChanges)
                .SingleOrDefaultAsync();

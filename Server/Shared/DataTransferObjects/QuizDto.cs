@@ -8,7 +8,7 @@ public class QuizDto
     [DataMember]
     public Guid Id { get; set; }
     [DataMember]
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; set; }
     [DataMember]
     public int Number { get; set; }
     [DataMember]

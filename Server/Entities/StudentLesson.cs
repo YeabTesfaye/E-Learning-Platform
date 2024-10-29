@@ -10,6 +10,6 @@ public class StudentLesson
     public Guid LessonId { get; set; }
     public DateTime CompletedDatetime { get; set; }
 
-    public Student? Student { get; set; }
-    public Lesson? Lesson { get; set; }
+    public Student Student { get; set; }
+    public Lesson Lesson { get; set; }
 }

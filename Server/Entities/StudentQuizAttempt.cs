@@ -12,6 +12,6 @@ public class StudentQuizAttempt
     public DateTime AttemptDatetime { get; set; }
     public int ScoreAchieved { get; set; }
 
-    public Student? Student { get; set; }
-    public Quiz? Quiz { get; set; }
+    public Student Student { get; set; }
+    public Quiz Quiz { get; set; }
 }

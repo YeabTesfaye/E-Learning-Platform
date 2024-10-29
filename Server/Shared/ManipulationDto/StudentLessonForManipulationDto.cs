@@ -13,7 +13,7 @@ namespace Shared.ManipulationDto
     // Custom validation attribute to ensure the date is not in the future
     public class CompletedDateValidation : ValidationAttribute
     {
-        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             if (value is DateTime completedDate)
             {

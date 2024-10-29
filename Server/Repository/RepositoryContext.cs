@@ -5,12 +5,8 @@ using Repository.Configuration;
 
 namespace Repository;
 
-public class RepositoryContext : IdentityDbContext<User>
+public class RepositoryContext(DbContextOptions<RepositoryContext> options) : IdentityDbContext<User>(options)
 {
-    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
-    {
-    }
-
     public DbSet<Enrolment> Enrolments { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<Quiz> Quizzes { get; set; }

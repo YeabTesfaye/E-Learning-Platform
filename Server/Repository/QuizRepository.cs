@@ -19,11 +19,11 @@ public class QuizRepository : RepositoryBase<Quiz>, IQuizRepository
     public void DeleteQuiz(Quiz quiz)
     => Delete(quiz);
 
-    public async Task<Quiz?> GetQuiz(Guid Id, Guid courseId, bool trackChanges)
+    public async Task<Quiz> GetQuiz(Guid Id, Guid courseId, bool trackChanges)
     => await FindByCondition(q => q.Id.Equals(Id) && q.CourseId.Equals(courseId), trackChanges)
         .SingleOrDefaultAsync();
 
-    public async Task<Quiz?> GetQuiz(Guid Id, bool trackChanges)
+    public async Task<Quiz> GetQuiz(Guid Id, bool trackChanges)
     => await FindByCondition(q => q.Id.Equals(Id), trackChanges)
         .SingleOrDefaultAsync();
 

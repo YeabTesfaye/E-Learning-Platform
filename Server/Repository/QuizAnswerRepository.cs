@@ -16,7 +16,7 @@ public class QuizAnswerRepository : RepositoryBase<QuizAnswer>, IQuizAnswerRepos
                .ToListAsync();
     }
 
-    public async Task<QuizAnswer?> GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
+    public async Task<QuizAnswer> GetAnswerById(Guid questionId, Guid answerId, bool trackChanges)
     {
         return await FindByCondition(qa => qa.QuestionId.Equals(questionId) && qa.Id.Equals(answerId), trackChanges)
                .SingleOrDefaultAsync();

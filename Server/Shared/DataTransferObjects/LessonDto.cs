@@ -12,14 +12,14 @@ public class LessonDto
     public int CourseOrder { get; set; }
 
     [DataMember]
-    public string? LessonDetails { get; set; }
+    public string LessonDetails { get; set; }
 
     [DataMember]
-    public string? Name { get; set; }
+    public string Name { get; set; }
 
     [DataMember]
     public int Number { get; set; }
 
     [DataMember]
-    public string? VideoUrl { get; set; }
+    public string VideoUrl { get; set; }
 }

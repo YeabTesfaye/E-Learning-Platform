@@ -19,7 +19,7 @@ public class StudentController : ControllerBase
     public StudentController(IServiceManager service) => _service = service;
 
     [HttpGet(Name = "GetStudentes")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetStudents([FromQuery] StudentParameters studentParameters)
     {
         // return Ok(studentParameters);
@@ -30,7 +30,7 @@ public class StudentController : ControllerBase
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetStudent([FromRoute] Guid Id)
     {
         var student = await _service.StudentService.GetStudent(Id, trackChanges: false);
@@ -38,7 +38,7 @@ public class StudentController : ControllerBase
     }
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> CreateStudent([FromBody] StudentForCreation student)
     {
         if (student is null)
@@ -53,7 +53,7 @@ public class StudentController : ControllerBase
         createdStudent);
     }
     [HttpDelete("{studentId:guid}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeleteStudent([FromRoute] Guid studentId)
     {
         await _service.StudentService.DeleteStudent(studentId, trackChanges: false);
@@ -61,7 +61,7 @@ public class StudentController : ControllerBase
     }
 
     [HttpPut("{studentId:guid}")]
-    [Authorize]
+    // [Authorize]
 
     public async Task<IActionResult> UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
     {

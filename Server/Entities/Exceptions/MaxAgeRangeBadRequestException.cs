@@ -1,8 +1,5 @@
 namespace Entities.Exceptions;
 
-public class MaxAgeRangeBadRequestException : BadRequestException
+public class MaxAgeRangeBadRequestException(string message) : BadRequestException(message)
 {
-    public MaxAgeRangeBadRequestException(string message): base(message)
-    {
-    }
 }

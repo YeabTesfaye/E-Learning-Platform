@@ -6,13 +6,8 @@ using Shared.RequestFeatures;
 
 namespace Repository;
 
-public class CourseRepository : RepositoryBase<Course>, ICourseRepository
+public class CourseRepository(RepositoryContext repositoryContext) : RepositoryBase<Course>(repositoryContext), ICourseRepository
 {
-    public CourseRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-
-    }
-
     public void CreateCourse(Course course)
     => Create(course);
 
@@ -32,7 +27,7 @@ public class CourseRepository : RepositoryBase<Course>, ICourseRepository
     }
 
 
-    public async Task<Course?> GetCourse(Guid courseId, bool trackChanges)
+    public async Task<Course> GetCourse(Guid courseId, bool trackChanges)
      => await FindByCondition(c => c.Id.Equals(courseId), trackChanges)
         .SingleOrDefaultAsync();
 

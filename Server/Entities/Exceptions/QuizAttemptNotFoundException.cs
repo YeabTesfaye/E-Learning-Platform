@@ -1,9 +1,5 @@
 namespace Entities.Exceptions;
 
-public class QuizAttemptNotFoundException : NotFoundException
+public class QuizAttemptNotFoundException(Guid id) : NotFoundException($"The attempt with id : {id} doesn't exist in the database")
 {
-    public QuizAttemptNotFoundException(Guid id)
-: base($"The attempt with id : {id} doesn't exist in the database")
-    {
-    }
 }

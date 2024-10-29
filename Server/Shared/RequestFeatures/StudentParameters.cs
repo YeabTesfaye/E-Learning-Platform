@@ -7,7 +7,7 @@ public class StudentParameters : RequestParameters
 
     public bool ValidAgeRange => MaxAge > MinAge;
 
-    public string? SearchTerm { get; set; }
+    public string SearchTerm { get; set; }
     public StudentParameters() => OrderBy = "FirstName";
 
 }

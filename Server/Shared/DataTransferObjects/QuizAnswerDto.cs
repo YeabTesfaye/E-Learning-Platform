@@ -8,7 +8,7 @@ public class QuizAnswerDto
     [DataMember]
     public Guid Id { get; set; }
     [DataMember]
-    public string AnswerText { get; set; } = string.Empty;
+    public string AnswerText { get; set; }
     [DataMember]
     public bool IsCorrect { get; set; }
 }

@@ -7,9 +7,9 @@ public class QuizQuestion
 {
     public Guid Id { get; set; }
     public Guid QuizId { get; set; }
-    public string? QuestionTitle { get; set; }
+    public string QuestionTitle { get; set; }
 
-    public Quiz? Quiz { get; set; }
-    public ICollection<QuizAnswer>? Answers { get; set; }
+    public Quiz Quiz { get; set; }
+    public ICollection<QuizAnswer> Answers { get; set; }
 
 }

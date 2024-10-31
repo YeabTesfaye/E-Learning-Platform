@@ -1,4 +1,3 @@
-using Entities;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
 using Shared.DtoForUpdate;

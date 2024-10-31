@@ -9,17 +9,11 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public sealed class ModuleService : IModuleService
+public sealed class ModuleService
+(IRepositoryManager repository,  IMapper mapper) : IModuleService
 {
-    private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
-    private readonly IMapper _mapper;
-    public ModuleService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _repository = repository;
-        _logger = logger;
-        _mapper = mapper;
-    }
+    private readonly IRepositoryManager _repository = repository;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<ModuleDto> CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
     {

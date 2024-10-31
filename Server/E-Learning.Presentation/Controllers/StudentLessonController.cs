@@ -9,11 +9,10 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/student/{studentId}/lessons/{lessonId}/stlesson")]
 [ApiController]
-public class StudentLessonController : ControllerBase
+public class StudentLessonController(IServiceManager service) : ControllerBase
 {
 
-    private readonly IServiceManager _service;
-    public StudentLessonController(IServiceManager service) => _service = service;
+    private readonly IServiceManager _service = service;
 
     [HttpGet]
     [Authorize]

@@ -9,11 +9,10 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/module/{moduleId}/lessons")]
 [ApiController]
-public class LessonController : ControllerBase
+public class LessonController(IServiceManager service) : ControllerBase
 {
-    private readonly IServiceManager _service;
+    private readonly IServiceManager _service = service;
 
-    public LessonController(IServiceManager service) => _service = service;
     [HttpGet]
     public async Task<IActionResult> GetLessonsByModule([FromRoute] Guid moduleId)
     {

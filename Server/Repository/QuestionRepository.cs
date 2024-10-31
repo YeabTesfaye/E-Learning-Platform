@@ -20,12 +20,12 @@ public class QuizQuestionRepository(RepositoryContext repositoryContext) :
 => await FindByCondition(q => q.QuizId.Equals(quizId), trackChanges)
   .OrderBy(q => q.QuestionTitle).ToListAsync();
 
-  public async Task<QuizQuestion?> GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
+  public async Task<QuizQuestion> GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
     => await FindByCondition(q => q.QuizId.Equals(quizId) && q.Id.Equals(Id), trackChanges)
       .OrderBy(q => q.QuestionTitle)
       .SingleOrDefaultAsync();
 
-  public async Task<QuizQuestion?> GetQuizQuestion(Guid questionId, bool trackChanges)
+  public async Task<QuizQuestion> GetQuizQuestion(Guid questionId, bool trackChanges)
    => await FindByCondition(q => q.Id.Equals(questionId), trackChanges)
     .SingleOrDefaultAsync();
 }

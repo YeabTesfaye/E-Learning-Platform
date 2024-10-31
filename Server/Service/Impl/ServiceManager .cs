@@ -20,20 +20,20 @@ public class ServiceManager : IServiceManager
     private readonly Lazy<IStudentQuizAttemptService> _studentQuizAttemptService;
     private readonly Lazy<IQuizQuestionService> _quizQuestionService;
     private readonly Lazy<IAuthenticationService> _authenticationService;
-    public ServiceManager(IRepositoryManager repository, ILoggerManager logger, IMapper mapper,
+    public ServiceManager(IRepositoryManager repository, IMapper mapper,
     UserManager<User> userManager, IConfiguration configuration)
     {
-        _courseService = new Lazy<ICourseService>(() => new CourseService(repository, logger, mapper));
-        _studentService = new Lazy<IStudentService>(() => new StudentService(repository, logger, mapper));
-        _moduleService = new Lazy<IModuleService>(() => new ModuleService(repository, logger, mapper));
-        _enrolmentService = new Lazy<IEnrolmentService>(() => new EnrolmentService(repository, logger, mapper));
-        _lessonService = new Lazy<ILessonService>(() => new LessonService(repository, logger, mapper));
-        _quizAnswerService = new Lazy<IQuizAnswerService>(() => new QuizAnswerService(repository, logger, mapper));
-        _quizService = new Lazy<IQuizService>(() => new QuizService(repository, logger, mapper));
-        _studentLessonService = new Lazy<IStudentLessonService>(() => new StudentLessonService(repository, logger, mapper));
-        _studentQuizAttemptService = new Lazy<IStudentQuizAttemptService>(() => new StudentQuizAttemptService(repository, logger, mapper));
-        _quizQuestionService = new Lazy<IQuizQuestionService>(() => new QuizQuestionService(repository, logger, mapper));
-        _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(logger, mapper, userManager, configuration));
+        _courseService = new Lazy<ICourseService>(() => new CourseService(repository,  mapper));
+        _studentService = new Lazy<IStudentService>(() => new StudentService(repository,  mapper));
+        _moduleService = new Lazy<IModuleService>(() => new ModuleService(repository,  mapper));
+        _enrolmentService = new Lazy<IEnrolmentService>(() => new EnrolmentService(repository,  mapper));
+        _lessonService = new Lazy<ILessonService>(() => new LessonService(repository,  mapper));
+        _quizAnswerService = new Lazy<IQuizAnswerService>(() => new QuizAnswerService(repository,  mapper));
+        _quizService = new Lazy<IQuizService>(() => new QuizService(repository,  mapper));
+        _studentLessonService = new Lazy<IStudentLessonService>(() => new StudentLessonService(repository,  mapper));
+        _studentQuizAttemptService = new Lazy<IStudentQuizAttemptService>(() => new StudentQuizAttemptService(repository,  mapper));
+        _quizQuestionService = new Lazy<IQuizQuestionService>(() => new QuizQuestionService(repository,  mapper));
+        _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService( mapper, userManager, configuration));
 
     }
     public ICourseService CourseService => _courseService.Value;

@@ -13,13 +13,12 @@ namespace Service.Impl;
 public sealed class CourseService : ICourseService
 {
     private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
+
     private readonly IMapper _mapper;
 
-    public CourseService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    public CourseService(IRepositoryManager repository,IMapper mapper)
     {
         _repository = repository;
-        _logger = logger;
         _mapper = mapper;
     }
 

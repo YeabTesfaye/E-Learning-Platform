@@ -4,12 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-  public class ModuleRepository : RepositoryBase<Module>, IModuleRepository
+  public class ModuleRepository(RepositoryContext repositoryContext) :
+  RepositoryBase<Module>(repositoryContext), IModuleRepository
   {
-    public ModuleRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
-
     public void CreateModuleForCourse(Guid courseId, Module module)
     {
       module.CourseId = courseId;

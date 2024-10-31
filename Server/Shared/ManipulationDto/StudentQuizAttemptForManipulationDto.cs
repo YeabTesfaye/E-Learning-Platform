@@ -17,7 +17,7 @@ public class StudentQuizAttemptForManipulationDto
 // Custom validation attribute to ensure the attempt date is not in the future
 public class AttemptDateValidation : ValidationAttribute
 {
-    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         if (value is DateTime attemptDate)
         {

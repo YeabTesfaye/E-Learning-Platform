@@ -12,14 +12,11 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("api/students")]
 [ApiController]
-public class StudentController : ControllerBase
+public class StudentController(IServiceManager service) : ControllerBase
 {
-    private readonly IServiceManager _service;
-
-    public StudentController(IServiceManager service) => _service = service;
+    private readonly IServiceManager _service = service;
 
     [HttpGet(Name = "GetStudentes")]
-    // [Authorize]
     public async Task<IActionResult> GetStudents([FromQuery] StudentParameters studentParameters)
     {
         // return Ok(studentParameters);
@@ -30,7 +27,6 @@ public class StudentController : ControllerBase
     }
 
     [HttpGet("{Id:guid}", Name = "StudentById")]
-    // [Authorize]
     public async Task<IActionResult> GetStudent([FromRoute] Guid Id)
     {
         var student = await _service.StudentService.GetStudent(Id, trackChanges: false);

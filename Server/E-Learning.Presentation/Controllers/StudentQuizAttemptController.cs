@@ -1,5 +1,4 @@
 using E_Learning.Presentation.ActionFilter;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
@@ -9,14 +8,11 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/students/{studentId}/attempts")]
 [ApiController]
-public class StudentQuizAttemptController : ControllerBase
+public class StudentQuizAttemptController(IServiceManager service) : ControllerBase
 {
-    private readonly IServiceManager _service;
-
-    public StudentQuizAttemptController(IServiceManager service) => _service = service;
+    private readonly IServiceManager _service = service;
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetAttemptsByStudent([FromRoute] Guid studentId)
     {
         var attempts = await _service.StudentQuizAttemptService.GetAttemptsByStudent(studentId, trackChanges: false);
@@ -24,7 +20,6 @@ public class StudentQuizAttemptController : ControllerBase
     }
 
     [HttpGet("{attemptId:guid}", Name = "QuizAttemptById")]
-    [Authorize]
     public async Task<IActionResult> GetAttemptById([FromRoute] Guid studentId, [FromRoute] Guid attemptId)
     {
         var attempt = await _service.StudentQuizAttemptService.GetAttemptById(studentId, attemptId, trackChanges: false);
@@ -34,7 +29,7 @@ public class StudentQuizAttemptController : ControllerBase
     // Create a new quiz attempt for a specific student and quiz
     [HttpPost("{quizId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> CreateAttempt([FromRoute] Guid studentId, [FromRoute] Guid quizId,
      [FromBody] StudentQuizAttemptForCreation studentQuizAttempt)
     {
@@ -51,7 +46,7 @@ public class StudentQuizAttemptController : ControllerBase
     }
 
     [HttpDelete("{attemptId:guid}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeleteAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId)
     {
         await _service.StudentQuizAttemptService.DeleteStudentQuizAttempt(attemptId, studentId, trackChanges: false);
@@ -59,7 +54,7 @@ public class StudentQuizAttemptController : ControllerBase
     }
     [HttpPut("{attemptId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> UpdateAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId, StudentQuizAttemptForUpdateDto studentQuizAttempt)
     {
         if (!ModelState.IsValid)

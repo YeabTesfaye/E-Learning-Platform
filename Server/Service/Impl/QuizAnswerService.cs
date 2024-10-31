@@ -9,18 +9,11 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public class QuizAnswerService : IQuizAnswerService
+public class QuizAnswerService(IRepositoryManager repository, IMapper mapper) : IQuizAnswerService
 {
-    private readonly ILoggerManager _logger;
-    private readonly IMapper _mapper;
-    private readonly IRepositoryManager _repository;
+    private readonly IMapper _mapper = mapper;
+    private readonly IRepositoryManager _repository = repository;
 
-    public QuizAnswerService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _logger = logger;
-        _mapper = mapper;
-        _repository = repository;
-    }
     public async Task<IEnumerable<QuizAnswerDto>> GetAnswersByQuestion(Guid questionId, bool trackChanges)
     {
         var answers = await _repository.QuizAnswer.GetAnswersByQuestion(questionId, trackChanges);

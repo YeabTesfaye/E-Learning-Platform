@@ -9,30 +9,30 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/student/{studentId}/course/{courseId}/enrolment")]
 [ApiController]
-public class EnrolmentController : ControllerBase
+public class EnrolmentController(IServiceManager service) : ControllerBase
 {
-   private readonly IServiceManager _service;
-   public EnrolmentController(IServiceManager service) => _service = service;
+   private readonly IServiceManager _service = service;
 
    [HttpGet]
-   [Authorize]
    public async Task<IActionResult> GetEnrolmentsForCourse(Guid studentId, Guid courseId)
    {
       var enrolments = await _service.EnrolmentService.GetEnrolments(studentId, courseId, trackChanges: false);
       return Ok(enrolments);
    }
 
-   [HttpGet("{Id:guid}", Name = "GetEnrolmentById")]
-   [Authorize]
-   public async Task<IActionResult> GetEnrolmentForCourse([FromRoute] Guid Id, [FromRoute] Guid studentId, [FromRoute] Guid courseId)
+   [HttpGet("{Id:guid}", Name ="GetEnrolmentById")]
+   public async Task<IActionResult> GetEnrolmentForCourse
+   ([FromRoute] Guid Id, [FromRoute] Guid studentId, [FromRoute] Guid courseId)
    {
       var enrolment = await _service.EnrolmentService.GetEnrolment(Id, studentId, courseId, trackChanges: false);
+        if (enrolment == null)
+        return NotFound($"Enrolment with ID {Id} for student {studentId} in course {courseId} was not found.");
       return Ok(enrolment);
    }
 
    [HttpPost]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
-   [Authorize]
+   // [Authorize]
    public async Task<IActionResult> CreateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     [FromBody] EnrolmentForCreation enrolment)
    {
@@ -47,7 +47,7 @@ public class EnrolmentController : ControllerBase
    }
 
    [HttpDelete("{enrolmentId:guid}")]
-   [Authorize]
+   // [Authorize]
    public async Task<IActionResult> DeleteEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId, Guid enrolmentId)
    {
       await _service.EnrolmentService.DeleteEnrolment(enrolmentId, studentId, courseId, trackChanges: false);
@@ -55,7 +55,7 @@ public class EnrolmentController : ControllerBase
    }
    [HttpPut("{enrolmentId:guid}")]
    [ServiceFilter(typeof(ValidationFilterAttribute))]
-   [Authorize]
+   // [Authorize]
    public async Task<IActionResult> UpdateEnrolment([FromRoute] Guid studentId, [FromRoute] Guid courseId,
     Guid enrolmentId, EnrolmentForUpdateDto enrolmentForUpdate)
    {

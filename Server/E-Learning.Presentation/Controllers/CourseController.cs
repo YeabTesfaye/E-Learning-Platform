@@ -18,7 +18,6 @@ public class CourseController : ControllerBase
     public CourseController(IServiceManager service) => _service = service;
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetCourses([FromQuery] CourseParameters courseParameters)
     {
         var (courses, metaData) = await _service.CourseService.GetAllCourses(courseParameters, trackChanges: false);
@@ -26,7 +25,6 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
     [HttpGet("{Id:guid}", Name = "CourseById")]
-    [Authorize]
     public async Task<IActionResult> GetCourse([FromRoute] Guid Id)
     {
         var course = await _service.CourseService.GetCourse(Id, trackChanges: false);
@@ -35,7 +33,7 @@ public class CourseController : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> CreateCourse(CourseForCreationDto course)
     {
         if (course is null)
@@ -50,7 +48,7 @@ public class CourseController : ControllerBase
                createdCourse);
     }
     [HttpDelete("{Id:guid}")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> DeleteCourse([FromRoute] Guid Id)
     {
         await _service.CourseService.DeleteCourse(Id, trackChanges: false);
@@ -58,7 +56,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPut("{Id:guid}")]
-    [Authorize]
+    // [Authorize]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
 
     public async Task<IActionResult> UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)

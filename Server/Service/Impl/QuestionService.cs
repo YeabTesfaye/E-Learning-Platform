@@ -13,13 +13,11 @@ public class QuizQuestionService : IQuizQuestionService
 {
     private readonly IRepositoryManager _repository;
     private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
 
-    public QuizQuestionService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    public QuizQuestionService(IRepositoryManager repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
-        _logger = logger;
     }
 
     public async Task<QuizQuestionDto> CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges)

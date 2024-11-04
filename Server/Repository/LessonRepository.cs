@@ -4,12 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
+public class LessonRepository(RepositoryContext repositoryContext)
+ : RepositoryBase<Lesson>(repositoryContext), ILessonRepository
 {
-    public LessonRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
-
     public void CreateLessonForMoudle(Guid moduleId, Lesson lesson)
     {
         lesson.ModuleId = moduleId;
@@ -19,11 +16,11 @@ public class LessonRepository : RepositoryBase<Lesson>, ILessonRepository
     public void DeleteLesson(Lesson lesson)
     => Delete(lesson);
 
-    public async Task<Lesson?> GetLesson(Guid Id, Guid moduleId, bool trackChanges)
+    public async Task<Lesson> GetLesson(Guid Id, Guid moduleId, bool trackChanges)
     => await FindByCondition(l => l.Id.Equals(Id) && l.ModuleId.Equals(moduleId), trackChanges)
         .SingleOrDefaultAsync();
 
-    public async Task<Lesson?> GetLesson(Guid id, bool trackChanges)
+    public async Task<Lesson> GetLesson(Guid id, bool trackChanges)
     => await FindByCondition(l => l.Id.Equals(id), trackChanges)
     .SingleOrDefaultAsync();
 

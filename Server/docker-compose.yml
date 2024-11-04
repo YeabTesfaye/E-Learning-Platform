@@ -1,0 +1,24 @@
+
+services:
+  db:
+    container_name: db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "password123!"
+    ports:
+      - "1433:1433"
+   
+  api:
+    image: yeab12/api 
+    build: 
+      context: . 
+      dockerfile: Dockerfile 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - ASPNETCORE_URLS=http://+:80 
+    ports:
+      - "5000:80"
+    depends_on:
+      - db 

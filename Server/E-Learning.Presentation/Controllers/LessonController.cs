@@ -9,11 +9,10 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/module/{moduleId}/lessons")]
 [ApiController]
-public class LessonController : ControllerBase
+public class LessonController(IServiceManager service) : ControllerBase
 {
-    private readonly IServiceManager _service;
+    private readonly IServiceManager _service = service;
 
-    public LessonController(IServiceManager service) => _service = service;
     [HttpGet]
     public async Task<IActionResult> GetLessonsByModule([FromRoute] Guid moduleId)
     {
@@ -22,7 +21,7 @@ public class LessonController : ControllerBase
     }
 
     [HttpGet("{Id:guid}", Name = "LessonById")]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetLessonById([FromRoute] Guid Id, [FromRoute] Guid moduleId)
     {
         var lesson = await _service.LessonService.GetLesson(Id, moduleId, trackChanges: false);
@@ -31,7 +30,7 @@ public class LessonController : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> CreateLesson([FromRoute] Guid moduleId, [FromBody] LessonForCreation lesson)
     {
         if (lesson is null)
@@ -45,7 +44,7 @@ public class LessonController : ControllerBase
         return CreatedAtRoute("LessonById", new { Id = lessonToReturn.Id, moduleId }, lessonToReturn);
     }
     [HttpDelete("{lessonId:guid}")]
-    [Authorize]
+    // [Authorize]
 
     public async Task<IActionResult> DeleteLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId)
     {
@@ -54,7 +53,7 @@ public class LessonController : ControllerBase
     }
     [HttpPut("{lessonId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> UpdateLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId, LessonForUpdateDto lessonForUpdate)
     {
         if (!ModelState.IsValid)

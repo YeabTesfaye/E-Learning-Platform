@@ -16,7 +16,6 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
                  Name = "Introduction to Programming",
                  Description = "A beginner-friendly course on programming fundamentals.",
                  Price = 99.99m,
-                 IsProgressLimited = false
              },
              new Course
              {
@@ -24,7 +23,6 @@ public class CourseConfiguration : IEntityTypeConfiguration<Course>
                  Name = "Advanced Web Development",
                  Description = "Deep dive into modern web development practices and frameworks.",
                  Price = 199.99m,
-                 IsProgressLimited = true
              }
          );
     }

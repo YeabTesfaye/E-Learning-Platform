@@ -9,7 +9,8 @@ public class StudentLesson
     public Guid StudentId { get; set; }
     public Guid LessonId { get; set; }
     public DateTime CompletedDatetime { get; set; }
+    public bool Progress { set; get; }
 
-    public Student? Student { get; set; }
-    public Lesson? Lesson { get; set; }
+    public Student Student { get; set; }
+    public Lesson Lesson { get; set; }
 }

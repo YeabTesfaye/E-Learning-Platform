@@ -4,14 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+public abstract class RepositoryBase<T>(RepositoryContext repositoryContext) : IRepositoryBase<T> where T : class
 {
-    protected RepositoryContext RepositoryContext;
-
-    public RepositoryBase(RepositoryContext repositoryContext)
-    {
-        RepositoryContext = repositoryContext;
-    }
+    protected RepositoryContext RepositoryContext = repositoryContext;
 
     public IQueryable<T> FindAll(bool trackChanges) =>
         !trackChanges ? RepositoryContext.Set<T>().AsNoTracking() 

@@ -10,17 +10,11 @@ using Shared.RequestFeatures;
 
 namespace Service.Impl;
 
-public sealed class StudentService : IStudentService
+public sealed class StudentService
+(IRepositoryManager repository, IMapper mapper) : IStudentService
 {
-    private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
-    private readonly IMapper _mapper;
-    public StudentService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _repository = repository;
-        _logger = logger;
-        _mapper = mapper;
-    }
+    private readonly IRepositoryManager _repository = repository;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<StudentDto> CreateStudent(StudentForCreation student)
     {
@@ -51,7 +45,7 @@ public sealed class StudentService : IStudentService
     }
 
     public async Task<StudentDto> GetStudent(Guid id, bool trackChanges)
-    {
+    {   
         var student = await GetStudentAndCheckIfItExists(id, trackChanges);
         var studentDto = _mapper.Map<StudentDto>(student);
         return studentDto;

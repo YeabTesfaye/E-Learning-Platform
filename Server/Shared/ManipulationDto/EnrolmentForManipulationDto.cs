@@ -23,7 +23,7 @@ public class DateGreaterThanAttribute : ValidationAttribute
         _comparisonProperty = comparisonProperty;
     }
 
-    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
     {
         if (value is null)
         {

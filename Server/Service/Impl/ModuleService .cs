@@ -9,26 +9,19 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public sealed class ModuleService : IModuleService
+public sealed class ModuleService
+(IRepositoryManager repository,  IMapper mapper) : IModuleService
 {
-    private readonly IRepositoryManager _repository;
-    private readonly ILoggerManager _logger;
-    private readonly IMapper _mapper;
-    public ModuleService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _repository = repository;
-        _logger = logger;
-        _mapper = mapper;
-    }
+    private readonly IRepositoryManager _repository = repository;
+    private readonly IMapper _mapper = mapper;
 
-    public async Task<ModuleDto> CreateModuleForCourse(Guid courseId, ModuleForCreation module, bool trackChanges)
+    public async Task<ModuleDto> CreateModuleForCourse(Guid courseId, ModuleForCreation moduleForCreation, bool trackChanges)
     {
         await CheckIfCourseExists(courseId, trackChanges);
-        var moduleEntity = _mapper.Map<Module>(module);
+        var moduleEntity = _mapper.Map<Module>(moduleForCreation);
         _repository.Module.CreateModuleForCourse(courseId, moduleEntity);
         await _repository.SaveAsync();
-
-        var moduleToReturn = _mapper.Map<ModuleDto>(module);
+        var moduleToReturn = _mapper.Map<ModuleDto>(moduleEntity);
         return moduleToReturn;
     }
 

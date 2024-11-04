@@ -10,11 +10,11 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<IModuleRepository> _moduleRepository;
     private readonly Lazy<IEnrolmentRepository> _enrolmentRepository;
     private readonly Lazy<ILessonRepository> _lessonRepository;
-    private readonly Lazy<IQuizAnswerRepository> _quizAnswerRepository;
-    private readonly Lazy<IQuizQuestionRepository> _quizQuestionRepository;
+    private readonly Lazy<IAnswerRepository> _answerRepository;
+    private readonly Lazy<IQuestionRepository> _questionRepository;
     private readonly Lazy<IQuizRepository> _quizRepository;
     private readonly Lazy<IStudentLessonRepository> _studentLessonRepository;
-    private readonly Lazy<IStudentQuizAttemptRepository> _studentQuizAttemptRepository;
+    private readonly Lazy<IQuizAttemptRepository> _quizAttemptRepository;
 
     public RepositoryManager(RepositoryContext repositoryContext)
     {
@@ -25,24 +25,25 @@ public class RepositoryManager : IRepositoryManager
         _moduleRepository = new Lazy<IModuleRepository>(() => new ModuleRepository(repositoryContext));
         _enrolmentRepository = new Lazy<IEnrolmentRepository>(() => new EnrolmentRepository(repositoryContext));
         _lessonRepository = new Lazy<ILessonRepository>(() => new LessonRepository(repositoryContext));
-        _quizAnswerRepository = new Lazy<IQuizAnswerRepository>(() => new QuizAnswerRepository(repositoryContext));
-        _quizQuestionRepository = new Lazy<IQuizQuestionRepository>(() => new QuizQuestionRepository(repositoryContext));
+        _answerRepository = new Lazy<IAnswerRepository>(() => new AnswerRepository(repositoryContext));
+        _questionRepository = new Lazy<IQuestionRepository>(() => new QuestionRepository(repositoryContext));
         _quizRepository = new Lazy<IQuizRepository>(() => new QuizRepository(repositoryContext));
         _studentLessonRepository = new Lazy<IStudentLessonRepository>(() => new StudentLessonRepository(repositoryContext));
-        _studentQuizAttemptRepository = new Lazy<IStudentQuizAttemptRepository>(() => new StudentQuizAttemptRepository(repositoryContext));
+        _quizAttemptRepository = new Lazy<IQuizAttemptRepository>(() => new QuizAttemptRepository(repositoryContext));
     }
 
-    // Properties to expose each repository
     public ICourseRepository Course => _courseRepository.Value;
     public IStudentRepository Student => _studentRepository.Value;
     public IModuleRepository Module => _moduleRepository.Value;
     public IEnrolmentRepository Enrolment => _enrolmentRepository.Value;
     public ILessonRepository Lesson => _lessonRepository.Value;
-    public IQuizAnswerRepository QuizAnswer => _quizAnswerRepository.Value;
-    public IQuizQuestionRepository QuizQuestion => _quizQuestionRepository.Value;
+    public IAnswerRepository Answer => _answerRepository.Value;
+    public IQuestionRepository Question => _questionRepository.Value;
     public IQuizRepository Quiz => _quizRepository.Value;
     public IStudentLessonRepository StudentLesson => _studentLessonRepository.Value;
-    public IStudentQuizAttemptRepository StudentQuizAttempt => _studentQuizAttemptRepository.Value;
+    public IQuizAttemptRepository QuizAttempt => _quizAttemptRepository.Value;
+
+
     public async Task SaveAsync() => await _repositoryContext.SaveChangesAsync();
 
 }

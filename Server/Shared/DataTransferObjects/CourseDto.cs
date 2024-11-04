@@ -8,9 +8,9 @@ public class CourseDto
   [DataMember]
   public Guid Id { get; set; }
   [DataMember]
-  public string Name { get; set; } = string.Empty;
+  public string Name { get; set; }
   [DataMember]
-  public string Description { get; set; } = string.Empty;
+  public string Description { get; set; }
   [DataMember]
   public decimal Price { get; set; }
   [DataMember]

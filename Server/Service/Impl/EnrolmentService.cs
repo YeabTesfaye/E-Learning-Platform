@@ -9,18 +9,10 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public class EnrolmentService : IEnrolmentService
+public class EnrolmentService(IRepositoryManager repository, IMapper mapper) : IEnrolmentService
 {
-    private readonly IRepositoryManager _repository;
-    private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
-
-    public EnrolmentService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _repository = repository;
-        _mapper = mapper;
-        _logger = logger;
-    }
+    private readonly IRepositoryManager _repository = repository;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<EnrolmentDto> CreateEnrolment(Guid studentId, Guid courseId, EnrolmentForCreation enrolment, bool trackChanges)
     {
@@ -57,10 +49,10 @@ public class EnrolmentService : IEnrolmentService
     {
         await CheckIfStudentExists(studentId, trackChanges);
         await CheckIfCourseExists(courseId, trackChanges);
-       
+
         var enrolment = await _repository.Enrolment.GetEnrolment(Id, studentId, courseId, trackChanges);
-        var enrolmentDto = _mapper.Map<EnrolmentDto>(enrolment);
-        return enrolmentDto;
+        if (enrolment == null) return null;
+        return _mapper.Map<EnrolmentDto>(enrolment);
     }
 
     public async Task<IEnumerable<EnrolmentDto>> GetEnrolments(Guid studentId, Guid courseId, bool trackChanges)
@@ -96,7 +88,7 @@ public class EnrolmentService : IEnrolmentService
         ?? throw new CourseNotFoundException(Id);
     }
 
-    
+
 
 
 }

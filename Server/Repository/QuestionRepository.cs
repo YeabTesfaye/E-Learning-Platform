@@ -4,31 +4,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public class QuizQuestionRepository : RepositoryBase<QuizQuestion>, IQuizQuestionRepository
+public class QuestionRepository(RepositoryContext repositoryContext) :
+ RepositoryBase<Question>(repositoryContext), IQuestionRepository
 {
-  public QuizQuestionRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-  {
-  }
-
-  public void CreateQuizQuestion(Guid quizId, QuizQuestion question)
+    public void CreateQuizQuestion(Guid quizId, Question question)
   {
     question.QuizId = quizId;
     Create(question);
   }
 
-  public void DeleteQuizQuestion(QuizQuestion quizQuestion)
+  public void DeleteQuizQuestion(Question quizQuestion)
   => Delete(quizQuestion);
 
-  public async Task<IEnumerable<QuizQuestion>> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
+  public async Task<IEnumerable<Question>> GetQuestionsByQuiz(Guid quizId, bool trackChanges)
 => await FindByCondition(q => q.QuizId.Equals(quizId), trackChanges)
   .OrderBy(q => q.QuestionTitle).ToListAsync();
 
-  public async Task<QuizQuestion?> GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
+  public async Task<Question> GetQuizQuestion(Guid Id, Guid quizId, bool trackChanges)
     => await FindByCondition(q => q.QuizId.Equals(quizId) && q.Id.Equals(Id), trackChanges)
       .OrderBy(q => q.QuestionTitle)
       .SingleOrDefaultAsync();
 
-  public async Task<QuizQuestion?> GetQuizQuestion(Guid questionId, bool trackChanges)
+  public async Task<Question> GetQuizQuestion(Guid questionId, bool trackChanges)
    => await FindByCondition(q => q.Id.Equals(questionId), trackChanges)
     .SingleOrDefaultAsync();
 }

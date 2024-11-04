@@ -4,12 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-  public class ModuleRepository : RepositoryBase<Module>, IModuleRepository
+  public class ModuleRepository(RepositoryContext repositoryContext) :
+  RepositoryBase<Module>(repositoryContext), IModuleRepository
   {
-    public ModuleRepository(RepositoryContext repositoryContext) : base(repositoryContext)
-    {
-    }
-
     public void CreateModuleForCourse(Guid courseId, Module module)
     {
       module.CourseId = courseId;
@@ -19,11 +16,11 @@ namespace Repository
     public void DeleteModule(Module module)
     => Delete(module);
 
-    public async Task<Module?> GetModule(Guid Id, Guid courseId, bool trackChanges)
+    public async Task<Module> GetModule(Guid Id, Guid courseId, bool trackChanges)
 => await FindByCondition(m => m.Id.Equals(Id) && m.CourseId.Equals(courseId), trackChanges)
   .SingleOrDefaultAsync();
 
-    public async Task<Module?> GetModule(Guid Id, bool trackChanges)
+    public async Task<Module> GetModule(Guid Id, bool trackChanges)
      => await FindByCondition(m => m.Id.Equals(Id), trackChanges)
       .SingleOrDefaultAsync();
     public async Task<IEnumerable<Module>> GetModules(Guid courseId, bool trackChanges)

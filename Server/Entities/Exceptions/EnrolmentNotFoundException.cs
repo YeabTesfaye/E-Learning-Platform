@@ -1,9 +1,5 @@
 namespace Entities.Exceptions;
 
-public class EnrolmentNotFoundException : NotFoundException
+public class EnrolmentNotFoundException(Guid id) : NotFoundException($"The Course with id : {id} doesn't exist in the database")
 {
-    public EnrolmentNotFoundException(Guid id)
-: base($"The Course with id : {id} doesn't exist in the database")
-    {
-    }
 }

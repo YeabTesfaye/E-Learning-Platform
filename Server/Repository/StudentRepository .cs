@@ -33,7 +33,7 @@ public class StudentRepository : RepositoryBase<Student>, IStudentRepository
           .ToPagedList(students, studentParameters.PageNumber, studentParameters.PageSize);
   }
 
-  public async Task<Student?> GetStudent(Guid studentId, bool trackChanges)
+  public async Task<Student> GetStudent(Guid studentId, bool trackChanges)
   => await FindByCondition(s => s.Id.Equals(studentId), trackChanges)
       .SingleOrDefaultAsync();
 }

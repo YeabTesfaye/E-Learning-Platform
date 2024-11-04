@@ -7,10 +7,10 @@ public interface IServiceManager
     IModuleService ModuleService { get; }
     IEnrolmentService EnrolmentService { get; }
     ILessonService LessonService { get; }
-    IQuizAnswerService QuizAnswerService { get; }
+    IAnswerService AnswerService { get; }
     IQuizService QuizService { get; }
     IStudentLessonService StudentLessonService { get; }
-    IStudentQuizAttemptService StudentQuizAttemptService { get; }
-    IQuizQuestionService QuizQuestionService { get; }
+    IQuizAttemptService QuizAttemptService  { get; }
+    IQuestionService QuestionService { get; }
     IAuthenticationService AuthenticationService { get; }
 }

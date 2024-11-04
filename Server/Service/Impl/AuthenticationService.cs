@@ -16,16 +16,14 @@ namespace Service.Impl;
 
 public class AuthenticationService : IAuthenticationService
 {
-    private readonly ILoggerManager _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
     private readonly IConfiguration _configuration;
     private readonly JwtConfiguration _jwtConfiguration;
-    private User? _user;
+    private User _user;
 
-    public AuthenticationService(ILoggerManager logger, IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
+    public AuthenticationService( IMapper mapper, UserManager<User> userManager, IConfiguration configuration)
     {
-        _logger = logger;
         _mapper = mapper;
         _userManager = userManager;
         _configuration = configuration;
@@ -48,11 +46,8 @@ userForRegistration)
     {
         _user = await _userManager.FindByNameAsync(userForAuth.UserName);
 
-        var result = _user != null && await _userManager.CheckPasswordAsync(_user,
-    userForAuth.Password);
-        if (!result)
-            _logger.LogWarn($"{nameof(ValidateUser)}: Authentication failed. Wrong user name or password.");
-
+        var result = _user != null && await _userManager.CheckPasswordAsync(_user,userForAuth.Password);
+        
         return result;
     }
     public async Task<TokenDto> CreateToken(bool populateExp)

@@ -17,8 +17,9 @@ public class QuizConfiguration : IEntityTypeConfiguration<Quiz>
                        Name = "Midterm Exam",
                        Number = 1,
                        CourseOrder = 1,
-                       MinPassScore = 70,
-                       IsPassRequired = true
+                       PassingScore = 70,
+                       IsPassRequired = true,
+                       MaxAttempts = 5
                    },
                    new Quiz
                    {
@@ -27,8 +28,9 @@ public class QuizConfiguration : IEntityTypeConfiguration<Quiz>
                        Name = "Final Exam",
                        Number = 2,
                        CourseOrder = 2,
-                       MinPassScore = 80,
-                       IsPassRequired = true
+                       PassingScore = 80,
+                       IsPassRequired = true,
+                       MaxAttempts = 5
                    }
                );
     }

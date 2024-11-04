@@ -10,9 +10,10 @@ public class Enrolment
     public Guid CourseId { get; set; }
     public Guid StudentId { get; set; }
     public DateTime EnrolmentDatetime { get; set; }
-    public DateTime? CompletedDatetime { get; set; }
+    public DateTime CompletedDatetime { get; set; }
+    public Status Status{ get; set; } = Status.Active;
 
-    public Course? Course { get; set; }
-    public Student? Student { get; set; }
+    public Course Course { get; set; }
+    public Student Student { get; set; }
 
 }

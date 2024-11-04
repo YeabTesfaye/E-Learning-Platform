@@ -1,10 +1,6 @@
 namespace Entities.Exceptions;
 
-public sealed class CourseNotFoundException : NotFoundException
+public sealed class CourseNotFoundException(Guid id) : NotFoundException($"The Course with id : {id} doesn't exist in the database")
 {
-    public CourseNotFoundException(Guid id)
- : base($"The Course with id : {id} doesn't exist in the database")
-    {
-    }
 }
 

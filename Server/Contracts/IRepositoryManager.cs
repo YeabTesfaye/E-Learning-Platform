@@ -7,10 +7,10 @@ public interface IRepositoryManager
     IModuleRepository Module { get; }
     IEnrolmentRepository Enrolment {get;} 
     ILessonRepository Lesson {get;}
-    IQuizAnswerRepository QuizAnswer {get;}
-    IQuizQuestionRepository QuizQuestion {get;}
+    IAnswerRepository Answer {get;}
+    IQuestionRepository Question {get;}
     IQuizRepository Quiz {get;}
     IStudentLessonRepository StudentLesson {get;}
-    IStudentQuizAttemptRepository StudentQuizAttempt {get;}
+    IQuizAttemptRepository QuizAttempt { get; }  
     Task SaveAsync();
 }

@@ -9,18 +9,10 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public class QuizService : IQuizService
+public class QuizService(IRepositoryManager repository, IMapper mapper) : IQuizService
 {
-    private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
-    private readonly IRepositoryManager _repository;
-
-    public QuizService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
-    {
-        _mapper = mapper;
-        _logger = logger;
-        _repository = repository;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly IRepositoryManager _repository = repository;
 
     public async Task<QuizDto> CreateQuiz(Guid courseId, QuizForCreation quiz, bool trackChanges)
     {
@@ -46,7 +38,7 @@ public class QuizService : IQuizService
     public async Task<QuizDto> GetQuiz(Guid quizId, Guid courseId, bool trackChanges)
     {
         await CheckIfCourseExists(courseId, trackChanges);
-        var quiz = await CheckIfQuizExistsAndReturn(quizId, courseId, trackChanges);
+        var quiz = await CheckIfQuizExistsAndReturn( quizId,courseId, trackChanges);
         var quizDto = _mapper.Map<QuizDto>(quiz);
         return quizDto;
     }
@@ -74,10 +66,10 @@ public class QuizService : IQuizService
          ?? throw new CourseNotFoundException(courseId);
     }
 
-    private async Task<Quiz> CheckIfQuizExistsAndReturn(Guid id, Guid courseId, bool trackChanges)
+    private async Task<Quiz> CheckIfQuizExistsAndReturn(Guid quizId, Guid courseId, bool trackChanges)
     {
-        var quiz = await _repository.Quiz.GetQuiz(id, courseId, trackChanges: false)
-        ?? throw new QuizNotFoundException(id);
+        var quiz = await _repository.Quiz.GetQuiz(quizId, courseId, trackChanges: false)
+        ?? throw new QuizNotFoundException(quizId);
         return quiz;
 
     }

@@ -22,6 +22,58 @@ namespace api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Entities.Answer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnswerText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
+                            AnswerText = "Paris",
+                            IsCorrect = true,
+                            QuestionId = new Guid("f3c2b1a4-5678-4d9e-b0c1-abcdefabcdef")
+                        },
+                        new
+                        {
+                            Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
+                            AnswerText = "London",
+                            IsCorrect = false,
+                            QuestionId = new Guid("f3c2b1a4-5678-4d9e-b0c1-abcdefabcdef")
+                        },
+                        new
+                        {
+                            Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
+                            AnswerText = "4",
+                            IsCorrect = true,
+                            QuestionId = new Guid("a5d6e7f8-90ab-4c2d-b3e4-abcdefabcdef")
+                        },
+                        new
+                        {
+                            Id = new Guid("c3d4e5f6-78a9-4b0c-b9e0-abcdefabcdef"),
+                            AnswerText = "5",
+                            IsCorrect = false,
+                            QuestionId = new Guid("a5d6e7f8-90ab-4c2d-b3e4-abcdefabcdef")
+                        });
+                });
+
             modelBuilder.Entity("Entities.Course", b =>
                 {
                     b.Property<Guid>("Id")
@@ -30,9 +82,6 @@ namespace api.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsProgressLimited")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -50,7 +99,6 @@ namespace api.Migrations
                         {
                             Id = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
                             Description = "A beginner-friendly course on programming fundamentals.",
-                            IsProgressLimited = false,
                             Name = "Introduction to Programming",
                             Price = 99.99m
                         },
@@ -58,7 +106,6 @@ namespace api.Migrations
                         {
                             Id = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
                             Description = "Deep dive into modern web development practices and frameworks.",
-                            IsProgressLimited = true,
                             Name = "Advanced Web Development",
                             Price = 199.99m
                         });
@@ -70,7 +117,7 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("CompletedDatetime")
+                    b.Property<DateTime>("CompletedDatetime")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("CourseId")
@@ -78,6 +125,9 @@ namespace api.Migrations
 
                     b.Property<DateTime>("EnrolmentDatetime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier");
@@ -94,15 +144,19 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"),
+                            CompletedDatetime = new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9043),
                             CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
-                            EnrolmentDatetime = new DateTime(2024, 10, 8, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(8784),
+                            EnrolmentDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9035),
+                            Status = 0,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"),
+                            CompletedDatetime = new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9095),
                             CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
-                            EnrolmentDatetime = new DateTime(2024, 10, 8, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(8797),
+                            EnrolmentDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9094),
+                            Status = 0,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
                 });
@@ -208,112 +262,7 @@ namespace api.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Quiz", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CourseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("CourseOrder")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPassRequired")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MinPassScore")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("Quizzes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
-                            CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
-                            CourseOrder = 1,
-                            IsPassRequired = true,
-                            MinPassScore = 70,
-                            Name = "Midterm Exam",
-                            Number = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
-                            CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
-                            CourseOrder = 2,
-                            IsPassRequired = true,
-                            MinPassScore = 80,
-                            Name = "Final Exam",
-                            Number = 2
-                        });
-                });
-
-            modelBuilder.Entity("Entities.QuizAnswer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AnswerText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
-
-                    b.ToTable("QuizAnswers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
-                            AnswerText = "Paris",
-                            IsCorrect = true,
-                            QuestionId = new Guid("f3c2b1a4-5678-4d9e-b0c1-abcdefabcdef")
-                        },
-                        new
-                        {
-                            Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
-                            AnswerText = "London",
-                            IsCorrect = false,
-                            QuestionId = new Guid("f3c2b1a4-5678-4d9e-b0c1-abcdefabcdef")
-                        },
-                        new
-                        {
-                            Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
-                            AnswerText = "4",
-                            IsCorrect = true,
-                            QuestionId = new Guid("a5d6e7f8-90ab-4c2d-b3e4-abcdefabcdef")
-                        },
-                        new
-                        {
-                            Id = new Guid("c3d4e5f6-78a9-4b0c-b9e0-abcdefabcdef"),
-                            AnswerText = "5",
-                            IsCorrect = false,
-                            QuestionId = new Guid("a5d6e7f8-90ab-4c2d-b3e4-abcdefabcdef")
-                        });
-                });
-
-            modelBuilder.Entity("Entities.QuizQuestion", b =>
+            modelBuilder.Entity("Entities.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -329,7 +278,7 @@ namespace api.Migrations
 
                     b.HasIndex("QuizId");
 
-                    b.ToTable("QuizQuestions");
+                    b.ToTable("Questions");
 
                     b.HasData(
                         new
@@ -352,6 +301,114 @@ namespace api.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Entities.Quiz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CourseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CourseOrder")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPassRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaxAttempts")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassingScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Quizzes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
+                            CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
+                            CourseOrder = 1,
+                            IsPassRequired = true,
+                            MaxAttempts = 5,
+                            Name = "Midterm Exam",
+                            Number = 1,
+                            PassingScore = 70
+                        },
+                        new
+                        {
+                            Id = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
+                            CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
+                            CourseOrder = 2,
+                            IsPassRequired = true,
+                            MaxAttempts = 5,
+                            Name = "Final Exam",
+                            Number = 2,
+                            PassingScore = 80
+                        });
+                });
+
+            modelBuilder.Entity("Entities.QuizAttempt", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AttemptDatetime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("AttemptNumber")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ScoreAchieved")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("QuizAttempts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
+                            AttemptDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(67),
+                            AttemptNumber = 0,
+                            QuizId = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
+                            ScoreAchieved = 85,
+                            StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
+                            AttemptDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(77),
+                            AttemptNumber = 0,
+                            QuizId = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
+                            ScoreAchieved = 90,
+                            StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
+                        });
+                });
+
             modelBuilder.Entity("Entities.Student", b =>
                 {
                     b.Property<Guid>("Id")
@@ -362,19 +419,15 @@ namespace api.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EmailAddress")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sex")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -414,6 +467,9 @@ namespace api.Migrations
                     b.Property<Guid>("LessonId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Progress")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("StudentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -429,60 +485,17 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 10, 8, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(9112),
+                            CompletedDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9377),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
+                            Progress = false,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 10, 7, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(9119),
+                            CompletedDatetime = new DateTime(2024, 11, 1, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9385),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
-                            StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
-                        });
-                });
-
-            modelBuilder.Entity("Entities.StudentQuizAttempt", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("AttemptDatetime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ScoreAchieved")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("QuizId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentQuizAttempts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 10, 8, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(9684),
-                            QuizId = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
-                            ScoreAchieved = 85,
-                            StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
-                        },
-                        new
-                        {
-                            Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 10, 8, 19, 43, 34, 961, DateTimeKind.Utc).AddTicks(9693),
-                            QuizId = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
-                            ScoreAchieved = 90,
+                            Progress = false,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
                 });
@@ -507,11 +520,9 @@ namespace api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -538,7 +549,6 @@ namespace api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RefreshTokenExpiryTime")
@@ -596,19 +606,19 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4fdbf6d6-42f6-4e5b-aced-6a4e901c83b2",
+                            Id = "f266e866-cfd8-47e7-89cb-6b8e54608951",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "d8d48af7-2a3e-4619-b2f5-4c629026648c",
+                            Id = "b11c8df2-397d-434c-8217-a34813c0921a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "84347193-b130-4511-a55a-4b9b204f26ee",
+                            Id = "422fd89e-03cc-482f-b17a-b60a1a1e41d3",
                             Name = "Instructor",
                             NormalizedName = "INSTRUCTOR"
                         });
@@ -720,6 +730,17 @@ namespace api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Answer", b =>
+                {
+                    b.HasOne("Entities.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("Entities.Enrolment", b =>
                 {
                     b.HasOne("Entities.Course", "Course")
@@ -761,6 +782,17 @@ namespace api.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("Entities.Question", b =>
+                {
+                    b.HasOne("Entities.Quiz", "Quiz")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuizId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Quiz");
+                });
+
             modelBuilder.Entity("Entities.Quiz", b =>
                 {
                     b.HasOne("Entities.Course", "Course")
@@ -772,26 +804,23 @@ namespace api.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Entities.QuizAnswer", b =>
-                {
-                    b.HasOne("Entities.QuizQuestion", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Entities.QuizQuestion", b =>
+            modelBuilder.Entity("Entities.QuizAttempt", b =>
                 {
                     b.HasOne("Entities.Quiz", "Quiz")
-                        .WithMany("Questions")
+                        .WithMany("Attempts")
                         .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entities.Student", "Student")
+                        .WithMany("QuizAttempts")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Quiz");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Entities.StudentLesson", b =>
@@ -809,25 +838,6 @@ namespace api.Migrations
                         .IsRequired();
 
                     b.Navigation("Lesson");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("Entities.StudentQuizAttempt", b =>
-                {
-                    b.HasOne("Entities.Quiz", "Quiz")
-                        .WithMany("Attempts")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Student", "Student")
-                        .WithMany("QuizAttempts")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
 
                     b.Navigation("Student");
                 });
@@ -902,16 +912,16 @@ namespace api.Migrations
                     b.Navigation("Lessons");
                 });
 
+            modelBuilder.Entity("Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
             modelBuilder.Entity("Entities.Quiz", b =>
                 {
                     b.Navigation("Attempts");
 
                     b.Navigation("Questions");
-                });
-
-            modelBuilder.Entity("Entities.QuizQuestion", b =>
-                {
-                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("Entities.Student", b =>

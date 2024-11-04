@@ -7,8 +7,7 @@ namespace api.Extensions;
 
 public static class ExceptionMiddlewareExtensions
 {
-    public static void ConfigureExceptionHandler(this WebApplication app,
-ILoggerManager logger)
+    public static void ConfigureExceptionHandler(this WebApplication app)
     {
         app.UseExceptionHandler(appError =>
         {
@@ -25,7 +24,6 @@ ILoggerManager logger)
                         _ => StatusCodes.Status500InternalServerError
                     };
 
-                    logger.LogError($"Something went wrong: {contextFeature.Error}");
 
                     await context.Response.WriteAsync(new ErrorDetails()
                     {

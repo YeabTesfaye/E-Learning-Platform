@@ -9,27 +9,25 @@ using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
-public class QuizQuestionService : IQuizQuestionService
+public class QuestionService : IQuestionService
 {
     private readonly IRepositoryManager _repository;
     private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
 
-    public QuizQuestionService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    public QuestionService(IRepositoryManager repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
-        _logger = logger;
     }
 
-    public async Task<QuizQuestionDto> CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges)
+    public async Task<QuestionDto> CreateQuestion(Guid quizId, QuestionForCreation question, bool trackChanges)
     {
         await CheckIfQuizExists(quizId, trackChanges);
-        var questionEntity = _mapper.Map<QuizQuestion>(question);
-        _repository.QuizQuestion.CreateQuizQuestion(quizId, questionEntity);
+        var questionEntity = _mapper.Map<Question>(question);
+        _repository.Question.CreateQuizQuestion(quizId, questionEntity);
         await _repository.SaveAsync();
 
-        var questionToReturn = _mapper.Map<QuizQuestionDto>(questionEntity);
+        var questionToReturn = _mapper.Map<QuestionDto>(questionEntity);
         return questionToReturn;
     }
 
@@ -39,45 +37,45 @@ public class QuizQuestionService : IQuizQuestionService
 
         var quizQuestion = await CheckIfQuestionExistsAndReturn(Id, quizId, trackChanges);
 
-        _repository.QuizQuestion.DeleteQuizQuestion(quizQuestion);
+        _repository.Question.DeleteQuizQuestion(quizQuestion);
         await _repository.SaveAsync();
     }
 
 
-    public async Task<QuizQuestionDto> GetQuestion(Guid Id, Guid quizId, bool trackChanges)
+    public async Task<QuestionDto> GetQuestion(Guid Id, Guid quizId, bool trackChanges)
     {
         // Retrieve the quiz question
         var question = await CheckIfQuestionExistsAndReturn(Id, quizId, trackChanges);
 
-        var questionDto = _mapper.Map<QuizQuestionDto>(question);
+        var questionDto = _mapper.Map<QuestionDto>(question);
 
         return questionDto;
     }
 
-    public async Task<IEnumerable<QuizQuestionDto>> GetQuestions(Guid quizId, bool trackChanges)
+    public async Task<IEnumerable<QuestionDto>> GetQuestions(Guid quizId, bool trackChanges)
     {
 
         // Retrieve the questions for the quiz
-        var questions = await _repository.QuizQuestion.GetQuestionsByQuiz(quizId, trackChanges);
+        var questions = await _repository.Question.GetQuestionsByQuiz(quizId, trackChanges);
 
         // Map the questions to QuizQuestionDto
-        var questionsDto = _mapper.Map<IEnumerable<QuizQuestionDto>>(questions);
+        var questionsDto = _mapper.Map<IEnumerable<QuestionDto>>(questions);
 
         return questionsDto;
     }
 
-    public async Task UpdateQuizQuestion(Guid Id, Guid quizId, QuizQuestionForUpdateDto quizQuestionForUpdate,
+    public async Task UpdateQuizQuestion(Guid Id, Guid quizId, QuestionForUpdateDto questionForUpdateDto,
     bool quizTrackChanges, bool questionTrackChanges)
     {
         await CheckIfQuizExists(quizId, quizTrackChanges);
         var quesionEntity = await CheckIfQuestionExistsAndReturn(Id, quizId, questionTrackChanges);
 
-        _mapper.Map(quizQuestionForUpdate, quesionEntity);
+        _mapper.Map(questionForUpdateDto, quesionEntity);
         await _repository.SaveAsync();
     }
-    private async Task<QuizQuestion> CheckIfQuestionExistsAndReturn(Guid Id, Guid quizId, bool trackChanges)
+    private async Task<Question> CheckIfQuestionExistsAndReturn(Guid Id, Guid quizId, bool trackChanges)
     {
-        var quesion = await _repository.QuizQuestion.GetQuizQuestion(Id, quizId, trackChanges: false)
+        var quesion = await _repository.Question.GetQuizQuestion(Id, quizId, trackChanges: false)
          ?? throw new QuestionNotFoundException(Id);
         return quesion;
     }

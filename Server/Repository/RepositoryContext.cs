@@ -5,19 +5,15 @@ using Repository.Configuration;
 
 namespace Repository;
 
-public class RepositoryContext : IdentityDbContext<User>
+public class RepositoryContext(DbContextOptions<RepositoryContext> options) : IdentityDbContext<User>(options)
 {
-    public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
-    {
-    }
-
     public DbSet<Enrolment> Enrolments { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
     public DbSet<Quiz> Quizzes { get; set; }
-    public DbSet<QuizAnswer> QuizAnswers { get; set; }
-    public DbSet<QuizQuestion> QuizQuestions { get; set; }
+    public DbSet<Answer> Answers { get; set; }
+    public DbSet<Question> Questions { get; set; }
     public DbSet<StudentLesson> StudentLessons { get; set; }
-    public DbSet<StudentQuizAttempt> StudentQuizAttempts { get; set; }
+    public DbSet<QuizAttempt> QuizAttempts { get; set; }
     public DbSet<Course> Courses { get; set; }
     public DbSet<Module> Modules { get; set; }
     public DbSet<Student> Students { get; set; }
@@ -31,12 +27,12 @@ public class RepositoryContext : IdentityDbContext<User>
         modelBuilder.ApplyConfiguration(new ModuleConfiguration());
         modelBuilder.ApplyConfiguration(new LessonConfiguration());
         modelBuilder.ApplyConfiguration(new QuizConfiguration());
-        modelBuilder.ApplyConfiguration(new QuizQuestionConfiguration());
-        modelBuilder.ApplyConfiguration(new QuizAnswerConfiguration());
+        modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+        modelBuilder.ApplyConfiguration(new AnswerConfiguration());
         modelBuilder.ApplyConfiguration(new StudentConfiguration());
         modelBuilder.ApplyConfiguration(new EnrolmentConfiguration());
         modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
-        modelBuilder.ApplyConfiguration(new StudentQuizAttemptConfiguration());
+        modelBuilder.ApplyConfiguration(new QuizAttemptConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
 
         // Course Configuration
@@ -123,21 +119,21 @@ public class RepositoryContext : IdentityDbContext<User>
             .HasForeignKey(qa => qa.QuizId);
 
         // QuizQuestion Configuration
-        modelBuilder.Entity<QuizQuestion>()
+        modelBuilder.Entity<Question>()
             .HasKey(qq => qq.Id);
 
-        modelBuilder.Entity<QuizQuestion>()
+        modelBuilder.Entity<Question>()
             .HasOne(qq => qq.Quiz)
             .WithMany(q => q.Questions)
             .HasForeignKey(qq => qq.QuizId);
 
-        modelBuilder.Entity<QuizQuestion>()
+        modelBuilder.Entity<Question>()
             .HasMany(qq => qq.Answers)
             .WithOne(qa => qa.Question)
             .HasForeignKey(qa => qa.QuestionId);
 
         // QuizAnswer configuration 
-        modelBuilder.Entity<QuizAnswer>()
+        modelBuilder.Entity<Answer>()
             .HasKey(qa => qa.Id);
 
         // Student configuration
@@ -174,15 +170,15 @@ public class RepositoryContext : IdentityDbContext<User>
             .HasForeignKey(sl => sl.LessonId);
 
         // StudentQuizAttempt configuration
-        modelBuilder.Entity<StudentQuizAttempt>()
+        modelBuilder.Entity<QuizAttempt>()
             .HasKey(qa => qa.Id);
 
-        modelBuilder.Entity<StudentQuizAttempt>()
+        modelBuilder.Entity<QuizAttempt>()
             .HasOne(qa => qa.Student)
             .WithMany(s => s.QuizAttempts)
             .HasForeignKey(qa => qa.StudentId);
 
-        modelBuilder.Entity<StudentQuizAttempt>()
+        modelBuilder.Entity<QuizAttempt>()
             .HasOne(qa => qa.Quiz)
             .WithMany(q => q.Attempts)
             .HasForeignKey(qa => qa.QuizId);

@@ -9,30 +9,27 @@ namespace E_Learning.Presentation.Controllers;
 
 [Route("/api/student/{studentId}/lessons/{lessonId}/stlesson")]
 [ApiController]
-public class StudentLessonController : ControllerBase
+public class StudentLessonController(IServiceManager service) : ControllerBase
 {
 
-    private readonly IServiceManager _service;
-    public StudentLessonController(IServiceManager service) => _service = service;
+    private readonly IServiceManager _service = service;
 
     [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> GetLessonsByStudent(Guid studentId)
+    public async Task<IActionResult> GetLessonsByStudent([FromRoute] Guid studentId, [FromRoute] Guid lessonId)
     {
-        var lessons = await _service.StudentLessonService.GetLessonsByStudent(studentId, trackChanges: false);
+        var lessons = await _service.StudentLessonService.GetLessonsByStudent(studentId, lessonId, trackChanges: true);
         return Ok(lessons);
     }
 
     [HttpGet("{stlessonId:guid}", Name = "StudentLessonById")]
-    [Authorize]
     public async Task<IActionResult> GetLessonById([FromRoute] Guid stlessonId, [FromRoute] Guid studentId, [FromRoute] Guid lessonId)
     {
         var lesson = await _service.StudentLessonService.GetLesson(stlessonId, studentId, lessonId, trackChanges: false);
         return Ok(lesson);
     }
     [HttpPost]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
+    // [ServiceFilter(typeof(ValidationFilterAttribute))]
+    // [Authorize]
     public async Task<IActionResult> CreateStudentLesson([FromRoute] Guid studentId, [FromRoute] Guid lessonId,
     [FromBody] StudentLessonForCreation studentLesson)
     {
@@ -46,24 +43,26 @@ public class StudentLessonController : ControllerBase
         var createdStudentLesson = await _service.StudentLessonService.CreateStudentLesson(studentId, lessonId, studentLesson, trackChanges: false);
 
         // Return a 201 Created response with the route to get the created lesson
-        return CreatedAtRoute("StudentLessonById", new { studentId, lessonId = createdStudentLesson.Id }, createdStudentLesson);
+        return CreatedAtRoute("StudentLessonById",
+      new { studentId, lessonId, stlessonId = createdStudentLesson.Id }, createdStudentLesson);
+
     }
-    [HttpDelete("{sudentLessonId:guid}")]
-    [Authorize]
-    public async Task<IActionResult> DeleteStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId)
+    [HttpDelete("{stlessonId:guid}")]
+    // [Authorize]
+    public async Task<IActionResult> DeleteStudentLesson([FromRoute] Guid stlessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId)
     {
-        await _service.StudentLessonService.DeleteStudentLesson(sudentLessonId, lessonId, studentId, trackChanges: false);
+        await _service.StudentLessonService.DeleteStudentLesson(stlessonId, lessonId, studentId, trackChanges: false);
         return NoContent();
     }
-    [HttpPut("{sudentLessonId:guid}")]
+    [HttpPut("{stlessonId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    [Authorize]
-    public async Task<IActionResult> UpdateStudentLesson([FromRoute] Guid sudentLessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
+    // [Authorize]
+    public async Task<IActionResult> UpdateStudentLesson([FromRoute] Guid stlessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
      StudentLessonForUpdateDto studentLessonForUpdate)
     {
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
-        await _service.StudentLessonService.UpdateStudntLesson(sudentLessonId, lessonId, studentId, studentLessonForUpdate,
+        await _service.StudentLessonService.UpdateStudntLesson(stlessonId, lessonId, studentId, studentLessonForUpdate,
            stlTrackChanges: true, stuTrackChanges: false, lessonTrackChanges: false);
         return NoContent();
     }

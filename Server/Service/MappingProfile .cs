@@ -21,11 +21,11 @@ public class MappingProfile : Profile
         CreateMap<Module, ModuleDto>().ReverseMap();
         CreateMap<Enrolment, EnrolmentDto>();
         CreateMap<Lesson, LessonDto>().ReverseMap();
-        CreateMap<QuizAnswer, QuizAnswerDto>();
+        CreateMap<Answer, AnswerDto>();
         CreateMap<Quiz, QuizDto>();
-        CreateMap<QuizQuestion, QuizQuestionDto>();
+        CreateMap<Question, QuestionDto>();
         CreateMap<StudentLesson, StudentLessonDto>();
-        CreateMap<StudentQuizAttempt, StudentQuizAttemptDto>();
+        CreateMap<QuizAttempt, QuizAttemptDto>();
 
         CreateMap<StudentForCreation, Student>()
         .ForMember(dest => dest.EmailAddress, src => src.MapFrom(x => x.Email));
@@ -35,22 +35,22 @@ public class MappingProfile : Profile
         CreateMap<LessonForCreation, Lesson>();
         CreateMap<EnrolmentForCreation, Enrolment>();
         CreateMap<QuizForCreation, Quiz>();
-        CreateMap<QuizQuestionForCreation, QuizQuestion>();
-        CreateMap<StudentQuizAttemptForCreation, StudentQuizAttempt>();
-        CreateMap<QuizAnswerForCreation, QuizAnswer>();
+        CreateMap<QuestionForCreation, Question>();
+        CreateMap<QuizAttemptForCreation,QuizAttempt>();
+        CreateMap<AnswerForCreation, Answer>();
         CreateMap<StudentLessonForCreation, StudentLesson>();
 
         CreateMap<CourseForUpdateDto, Course>();
         CreateMap<EnrolmentForUpdateDto, Enrolment>();
         CreateMap<LessonForUpdateDto, Lesson>();
         CreateMap<ModuleForUpdateDto, Module>();
-        CreateMap<QuizAnswerForUpdateDto, QuizAnswer>();
+        CreateMap<AnswerForUpdateDto, Answer>();
         CreateMap<QuizForUpdateDto, Quiz>();
-        CreateMap<QuizQuestionForUpdateDto, QuizQuestion>();
+        CreateMap<QuestionForUpdateDto, Question>();
         CreateMap<StudentForUpdateDto, Student>()
         .ForMember(dest => dest.EmailAddress, src => src.MapFrom(x => x.Email));
         CreateMap<StudentLessonForUpdateDto, StudentLesson>();
-        CreateMap<StudentQuizAttemptForUpdateDto, StudentQuizAttempt>();
+        CreateMap<QuizAttemptForUpdateDto, QuizAttempt>();
 
         CreateMap<UserForRegistrationDto, User>();
 

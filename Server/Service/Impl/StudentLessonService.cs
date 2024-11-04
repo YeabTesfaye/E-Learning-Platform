@@ -13,25 +13,23 @@ namespace Service.Impl;
 public class StudentLessonService : IStudentLessonService
 {
     private readonly IMapper _mapper;
-    private readonly ILoggerManager _logger;
     private readonly IRepositoryManager _repository;
 
-    public StudentLessonService(IRepositoryManager repository, ILoggerManager logger, IMapper mapper)
+    public StudentLessonService(IRepositoryManager repository, IMapper mapper)
     {
         _mapper = mapper;
-        _logger = logger;
         _repository = repository;
     }
 
-    public async Task<IEnumerable<StudentLessonDto>> GetLessonsByStudent(Guid studentId, bool trackChanges)
+    public async Task<IEnumerable<StudentLessonDto>> GetLessonsByStudent(Guid studentId, Guid lessonId, bool trackChanges)
     {
-        var lessons = await _repository.StudentLesson.GetLessonsByStudent(studentId, trackChanges);
+        var lessons = await _repository.StudentLesson.GetLessonsByStudent(studentId, lessonId, trackChanges);
         return _mapper.Map<IEnumerable<StudentLessonDto>>(lessons);
     }
 
-    public async Task<StudentLessonDto> GetLesson(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
+    public async Task<StudentLessonDto> GetLesson(Guid stlessonId, Guid studentId, Guid lessonId, bool trackChanges)
     {
-        var lesson = await CheckIfStLessonExistsAndReturn(Id, studentId, lessonId, trackChanges);
+        var lesson = await CheckIfStLessonExistsAndReturn(stlessonId, studentId, lessonId, trackChanges);
         return _mapper.Map<StudentLessonDto>(lesson);
     }
 
@@ -80,10 +78,10 @@ public class StudentLessonService : IStudentLessonService
         _ = await _repository.Lesson.GetLesson(lessonId, trackChanges: false)
            ?? throw new LessonNotFounException(lessonId);
     }
-    private async Task<StudentLesson> CheckIfStLessonExistsAndReturn(Guid Id, Guid studentId, Guid lessonId, bool trackChanges)
+    private async Task<StudentLesson> CheckIfStLessonExistsAndReturn(Guid stlessonId, Guid studentId, Guid lessonId, bool trackChanges)
     {
-        var lesson = await _repository.StudentLesson.StGetLesson(Id, studentId, lessonId, trackChanges)
-        ?? throw new LessonNotFounException(lessonId);
+        var lesson = await _repository.StudentLesson.StGetLesson(stlessonId, studentId, lessonId, trackChanges)
+        ?? throw new StudentLessonNotFound(stlessonId);
         return lesson;
 
     }

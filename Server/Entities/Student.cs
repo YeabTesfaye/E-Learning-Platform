@@ -14,6 +14,6 @@ public class Student
     public int Age { get; set; }
 
     public ICollection<Enrolment> Enrolments { get; set; } = [];
-    public ICollection<StudentQuizAttempt> QuizAttempts { get; set; } = [];
+    public ICollection<QuizAttempt> QuizAttempts { get; set; } = [];
     public ICollection<StudentLesson> StudentLessons { get; set; } = [];
 }

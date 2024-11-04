@@ -4,12 +4,12 @@ using Shared.DtoForUpdate;
 
 namespace Service.Intefaces;
 
-public interface IQuizQuestionService
+public interface IQuestionService
 {
-    Task<IEnumerable<QuizQuestionDto>> GetQuestions( Guid quizId, bool trackChanges);
-    Task<QuizQuestionDto> GetQuestion(Guid Id, Guid quizId, bool trackChanges);
-    Task<QuizQuestionDto> CreateQuestion(Guid quizId, QuizQuestionForCreation question, bool trackChanges);
+    Task<IEnumerable<QuestionDto>> GetQuestions( Guid quizId, bool trackChanges);
+    Task<QuestionDto> GetQuestion(Guid Id, Guid quizId, bool trackChanges);
+    Task<QuestionDto> CreateQuestion(Guid quizId, QuestionForCreation questionForCreation, bool trackChanges);
     Task DeleteQuizQuestion(Guid Id, Guid quizId,bool trackChanges);
-    Task UpdateQuizQuestion(Guid Id, Guid quizId, QuizQuestionForUpdateDto quizQuestionForUpdate, bool quizTrackChanges, bool questionTrackChanges);
+    Task UpdateQuizQuestion(Guid Id, Guid quizId, QuestionForUpdateDto questionForUpdateDto, bool quizTrackChanges, bool questionTrackChanges);
 
 }

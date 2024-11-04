@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 using Shared.RequestFeatures;
 
 namespace E_Learning.Presentation.Controllers;
@@ -32,35 +31,20 @@ public class CourseController(IServiceManager service) : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> CreateCourse(CourseForCreationDto course)
     {
-        if (course is null)
-            return BadRequest("CourseForCreationDto object is null");
-
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
         var createdCourse = await _service.CourseService.CreateCourse(course);
 
         return CreatedAtRoute("CourseById", new { id = createdCourse.Id }, createdCourse);
     }
     [HttpDelete("{Id:guid}")]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> DeleteCourse([FromRoute] Guid Id)
     {
         await _service.CourseService.DeleteCourse(Id, trackChanges: false);
         return NoContent();
     }
 
-    [HttpPut("{Id:guid}")]
-    // [Authorize]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-
-    public async Task<IActionResult> UpdateCourse([FromRoute] Guid Id, CourseForUpdateDto courseForUpdate)
-    {
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-        await _service.CourseService.UpdateCourse(Id, courseForUpdate, trackChanges: true);
-        return NoContent();
-    }
+    
 }

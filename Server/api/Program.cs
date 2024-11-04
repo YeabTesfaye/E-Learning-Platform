@@ -1,6 +1,5 @@
 using api.Extensions;
 using AspNetCoreRateLimit;
-using Contracts;
 using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -57,7 +56,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.All
 });
-
+app.ConfigureExceptionHandler();
 app.UseAuthentication();
 app.UseRouting();
 app.UseAuthorization();

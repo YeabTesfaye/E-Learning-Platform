@@ -24,7 +24,7 @@ public static class ServiceExtensions
      .AllowAnyMethod()
      .AllowAnyHeader());
  });
-   
+
     public static void ConfigureRepositoryManager(this IServiceCollection services) =>
     services.AddScoped<IRepositoryManager, RepositoryManager>();
 
@@ -32,8 +32,18 @@ public static class ServiceExtensions
          services.AddScoped<IServiceManager, ServiceManager>();
 
     public static void ConfigureSqlContext(this IServiceCollection services,
-       IConfiguration configuration) =>
-        services.AddSqlServer<RepositoryContext>(configuration.GetConnectionString("sqlConnection"));
+     IConfiguration configuration)
+    {
+        var useDocker = Environment.GetEnvironmentVariable("USE_DOCKER");
+
+        string connectionString = useDocker == "true"
+            ? configuration.GetConnectionString("sqlConnectionForDocker")
+            : configuration.GetConnectionString("sqlConnection");
+
+        services.AddSqlServer<RepositoryContext>(connectionString);
+    }
+
+
 
     public static void ConfigureResponseCaching(this IServiceCollection services) =>
         services.AddResponseCaching();

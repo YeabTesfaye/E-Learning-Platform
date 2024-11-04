@@ -386,9 +386,9 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "422fd89e-03cc-482f-b17a-b60a1a1e41d3", null, "Instructor", "INSTRUCTOR" },
-                    { "b11c8df2-397d-434c-8217-a34813c0921a", null, "Administrator", "ADMINISTRATOR" },
-                    { "f266e866-cfd8-47e7-89cb-6b8e54608951", null, "Manager", "MANAGER" }
+                    { "16c1efd8-afdd-43e4-92a8-eeec79016072", null, "Administrator", "ADMINISTRATOR" },
+                    { "b2938f39-51ea-490f-ac3b-fddd78f2e17f", null, "Instructor", "INSTRUCTOR" },
+                    { "d72a3b73-726f-44f5-bcd1-a1fecf5a19f9", null, "Manager", "MANAGER" }
                 });
 
             migrationBuilder.InsertData(
@@ -414,8 +414,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "CompletedDatetime", "CourseId", "EnrolmentDatetime", "Status", "StudentId" },
                 values: new object[,]
                 {
-                    { new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"), new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9043), new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"), new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9035), 0, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
-                    { new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"), new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9095), new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"), new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9094), 0, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
+                    { new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"), new DateTime(2024, 11, 4, 16, 10, 43, 114, DateTimeKind.Local).AddTicks(8989), new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"), new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(8982), 0, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
+                    { new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"), new DateTime(2024, 11, 4, 16, 10, 43, 114, DateTimeKind.Local).AddTicks(9001), new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"), new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9001), 0, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
                 });
 
             migrationBuilder.InsertData(
@@ -461,8 +461,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "AttemptDatetime", "AttemptNumber", "QuizId", "ScoreAchieved", "StudentId" },
                 values: new object[,]
                 {
-                    { new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"), new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(67), 0, new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"), 85, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
-                    { new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"), new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(77), 0, new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"), 90, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
+                    { new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"), new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9164), 0, new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"), 85, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
+                    { new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"), new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9166), 0, new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"), 90, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
                 });
 
             migrationBuilder.InsertData(
@@ -481,8 +481,8 @@ namespace api.Migrations
                 columns: new[] { "Id", "CompletedDatetime", "LessonId", "Progress", "StudentId" },
                 values: new object[,]
                 {
-                    { new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"), new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9377), new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"), false, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
-                    { new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"), new DateTime(2024, 11, 1, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9385), new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"), false, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
+                    { new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"), new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9064), new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"), false, new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e") },
+                    { new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"), new DateTime(2024, 11, 3, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9066), new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"), false, new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329") }
                 });
 
             migrationBuilder.CreateIndex(

@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -50,16 +49,7 @@ public class LessonService(IRepositoryManager repository, IMapper mapper) : ILes
         await _repository.SaveAsync();
     }
 
-    public async Task UpdateLesson(Guid Id, Guid moduleId, LessonForUpdateDto lessonForUpdate,
-     bool moduleTrackChanges, bool lessonTrackChanges)
-    {
-        await CheckIfModuleExists(moduleId, moduleTrackChanges);
-
-        var lessonEntity = await CheckIfLessonExistsAndReturn(Id, lessonTrackChanges);
-
-        _mapper.Map(lessonForUpdate, lessonEntity);
-        await _repository.SaveAsync();
-    }
+   
     private async Task<Lesson> CheckIfLessonExistsAndReturn(Guid Id, bool trackChanges)
     {
         var lesson = await _repository.Lesson.GetLesson(Id, trackChanges)

@@ -12,7 +12,7 @@ using Repository;
 namespace api.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20241102153733_InitialCreate")]
+    [Migration("20241104131043_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -147,18 +147,18 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("c5a6b7c8-d9e1-4a2b-8e6b-ef1234567890"),
-                            CompletedDatetime = new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9043),
+                            CompletedDatetime = new DateTime(2024, 11, 4, 16, 10, 43, 114, DateTimeKind.Local).AddTicks(8989),
                             CourseId = new Guid("e1b2a3c4-d5e6-4f0a-b9a2-fd1234567890"),
-                            EnrolmentDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9035),
+                            EnrolmentDatetime = new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(8982),
                             Status = 0,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
                         },
                         new
                         {
                             Id = new Guid("d1f2a3b4-5678-4c3d-b9e0-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 11, 2, 18, 37, 31, 857, DateTimeKind.Local).AddTicks(9095),
+                            CompletedDatetime = new DateTime(2024, 11, 4, 16, 10, 43, 114, DateTimeKind.Local).AddTicks(9001),
                             CourseId = new Guid("b7f8c9e0-f1e2-4c3d-8f6b-cd9876543210"),
-                            EnrolmentDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9094),
+                            EnrolmentDatetime = new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9001),
                             Status = 0,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
                         });
@@ -395,7 +395,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("a1b2c3d4-e5f6-4a2b-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(67),
+                            AttemptDatetime = new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9164),
                             AttemptNumber = 0,
                             QuizId = new Guid("d4e5f6a7-b8c9-4d0a-b1c2-fd1234567890"),
                             ScoreAchieved = 85,
@@ -404,7 +404,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("b2c3d4e5-f6a7-4b0c-b9e0-abcdefabcdef"),
-                            AttemptDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 858, DateTimeKind.Utc).AddTicks(77),
+                            AttemptDatetime = new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9166),
                             AttemptNumber = 0,
                             QuizId = new Guid("a2b3c4d5-e6f7-4a8b-b9c2-fd1234567890"),
                             ScoreAchieved = 90,
@@ -488,7 +488,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("d1e2f3a4-b5c6-4d7e-a8b9-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 11, 2, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9377),
+                            CompletedDatetime = new DateTime(2024, 11, 4, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9064),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             Progress = false,
                             StudentId = new Guid("a6f8c3b4-bc6b-4e07-bb0d-bb8f7c6a3c9e")
@@ -496,7 +496,7 @@ namespace api.Migrations
                         new
                         {
                             Id = new Guid("f2e3d4c5-b6a7-4e8f-a9b0-abcdefabcdef"),
-                            CompletedDatetime = new DateTime(2024, 11, 1, 15, 37, 31, 857, DateTimeKind.Utc).AddTicks(9385),
+                            CompletedDatetime = new DateTime(2024, 11, 3, 13, 10, 43, 114, DateTimeKind.Utc).AddTicks(9066),
                             LessonId = new Guid("e1f2a3b4-c5d6-4e7f-b8a9-abcdefabcdef"),
                             Progress = false,
                             StudentId = new Guid("c7babe27-ff5e-4e83-8dfb-2d90c58c7329")
@@ -609,19 +609,19 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f266e866-cfd8-47e7-89cb-6b8e54608951",
+                            Id = "d72a3b73-726f-44f5-bcd1-a1fecf5a19f9",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "b11c8df2-397d-434c-8217-a34813c0921a",
+                            Id = "16c1efd8-afdd-43e4-92a8-eeec79016072",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "422fd89e-03cc-482f-b17a-b60a1a1e41d3",
+                            Id = "b2938f39-51ea-490f-ac3b-fddd78f2e17f",
                             Name = "Instructor",
                             NormalizedName = "INSTRUCTOR"
                         });

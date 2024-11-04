@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 using Shared.RequestFeatures;
 
 namespace Service.Impl;
@@ -53,13 +52,7 @@ public sealed class CourseService(IRepositoryManager repository, IMapper mapper)
         return courseDto;
     }
 
-    public async Task UpdateCourse(Guid Id, CourseForUpdateDto courseForUpdate, bool trackChanges)
-    {
-        var courseEntity = await GetCourseAndCheckIfItExist(Id, trackChanges);
-        _mapper.Map(courseForUpdate, courseEntity);
-        await _repository.SaveAsync();
-    }
-
+ 
     private async Task<Course> GetCourseAndCheckIfItExist(
          Guid id, bool trackChanges)
     {

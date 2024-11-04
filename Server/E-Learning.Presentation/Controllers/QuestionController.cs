@@ -2,7 +2,6 @@ using E_Learning.Presentation.ActionFilter;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -31,15 +30,6 @@ public class QuestionController(IServiceManager service) : ControllerBase
    // [Authorize]
    public async Task<IActionResult> CreateQuestionForQuiz([FromRoute] Guid quizId, [FromBody] QuestionForCreation quizQuestion)
    {
-
-      if (quizQuestion is null)
-         return BadRequest("QuizQuestionForCreation object is null");
-
-      if (!ModelState.IsValid)
-      {
-         return UnprocessableEntity(ModelState);
-      }
-
       var question = await _service.QuestionService.CreateQuestion(quizId, quizQuestion, trackChanges: false);
 
       return CreatedAtRoute("QuestionById", new { quizId, questionId = question.Id }, question);
@@ -52,17 +42,7 @@ public class QuestionController(IServiceManager service) : ControllerBase
       await _service.QuestionService.DeleteQuizQuestion(questionId, quizId, trackChanges: false);
       return NoContent();
    }
-   [HttpPut("{questionId:guid}")]
-   [ServiceFilter(typeof(ValidationFilterAttribute))]
-   // [Authorize]
-   public async Task<IActionResult> UpdateQuizQuesion([FromRoute] Guid quizId, [FromRoute] Guid questionId, QuestionForUpdateDto quizQuestionForUpdate)
-   {
-      if (!ModelState.IsValid)
-         return UnprocessableEntity(ModelState);
-      await _service.QuestionService.UpdateQuizQuestion(questionId, quizId, quizQuestionForUpdate, quizTrackChanges: false, questionTrackChanges: true);
-      return NoContent();
-
-   }
+ 
 
 
 }

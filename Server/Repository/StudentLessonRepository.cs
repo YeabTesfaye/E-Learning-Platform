@@ -6,7 +6,7 @@ namespace Repository;
 
 public class StudentLessonRepository(RepositoryContext repositoryContext) : RepositoryBase<StudentLesson>(repositoryContext), IStudentLessonRepository
 {
-    public async Task<IEnumerable<StudentLesson>> GetLessonsByStudent( Guid studentId, Guid lessonId, bool trackChanges)
+    public async Task<IEnumerable<StudentLesson>> GetLessonsByStudent(Guid studentId, Guid lessonId, bool trackChanges)
     {
         return await FindByCondition(sl => sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId), trackChanges)
                .OrderBy(sl => sl.CompletedDatetime)
@@ -15,8 +15,9 @@ public class StudentLessonRepository(RepositoryContext repositoryContext) : Repo
 
     public async Task<StudentLesson> StGetLesson(Guid stlessonId, Guid studentId, Guid lessonId, bool trackChanges)
     {
-        return await FindByCondition(sl => sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId) && sl.Id.Equals(stlessonId), trackChanges)
-               .SingleOrDefaultAsync();
+        return await FindByCondition(sl => sl.Id.Equals(stlessonId) && sl.StudentId.Equals(studentId) && sl.LessonId.Equals(lessonId), trackChanges)
+        .SingleOrDefaultAsync();
+
     }
 
     public void CreateLessonForStudent(Guid studentId, Guid lessonId, StudentLesson studentLesson)

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -29,17 +28,9 @@ public class AnswerController(IServiceManager service) : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> CreateAnswer([FromRoute] Guid questionId, [FromBody] AnswerForCreation answer)
     {
-        if (answer is null)
-            return BadRequest("QuizAnswerForCreation object is null");
-
-        if (!ModelState.IsValid)
-        {
-            return UnprocessableEntity(ModelState);
-        }
-
 
         var quizAnswerToReturn = await _service.AnswerService.CreateAnswer(questionId, answer, trackChanges: false);
 
@@ -47,21 +38,12 @@ public class AnswerController(IServiceManager service) : ControllerBase
         return CreatedAtRoute("AnswerById", new { questionId, answerId = quizAnswerToReturn.Id }, quizAnswerToReturn);
     }
     [HttpDelete("{answerId:guid}")]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> DeleteQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId)
     {
         await _service.AnswerService.DeleteQuizAnswer(answerId, questionId, trackChanges: false);
         return NoContent();
     }
-    [HttpPut("{answerId:guid}")]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
-    public async Task<IActionResult> UpdateQuizAnswer([FromRoute] Guid answerId, [FromRoute] Guid questionId, AnswerForUpdateDto answerForUpdateDto)
-    {
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-        await _service.AnswerService.UpdateQuizAnswer(answerId, questionId, answerForUpdateDto, questionTrackChanges: false, quizTrackChanges: true);
-        return NoContent();
-    }
+  
 
 }

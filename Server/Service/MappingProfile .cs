@@ -4,7 +4,6 @@ using AutoMapper;
 using Entities;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 public class MappingProfile : Profile
 {
@@ -40,17 +39,7 @@ public class MappingProfile : Profile
         CreateMap<AnswerForCreation, Answer>();
         CreateMap<StudentLessonForCreation, StudentLesson>();
 
-        CreateMap<CourseForUpdateDto, Course>();
-        CreateMap<EnrolmentForUpdateDto, Enrolment>();
-        CreateMap<LessonForUpdateDto, Lesson>();
-        CreateMap<ModuleForUpdateDto, Module>();
-        CreateMap<AnswerForUpdateDto, Answer>();
-        CreateMap<QuizForUpdateDto, Quiz>();
-        CreateMap<QuestionForUpdateDto, Question>();
-        CreateMap<StudentForUpdateDto, Student>()
-        .ForMember(dest => dest.EmailAddress, src => src.MapFrom(x => x.Email));
-        CreateMap<StudentLessonForUpdateDto, StudentLesson>();
-        CreateMap<QuizAttemptForUpdateDto, QuizAttempt>();
+       
 
         CreateMap<UserForRegistrationDto, User>();
 

@@ -1,8 +1,8 @@
 using E_Learning.Presentation.ActionFilter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -29,16 +29,10 @@ public class StudentQuizAttemptController(IServiceManager service) : ControllerB
     // Create a new quiz attempt for a specific student and quiz
     [HttpPost("{quizId:guid}")]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]-
+    [Authorize]
     public async Task<IActionResult> CreateAttempt([FromRoute] Guid studentId, [FromRoute] Guid quizId,
      [FromBody] QuizAttemptForCreation studentQuizAttempt)
     {
-        if (studentQuizAttempt is null)
-            return BadRequest("StudentQuizAttemptForCreation object is null");
-        if (!ModelState.IsValid)
-        {
-            return UnprocessableEntity(ModelState);
-        }
 
         var createdAttempt = await _service.QuizAttemptService.CreateAttempt(studentId, quizId, studentQuizAttempt, trackChanges: false);
 
@@ -46,21 +40,11 @@ public class StudentQuizAttemptController(IServiceManager service) : ControllerB
     }
 
     [HttpDelete("{attemptId:guid}")]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> DeleteAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId)
     {
         await _service.QuizAttemptService.DeleteStudentQuizAttempt(attemptId, studentId, trackChanges: false);
         return NoContent();
     }
-    [HttpPut("{attemptId:guid}")]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
-    public async Task<IActionResult> UpdateAttempt([FromRoute] Guid attemptId, [FromRoute] Guid studentId, QuizAttemptForUpdateDto studentQuizAttempt)
-    {
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-        await _service.QuizAttemptService.UpdateStudentQuizAttempt(attemptId, studentId, studentQuizAttempt,
-          attemptTrackChanges: true, studentTrackChanges: false);
-        return NoContent();
-    }
+ 
 }

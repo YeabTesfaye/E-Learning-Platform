@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -66,16 +65,7 @@ public class EnrolmentService(IRepositoryManager repository, IMapper mapper) : I
         return enrolmentDto;
     }
 
-    public async Task UpdateEnrolment(Guid Id, Guid studentId, Guid courseId, EnrolmentForUpdateDto enrolmentForUpdate,
-     bool enrolmentTrackChanges, bool studentTrackChanges, bool courseTrackChanges)
-    {
-        await CheckIfStudentExists(studentId, studentTrackChanges);
-        await CheckIfCourseExists(courseId, courseTrackChanges);
-
-        var enrolmentEntity = await _repository.Enrolment.GetEnrolment(Id, studentId, courseId, enrolmentTrackChanges);
-        _mapper.Map(enrolmentForUpdate, enrolmentEntity);
-        await _repository.SaveAsync();
-    }
+    
 
     private async Task CheckIfStudentExists(Guid Id, bool trackChanges)
     {

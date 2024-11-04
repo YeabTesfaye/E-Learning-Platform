@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 using Shared.RequestFeatures;
 
 namespace Service.Impl;
@@ -52,19 +51,10 @@ public sealed class StudentService
     }
 
 
-    public async Task UpdateStudent(Guid Id, StudentForUpdateDto studentForUpdate, bool trackChanges)
-    {
-        var studentEntity = await GetStudentAndCheckIfItExists(Id, trackChanges);
-
-        _mapper.Map(studentForUpdate, studentEntity);
-        await _repository.SaveAsync();
-    }
-
     private async Task<Student> GetStudentAndCheckIfItExists(Guid Id, bool trackChanges)
     {
-        var student = await _repository.Student.GetStudent(Id, trackChanges: false);
-        if (student is null)
-            throw new StudentNotFoundException(Id);
+        var student = await _repository.Student.GetStudent(Id, trackChanges)
+         ?? throw new StudentNotFoundException(Id);
         return student;
     }
 

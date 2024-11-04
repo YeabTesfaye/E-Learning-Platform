@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -48,15 +47,7 @@ public class AnswerService(IRepositoryManager repository, IMapper mapper) : IAns
         await _repository.SaveAsync();
     }
 
-    public async Task UpdateQuizAnswer(Guid Id, Guid questionId, AnswerForUpdateDto answerForUpdate,
-    bool questionTrackChanges, bool quizTrackChanges)
-    {
-        await CheckIfQuestionExists(questionId, questionTrackChanges);
-
-        var quizAnswerEntity = await CheckIfAnswerExistsAndReturn(Id, questionId, quizTrackChanges);
-        _mapper.Map(answerForUpdate, quizAnswerEntity);
-        await _repository.SaveAsync();
-    }
+    
     private async Task<Answer> CheckIfAnswerExistsAndReturn(Guid answerId, Guid questionId, bool trackChanges)
     {
         var answer = await _repository.Answer.GetAnswerById(answerId, questionId, trackChanges)

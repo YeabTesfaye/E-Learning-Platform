@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 using Shared.RequestFeatures;
 
 namespace E_Learning.Presentation.Controllers;
@@ -34,36 +33,20 @@ public class StudentController(IServiceManager service) : ControllerBase
     }
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> CreateStudent([FromBody] StudentForCreation student)
     {
-        if (student is null)
-            return BadRequest("StudentForCreation object is null");
-        if (!ModelState.IsValid)
-        {
-            return UnprocessableEntity(ModelState);
-        }
-
         var createdStudent = await _service.StudentService.CreateStudent(student);
         return CreatedAtRoute("StudentById", new { id = createdStudent.Id },
         createdStudent);
     }
     [HttpDelete("{studentId:guid}")]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> DeleteStudent([FromRoute] Guid studentId)
     {
         await _service.StudentService.DeleteStudent(studentId, trackChanges: false);
         return NoContent();
     }
 
-    [HttpPut("{studentId:guid}")]
-    // [Authorize]
 
-    public async Task<IActionResult> UpdateStudent([FromRoute] Guid studentId, [FromBody] StudentForUpdateDto studentForUpdate)
-    {
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-        await _service.StudentService.UpdateStudent(studentId, studentForUpdate, trackChanges: true);
-        return NoContent();
-    }
 }

@@ -5,7 +5,6 @@ using Entities.Exceptions;
 using Service.Intefaces;
 using Shared.DataTransferObjects;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace Service.Impl;
 
@@ -53,15 +52,7 @@ public sealed class ModuleService
     }
 
 
-    public async Task UpdateModule(Guid Id, Guid courseId, ModuleForUpdateDto moduleForUpdate, bool courseTrackChanges, bool moduleTrackChanges)
-    {
-        await CheckIfCourseExists(courseId, courseTrackChanges);
-
-        var moduleEntity = await CheckIfModuleExistsAndReturn(Id, moduleTrackChanges);
-        _mapper.Map(moduleForUpdate, moduleEntity);
-        await _repository.SaveAsync();
-    }
-
+  
     private async Task<Module> CheckIfModuleExistsAndReturn(Guid moduleId, bool trackChanges)
     {
         var module = await _repository.Module.GetModule(moduleId, trackChanges)

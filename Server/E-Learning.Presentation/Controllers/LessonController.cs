@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -30,13 +29,9 @@ public class LessonController(IServiceManager service) : ControllerBase
 
     [HttpPost]
     [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
+    [Authorize]
     public async Task<IActionResult> CreateLesson([FromRoute] Guid moduleId, [FromBody] LessonForCreation lesson)
     {
-        if (lesson is null)
-            return BadRequest("LessonForCreation object is null");
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
 
         var lessonToReturn = await _service.LessonService.CreateLesson(moduleId, lesson, trackChanges: false);
 
@@ -44,25 +39,14 @@ public class LessonController(IServiceManager service) : ControllerBase
         return CreatedAtRoute("LessonById", new { Id = lessonToReturn.Id, moduleId }, lessonToReturn);
     }
     [HttpDelete("{lessonId:guid}")]
-    // [Authorize]
+    [Authorize]
 
     public async Task<IActionResult> DeleteLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId)
     {
         await _service.LessonService.DeleteLesson(lessonId, moduleId, trackChanges: false);
         return NoContent();
     }
-    [HttpPut("{lessonId:guid}")]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
-    public async Task<IActionResult> UpdateLesson([FromRoute] Guid lessonId, [FromRoute] Guid moduleId, LessonForUpdateDto lessonForUpdate)
-    {
-        if (!ModelState.IsValid)
-        {
-            return UnprocessableEntity(ModelState);
-        }
-        await _service.LessonService.UpdateLesson(lessonId, moduleId, lessonForUpdate, moduleTrackChanges: false, lessonTrackChanges: true);
-        return NoContent();
-    }
+    
 
 
 }

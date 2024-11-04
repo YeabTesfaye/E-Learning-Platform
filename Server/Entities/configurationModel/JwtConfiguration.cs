@@ -6,5 +6,5 @@ public class JwtConfiguration
     public string Secret { get; set; } = "make it securesdddddddddddsdsdsdsdsdffsddddddaaaaewtettttetetewtewtwetewtewtwe";
     public string ValidIssuer { get; set; }
     public string ValidAudience { get; set; }
-    public string Expires { get; set; }
+    public int Expires { get; set; }
 }

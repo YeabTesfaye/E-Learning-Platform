@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.Intefaces;
 using Shared.DtoForCreation;
-using Shared.DtoForUpdate;
 
 namespace E_Learning.Presentation.Controllers;
 
@@ -24,21 +23,16 @@ public class StudentLessonController(IServiceManager service) : ControllerBase
     [HttpGet("{stlessonId:guid}", Name = "StudentLessonById")]
     public async Task<IActionResult> GetLessonById([FromRoute] Guid stlessonId, [FromRoute] Guid studentId, [FromRoute] Guid lessonId)
     {
-        var lesson = await _service.StudentLessonService.GetLesson(stlessonId, studentId, lessonId, trackChanges: false);
+        var lesson = await _service.StudentLessonService.GetStudentLesson(stlessonId, lessonId, studentId, trackChanges: false);
         return Ok(lesson);
     }
     [HttpPost]
-    // [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
+    [ServiceFilter(typeof(ValidationFilterAttribute))]
+    [Authorize]
     public async Task<IActionResult> CreateStudentLesson([FromRoute] Guid studentId, [FromRoute] Guid lessonId,
     [FromBody] StudentLessonForCreation studentLesson)
     {
-        if (studentLesson is null)
-            return BadRequest("StudentLessonForCreation object is null");
-        if (!ModelState.IsValid)
-        {
-            return UnprocessableEntity(ModelState);
-        }
+
 
         var createdStudentLesson = await _service.StudentLessonService.CreateStudentLesson(studentId, lessonId, studentLesson, trackChanges: false);
 
@@ -48,24 +42,13 @@ public class StudentLessonController(IServiceManager service) : ControllerBase
 
     }
     [HttpDelete("{stlessonId:guid}")]
-    // [Authorize]
-    public async Task<IActionResult> DeleteStudentLesson([FromRoute] Guid stlessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId)
+    [Authorize]
+    public async Task<IActionResult> DeleteStudentLesson([FromRoute] Guid stlessonId, [FromRoute] Guid studentId, [FromRoute] Guid lessonId)
     {
         await _service.StudentLessonService.DeleteStudentLesson(stlessonId, lessonId, studentId, trackChanges: false);
         return NoContent();
     }
-    [HttpPut("{stlessonId:guid}")]
-    [ServiceFilter(typeof(ValidationFilterAttribute))]
-    // [Authorize]
-    public async Task<IActionResult> UpdateStudentLesson([FromRoute] Guid stlessonId, [FromRoute] Guid lessonId, [FromRoute] Guid studentId,
-     StudentLessonForUpdateDto studentLessonForUpdate)
-    {
-        if (!ModelState.IsValid)
-            return UnprocessableEntity(ModelState);
-        await _service.StudentLessonService.UpdateStudntLesson(stlessonId, lessonId, studentId, studentLessonForUpdate,
-           stlTrackChanges: true, stuTrackChanges: false, lessonTrackChanges: false);
-        return NoContent();
-    }
+
 
 
 }

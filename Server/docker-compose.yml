@@ -1,4 +1,3 @@
-
 services:
   db:
     container_name: db
@@ -9,16 +8,21 @@ services:
       MSSQL_SA_PASSWORD: "password123!"
     ports:
       - "1433:1433"
-   
+
   api:
-    image: yeab12/api 
-    build: 
-      context: . 
-      dockerfile: Dockerfile 
+    image: web_api
+    container_name: web_api_application
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development 
-      - ASPNETCORE_URLS=http://+:80 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - DB_SA_PASSWORD=password123!
+      - ConnectionStrings__sqlConnection=Server=db;User Id=sa;Password=password123!;Database=Learn;TrustServerCertificate=True;
+      - USE_DOCKER=true
+
     ports:
       - "5000:80"
     depends_on:
-      - db 
+      - db

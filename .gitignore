@@ -482,3 +482,32 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Environment files
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Coverage directories
+coverage/
+.nyc_output/
+
+# Storybook
+storybook-static/
+
+# Turbo
+.turbo

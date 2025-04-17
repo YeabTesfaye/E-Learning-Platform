@@ -51,6 +51,44 @@ Server/
 - **Documentation**: Swagger/OpenAPI
 - **Containerization**: Docker
 - **API Testing**: Postman collections included
+- **Frontend**:
+  - Next.js 14 with TypeScript
+  - shadcn/ui components
+  - Tailwind CSS
+  - React Query for state management
+  - React Hook Form for form handling
+  - Zod for schema validation
+
+## 🏗️ Project Structure
+
+```
+E-Learning-Platform/
+├── Server/                 # Backend API
+│   ├── api/               # API entry point and configuration
+│   ├── E-Learning.Presentation/
+│   ├── Contracts/
+│   ├── Entities/
+│   ├── Service/
+│   ├── Repository/
+│   └── Shared/
+│
+├── client/                # Frontend Application
+│   ├── app/              # Next.js app directory
+│   ├── components/       # Reusable UI components
+│   │   ├── ui/          # shadcn components
+│   │   └── custom/      # Custom components
+│   ├── lib/             # Utility functions
+│   ├── hooks/           # Custom React hooks
+│   ├── types/           # TypeScript definitions
+│   ├── styles/          # Global styles
+│   └── features/        # Feature-based components
+│       ├── auth/        # Authentication
+│       ├── courses/     # Course management
+│       ├── lessons/     # Lesson components
+│       └── quiz/        # Quiz components
+│
+└── postman/             # API documentation
+```
 
 ## 🚦 Getting Started
 
@@ -143,3 +181,63 @@ API documentation is available through Swagger UI when running the application:
 ## 📞 Support
 
 [Contact Information or Support Instructions]
+
+## Frontend Setup
+
+1. Navigate to the client directory:
+```bash
+cd client
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up shadcn/ui:
+```bash
+npx shadcn-ui@latest init
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+### Key Frontend Features
+
+- **Modern UI Components**
+  - Responsive design
+  - Dark/Light mode
+  - Accessible components
+  - Custom animations
+
+- **Authentication**
+  - JWT-based auth flow
+  - Protected routes
+  - Persistent sessions
+
+- **Course Experience**
+  - Interactive lesson viewer
+  - Progress tracking
+  - Real-time quiz taking
+  - Course navigation
+
+- **State Management**
+  - React Query for server state
+  - Context for global state
+  - Optimistic updates
+
+- **Performance**
+  - Server-side rendering
+  - Image optimization
+  - Code splitting
+  - Lazy loading
+
+### Environment Setup
+
+Create a `.env.local` file in the client directory:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_AUTH_URL=http://localhost:5000/auth
+```
